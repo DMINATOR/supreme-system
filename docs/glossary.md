@@ -14,7 +14,13 @@ A safe location in the world where progress is saved. Acts as a checkpoint bound
 A combat event triggered by interacting with or being found by an enemy on the world map.
 
 ## Deck
-The collection of cards the player currently owns and uses in combat during a run.
+The collection of cards a [party](glossary.md#party) member owns and uses in combat during a run. Subject to a [deck limit](glossary.md#deck-limit).
+
+## Deck Limit
+The maximum number of cards a party member's deck can hold. The player has a fixed deck limit (TBD value); each companion has their own varying limit.
+
+## Loot
+Cards rewarded to the player after completing an [encounter](glossary.md#encounter). The primary way to grow a deck during a run.
 
 ## Hand
 The subset of cards drawn from the deck available to play on a given turn.
@@ -36,6 +42,27 @@ The group consisting of the player and up to 2 [companions](glossary.md#companio
 
 ## Companion
 An NPC recruited during a run who follows the player on the map, has their own deck and HP, and takes their own turn in combat. Companions can be acquired or dismissed over the course of a run.
+
+## Companion Deck Limit
+A [companion's](glossary.md#companion) specific [deck limit](glossary.md#deck-limit). Varies per companion.
+
+## Companion Quest Line
+A series of events or objectives unique to a specific companion. Completing stages of a quest line rewards the companion with unique cards.
+
+## Equipment Card
+A passive card slotted into an [equipment slot](glossary.md#equipment-slot) before combat. Each party member has their own equipment slots. Provides stats or enables the use of [attack cards](glossary.md#attack-card).
+
+## Equipment Slot
+A dedicated slot on a party member where an [equipment card](glossary.md#equipment-card) can be placed before combat. Modelled similarly to Diablo-style item slots. See [Equipment](equipment.md) for the full slot list.
+
+## Attack Card
+A combat card that performs an offensive action using the weapon equipped in the relevant [equipment slot](glossary.md#equipment-slot). Requires a compatible weapon to be equipped.
+
+## Spell Card
+A combat card that performs an offensive or utility action without requiring an equipped weapon.
+
+## Consumable Card
+A single-use combat card (e.g. potions). Behaviour after use — TBD.
 
 ## Party Wipe
 The condition where all party members have been killed, ending the current run.

@@ -17,14 +17,11 @@ The player travels the world with a [party](glossary.md#party) of up to 3 [compa
 
 ## In Combat
 
-- Each [party](glossary.md#party) member has their own individual [deck](glossary.md#deck)
-- Some cards are unique to specific [companions](glossary.md#companion)
-- Combat is turn-based — each [party](glossary.md#party) member takes their turn sequentially, playing from their own [deck](glossary.md#deck)
-- Each member has their own individual HP pool
+- Each [party](glossary.md#party) member has their own individual [deck](glossary.md#deck) and HP pool
+- Combat is turn-based — each [party](glossary.md#party) member takes their turn sequentially
 - A [companion](glossary.md#companion) can die mid-combat
 - The [run](glossary.md#run) ends when all [party](glossary.md#party) members are dead ([party wipe](glossary.md#party-wipe))
 
 ## Acquiring Companions
 
-- Recruited by finding them during world exploration — TBD (events, locations, quests?)
-- Recruitment conditions — TBD
+See [Companions](companions.md) for full companion mechanics.
