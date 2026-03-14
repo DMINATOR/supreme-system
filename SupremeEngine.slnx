@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="engine/SupremeEngine/SupremeEngine.csproj" />
   <Project Path="engine/SupremeEngine.Test/SupremeEngine.Test.csproj" />
+  <Project Path="godot/supreme-godot/SupremeGodot.csproj" />
 </Solution>

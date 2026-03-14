@@ -15,12 +15,12 @@ This project is created with Godot (C#) and is a game project.
 Key directories:
 
 - `godot/`: Root project directory for Godot
-- `godot/supreme-godot/`: Godot project root
+  - `godot/supreme-godot/`: Godot project root (`SupremeGodot.csproj`) — references `SupremeEngine`
 - `docs/`: Documentation directory
 - `engine/`: Engine code (C# projects)
   - `engine/SupremeEngine/`: Core engine library (`SupremeEngine.csproj`)
   - `engine/SupremeEngine.Test/`: xUnit test project (`SupremeEngine.Test.csproj`)
-- `SupremeEngine.slnx`: Solution file containing both engine projects
+- `SupremeEngine.slnx`: Solution file containing all projects
 
 ## Coding Conventions
 
