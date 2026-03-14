@@ -16,7 +16,7 @@ Key directories:
 
 - `godot/`: Root project directory for Godot
   - `godot/supreme-godot/`: Godot project root (`SupremeGodot.csproj`) — references `SupremeEngine`
-- `docs/`: Documentation directory
+- `docs/`: Documentation directory, used to define game design rules
 - `engine/`: Engine code (C# projects)
   - `engine/SupremeEngine/`: Core engine library (`SupremeEngine.csproj`)
   - `engine/SupremeEngine.Test/`: xUnit test project (`SupremeEngine.Test.csproj`)
