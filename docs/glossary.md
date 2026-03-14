@@ -30,3 +30,12 @@ Persistent unlocks or rewards that carry over between runs, surviving death.
 
 ## Zone / Region
 (TBD) A distinct area of the open world map, potentially themed or difficulty-tiered.
+
+## Party
+The group consisting of the player and up to 2 [companions](glossary.md#companion) — 3 members total. They travel and fight together. The run ends when all party members are dead.
+
+## Companion
+An NPC recruited during a run who follows the player on the map, has their own deck and HP, and takes their own turn in combat. Companions can be acquired or dismissed over the course of a run.
+
+## Party Wipe
+The condition where all party members have been killed, ending the current run.

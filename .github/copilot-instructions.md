@@ -67,6 +67,23 @@ Godot's [C# style guide](https://docs.godotengine.org/en/stable/tutorials/script
 - Don't put game logic directly in node scripts — delegate to `SupremeEngine`
 - Don't use namespaces in `SupremeGodot` node scripts (Godot autoload/scene system expects top-level types)
 
-## Additional Context
+## Documentation Conventions
 
-<!-- Anything else Copilot should know about this codebase -->
+All game design documentation lives in `docs/`. The entry point is `docs/README.md`.
+
+### Glossary as Primary Reference
+- `docs/glossary.md` is the **single source of truth** for all game design terms
+- Every term that has a glossary entry must be linked to it when referenced in any doc page
+- Link format: `[term](glossary.md#anchor)` where the anchor is the heading in kebab-case
+- When a term is first introduced or defined in a design doc, add or update its entry in `docs/glossary.md`
+
+### Iterating on Design
+- When a design decision changes, update the relevant design doc **and** the glossary entry for any affected terms
+- If a term is renamed or removed, update all links across all doc pages that reference it
+- TBD items should be marked explicitly as `— TBD` inline so they are easy to locate and resolve later
+
+### Do's and Don'ts for Docs
+- **Do** link glossary terms wherever they appear in design pages
+- **Do** keep glossary entries concise — one or two sentences, with TBD noted for unresolved details
+- **Don't** define a term in a design doc without adding it to the glossary
+- **Don't** leave stale links — if a glossary anchor changes, update all references
