@@ -24,32 +24,48 @@ Key directories:
 
 ## Coding Conventions
 
-<!-- Style guides, naming conventions, formatting rules -->
+Godot's [C# style guide](https://docs.godotengine.org/en/stable/tutorials/scripting/c_sharp/c_sharp_style_guide.html) is the source of truth and is applied consistently across all layers (`SupremeEngine` and `SupremeGodot`).
 
 ### General
-- 
+- One class per file; filename matches the class name
+- Allman brace style (opening brace on its own line)
+- 4 spaces for indentation — no tabs
+- All Godot node scripts must be `partial class`
 
 ### Naming
-- 
+- `PascalCase`: classes, methods, properties, signals, enums, enum members, constants, public fields
+- `_camelCase`: private fields (underscore prefix)
+- `camelCase`: local variables and parameters
+- Signal delegates: `[Signal] delegate void MySignalEventHandler(...)` — suffix `EventHandler`
+- Scene/Node names in the Godot editor: PascalCase
 
 ### Formatting
-- 
+- Place `[Export]` and `[Signal]` attributes on the line immediately above the member
+- Order within a class: signals → exported fields → private fields → properties → built-in overrides (`_Ready`, `_Process`, …) → public methods → private methods
 
 ## Architecture & Patterns
 
-<!-- Design patterns, architectural decisions, module boundaries -->
+- `SupremeEngine` is a **pure C# library** — zero Godot API references allowed
+- `SupremeGodot` is the **Godot layer** — wires engine logic to nodes and scenes
+- Game logic goes in `SupremeEngine`; scene/node wiring and Godot API calls stay in `SupremeGodot`
 
 ## Testing
 
-<!-- Testing strategy, frameworks, conventions, coverage expectations -->
+- Only `SupremeEngine` is unit-tested (xUnit); `SupremeGodot` is not directly testable
+- Test class naming: `<Subject>Test` (e.g. `EngineTest`)
+- Follow Arrange / Act / Assert structure within each test
 
 ## Do's and Don'ts
 
 ### Do
-- 
+- Use `GD.Print` for logging inside `SupremeGodot`
+- Prefer `[Export]` node references over hard-coded `GetNode<T>("path")` strings
+- Keep `SupremeEngine` free of any Godot dependencies
 
 ### Don't
-- 
+- Don't use `Console.WriteLine` in `SupremeGodot` — use `GD.Print`
+- Don't put game logic directly in node scripts — delegate to `SupremeEngine`
+- Don't use namespaces in `SupremeGodot` node scripts (Godot autoload/scene system expects top-level types)
 
 ## Additional Context
 
