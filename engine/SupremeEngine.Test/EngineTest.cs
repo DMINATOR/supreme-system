@@ -11,4 +11,12 @@ public class EngineTest
         var engine = new Engine();
         Assert.NotNull(engine);
     }
+
+    [Fact]
+    public void TestVersion()
+    {
+        var engine = new Engine();
+        var version = engine.GetVersion();
+        Assert.Equal("1.0.0", version);
+    }
 }

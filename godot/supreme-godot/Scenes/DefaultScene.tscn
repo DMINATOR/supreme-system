@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cuscpya7n6jwg"]
+
+[ext_resource type="Script" uid="uid://0n1h4olgp2en" path="res://Scenes/DefaultScene.cs" id="1_yma6e"]
+
+[node name="Node2D" type="Node2D" unique_id=1883403846]
+script = ExtResource("1_yma6e")
+
+[node name="Button" type="Button" parent="." unique_id=723773432]
+offset_left = 21.0
+offset_top = 17.0
+offset_right = 169.0
+offset_bottom = 54.0
+text = "Click"
