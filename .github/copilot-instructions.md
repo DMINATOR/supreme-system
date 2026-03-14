@@ -2,20 +2,22 @@
 
 ## Project Overview
 
-<!-- Describe the project: purpose, goals, and high-level architecture -->
+This project is created with Godot (C#) and is a game project.
 
 ## Tech Stack
 
-<!-- List languages, frameworks, libraries, and tools used -->
-- 
-- 
+- Godot Engine
+- C# for scripting
+- Markdown is used for source of truth for documentation and instructions
 
 ## Project Structure
 
-<!-- Describe key directories and their purpose -->
-```
-/
-```
+Key directories:
+
+- `godot`: Root project directory for Godot
+- `godot/supreme-godot/`: Godot project root
+- `docs` : Documentation directory
+- `engine`: Engine code (C# scripts)
 
 ## Coding Conventions
 
