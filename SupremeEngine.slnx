@@ -1,2 +1,4 @@
 <Solution>
+  <Project Path="engine/SupremeEngine/SupremeEngine.csproj" />
+  <Project Path="engine/SupremeEngine.Test/SupremeEngine.Test.csproj" />
 </Solution>

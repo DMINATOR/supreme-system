@@ -3,7 +3,7 @@
 using Xunit.Abstractions;
 using SupremeEngine;
 
-public class EngingeTest
+public class EngineTest
 {
     [Fact]
     public void Test1()
