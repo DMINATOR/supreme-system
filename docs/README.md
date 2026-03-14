@@ -10,3 +10,7 @@ Roguelike deck-building 2D game.
 - [Progression & Meta](progression-and-meta.md)
 - [Map & Structure](map-and-structure.md)
 - [Enemies & Bosses](enemies-and-bosses.md)
+
+## Reference
+
+- [Glossary](glossary.md)
