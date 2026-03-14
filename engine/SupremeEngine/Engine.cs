@@ -1,6 +1,6 @@
 ﻿namespace SupremeEngine;
 
-public class Class1
+public class Engine
 {
 
 }
