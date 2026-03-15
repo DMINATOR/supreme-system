@@ -5,7 +5,7 @@
 ## Facts
 
 - Maximum party size: 3 (player + up to 2 companions)
-- Player deck limit: [TBD](party_tbd.md)
+- Player deck limit: 20
 - Each party member has their own HP pool
 
 ## Rules

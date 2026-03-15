@@ -14,7 +14,7 @@
 
 - Turn-based card combat
 - [Energy](../glossary.md#energy) system or other constraint — TBD
-- [Hand](../glossary.md#hand) draw behavior (per-turn draw vs persistent hand) — TBD
+- [Hand](../glossary.md#hand) draw behavior (per-turn draw vs persistent hand) — see [hand_tbd.md](hand_tbd.md)
 
 ## Between Fights
 

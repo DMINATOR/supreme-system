@@ -4,7 +4,7 @@
 
 ## Facts
 
-- Deck limit: [TBD](player-character_tbd.md)
+- Deck limit: 20
 - Starting equipment: one inherited weapon (mentor's)
 - Starting items: journal (lore mechanic — [TBD](player-character_tbd.md))
 - Starting knowledge of the world: partial — revealed over runs via journal

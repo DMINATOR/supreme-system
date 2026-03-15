@@ -14,19 +14,19 @@ A safe location in the world where progress is saved. Acts as a checkpoint bound
 A combat event triggered by interacting with or being found by an enemy on the world map.
 
 ## Bag
-The shared card pool belonging to the whole [party](glossary.md#party). All acquired cards land here first. Party members can take cards from the bag to fill their individual [deck](glossary.md#deck) and can return cards to it at any time outside of combat.
+The shared card pool belonging to the whole [party](glossary.md#party). All acquired cards land here first. Accessible only outside of combat (at rest). Party members can transfer cards between the bag and their individual decks at rest.
 
 ## Deck
-The individual collection of cards assigned to a single [party](glossary.md#party) member. Cards in a deck are used to fill that member's [equipment slots](glossary.md#equipment-slot) and are drawn during combat. Cards enter the deck by being pulled from the shared [bag](glossary.md#bag). Subject to a [deck limit](glossary.md#deck-limit).
+The individual collection of cards assigned to a single [party](glossary.md#party) member. Assembled from cards drawn out of the shared [bag](glossary.md#bag) during rest. Cards in the deck are drawn into the [hand](glossary.md#hand) during combat. Subject to a [deck limit](glossary.md#deck-limit).
 
 ## Deck Limit
-The maximum number of cards a party member's deck can hold. The player has a fixed deck limit (TBD value); each companion has their own varying limit.
-
-## Loot
-Cards rewarded to the player after completing an [encounter](glossary.md#encounter). The primary way to grow a deck during a run.
+The maximum number of cards a party member's deck can hold. The player has a fixed deck limit of 20; each companion has their own varying limit.
 
 ## Hand
-The subset of cards drawn from the deck available to play on a given turn.
+The subset of cards drawn from a party member's [deck](glossary.md#deck) that are available to play on a given turn during combat. Hand size and draw behavior are TBD.
+
+## Loot
+Cards rewarded to the player after completing an [encounter](glossary.md#encounter). The primary way to grow a deck during a run. Loot goes into the shared [bag](glossary.md#bag).
 
 ## Energy
 (TBD) The resource spent to play cards each turn.
