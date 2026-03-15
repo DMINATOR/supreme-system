@@ -21,6 +21,8 @@ Who exists in the game and how they behave.
 ### Systems
 Gameplay mechanics and rules.
 - [Core Loop](systems/core-loop.md)
+- [Combat](systems/combat.md)
+- [Initiative](systems/initiative.md)
 - [Bag](systems/bag.md)
 - [Deck](systems/deck.md)
 - [Hand](systems/hand.md)

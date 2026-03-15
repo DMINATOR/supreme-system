@@ -28,6 +28,9 @@ The subset of cards drawn from a party member's [deck](glossary.md#deck) that ar
 ## Loot
 Cards rewarded to the player after completing an [encounter](glossary.md#encounter). The primary way to grow a deck during a run. Loot goes into the shared [bag](glossary.md#bag).
 
+## Initiative
+A value carried by cards that determines turn order in combat. Participants act in descending initiative order across both sides. Tied values are broken by a random roll to pick which side goes first, then turns interleave by member position. Default initiative is 0 when no card provides one. See [Initiative](systems/initiative.md).
+
 ## Energy
 (TBD) The resource spent to play cards each turn.
 
