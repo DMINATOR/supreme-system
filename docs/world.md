@@ -18,6 +18,8 @@ Zone specifics and gameplay integration are — TBD. See [Map & Structure](map-a
 
 Survivor communities range from heavily fortified towns to loose camps. Most are small, isolated, and defensive. Some are under [faction](glossary.md#faction) control; others try to remain independent. Settlements serve as safe zones, trading posts, and sources of [companions](glossary.md#companion) and information during a run — TBD specifics.
 
+Settlements also function as [rest sites](glossary.md#rest-site) — the player can save progress and use settlement services between [encounters](glossary.md#encounter).
+
 ## Threats
 
 The world is actively dangerous outside of settlements:

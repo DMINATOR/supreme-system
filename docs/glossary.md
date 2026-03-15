@@ -13,8 +13,11 @@ A safe location in the world where progress is saved. Acts as a checkpoint bound
 ## Encounter
 A combat event triggered by interacting with or being found by an enemy on the world map.
 
+## Bag
+The shared card pool belonging to the whole [party](glossary.md#party). All acquired cards land here first. Party members can take cards from the bag to fill their individual [deck](glossary.md#deck) and can return cards to it at any time outside of combat.
+
 ## Deck
-The collection of cards a [party](glossary.md#party) member owns and uses in combat during a run. Subject to a [deck limit](glossary.md#deck-limit).
+The individual collection of cards assigned to a single [party](glossary.md#party) member. Cards in a deck are used to fill that member's [equipment slots](glossary.md#equipment-slot) and are drawn during combat. Cards enter the deck by being pulled from the shared [bag](glossary.md#bag). Subject to a [deck limit](glossary.md#deck-limit).
 
 ## Deck Limit
 The maximum number of cards a party member's deck can hold. The player has a fixed deck limit (TBD value); each companion has their own varying limit.
