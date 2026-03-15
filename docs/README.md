@@ -6,6 +6,7 @@ Roguelike deck-building 2D game.
 
 - [Core Loop](core-loop.md)
 - [Party](party.md)
+- [Player Character](player-character.md)
 - [Companions](companions.md)
 - [Setting & Theme](setting-and-theme.md)
 - [Deck](deck.md)

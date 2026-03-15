@@ -66,3 +66,12 @@ A single-use combat card (e.g. potions). Behaviour after use — TBD.
 
 ## Party Wipe
 The condition where all party members have been killed, ending the current run.
+
+## The Ruin
+The catastrophic event that collapsed civilization roughly 100 years before the game takes place. The exact cause is — TBD. See [Setting & Theme](setting-and-theme.md) for world context.
+
+## Wasteland
+The post-collapse world the game takes place in — a landscape of ruins, toxic zones, and struggling survivor settlements left in the wake of [The Ruin](glossary.md#the-ruin).
+
+## Faction
+One of several organized groups competing for resources and territory across the [wasteland](glossary.md#wasteland). Factions may influence available [encounters](glossary.md#encounter), companions, and [loot](glossary.md#loot). Specific factions are — TBD. See [Setting & Theme](setting-and-theme.md#factions).
