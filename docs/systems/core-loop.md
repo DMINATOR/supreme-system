@@ -1,5 +1,7 @@
 ﻿# Core Loop
 
+> Facts, rules, behaviors, and relationships: [core-loop_spec.md](core-loop_spec.md)
+
 ## Run Structure
 
 - Open world 2D map — player roams freely between [encounters](../glossary.md#encounter)
@@ -21,10 +23,5 @@
 
 ## Save & Death
 
-- Progress is saved at [rest sites](../glossary.md#rest-site) (fixed locations or anywhere — TBD)
-- [Rest sites](../glossary.md#rest-site) are the checkpoint boundary
-- The [run](../glossary.md#run) ends on a [party wipe](../glossary.md#party-wipe) — all [party](../glossary.md#party) members must die for the run to end
-- On [party wipe](../glossary.md#party-wipe):
-  - Some progress is **lost** (current [deck](../glossary.md#deck) builds, items, map progress — TBD)
-  - Some progress is **kept** ([meta progression](../glossary.md#meta-progression) currency, unlocks, or other — TBD)
-  - Player does not continue from last [rest site](../glossary.md#rest-site) — [run](../glossary.md#run) ends (or resets to last rest — TBD)
+- [Rest sites](../glossary.md#rest-site) are the save checkpoint — fixed locations or anywhere (TBD)
+- On [party wipe](../glossary.md#party-wipe) the run ends; what is lost vs kept across runs — TBD (see [Progression & Meta](progression-and-meta.md))

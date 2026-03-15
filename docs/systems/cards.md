@@ -1,5 +1,7 @@
 ﻿# Cards
 
+> Facts, rules, behaviors, and relationships: [cards_spec.md](cards_spec.md)
+
 Definition of individual cards and their types used in [decks](../glossary.md#deck).
 
 ## Card Categories

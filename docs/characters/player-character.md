@@ -1,5 +1,7 @@
 ﻿# Player Character
 
+> Facts, rules, behaviors, and relationships: [player-character_spec.md](player-character_spec.md)
+
 ## Overview
 
 The player character grew up in a small, isolated settlement on the edges of the [wasteland](../glossary.md#wasteland) — never venturing far, never needing to. Their mentor, a legendary wanderer known for travelling roads no one else dared, kept the settlement protected and supplied. That mentor has just died.
@@ -26,7 +28,3 @@ The mentor left behind three things:
 - **A weapon** — the player's starting equipment, well-maintained and clearly well-used. Its history is part of the mentor's story — TBD.
 - **A journal** — hand-drawn maps, location notes, names, warnings, and partial entries that raise more questions than they answer. May serve as an in-game lore mechanic — TBD.
 - **A destination** — a specific place marked in the journal. What it is and why the mentor was trying to reach it is — TBD.
-
-## Deck & Combat Role
-
-The player character participates in combat like any other [party](../glossary.md#party) member, with their own [deck](../glossary.md#deck) and [equipment slots](../glossary.md#equipment-slot). Their starting deck reflects the mentor's fighting style — passed down through years of training. [Deck limit](../glossary.md#deck-limit) is — TBD value.
