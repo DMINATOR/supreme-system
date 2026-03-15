@@ -12,11 +12,4 @@ Gritty survival. The world is harsh and unforgiving, but human connection — fi
 
 ## Factions
 
-Several [factions](glossary.md#faction) compete for control of resources and territory across the [wasteland](glossary.md#wasteland). Specific factions are — TBD. Possible archetypes:
-
-- **The Remnants** — survivors preserving pre-ruin knowledge, laws, and structure
-- **The Scavengers** — pragmatic looters and wasteland traders
-- **The Zealots** — a cult that has built a religion around The Ruin and its aftermath
-- **The Warborn** — raiders and warlords who have turned violence into a way of life
-
-Factions may influence available [encounters](glossary.md#encounter), recruitable [companions](glossary.md#companion), and [loot](glossary.md#loot) — TBD.
+Several [factions](glossary.md#faction) compete for control of resources and territory across the [wasteland](glossary.md#wasteland). See [Factions](factions.md) for the full breakdown.
