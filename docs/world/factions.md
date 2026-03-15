@@ -1,6 +1,6 @@
-# Factions
+﻿# Factions
 
-Several factions compete for control of resources and territory across the [wasteland](glossary.md#wasteland). They may influence available [encounters](glossary.md#encounter), recruitable [companions](glossary.md#companion), and [loot](glossary.md#loot) — TBD.
+Several factions compete for control of resources and territory across the [wasteland](../glossary.md#wasteland). They may influence available [encounters](../glossary.md#encounter), recruitable [companions](../glossary.md#companion), and [loot](../glossary.md#loot) — TBD.
 
 ---
 
@@ -22,7 +22,7 @@ Raiders and warlords who have turned violence into a way of life. They see [The 
 
 ## The Ghosts
 
-A secretive, cell-based organization that claims to know the true cause of [The Ruin](the-ruin.md) — and has been suppressing that information for a century. They have no territory and no visible presence in the [wasteland](glossary.md#wasteland). Possibly descended from pre-Ruin intelligence agencies or corporate interests that survived by going underground. Most people don't believe they exist.
+A secretive, cell-based organization that claims to know the true cause of [The Ruin](the-ruin.md) — and has been suppressing that information for a century. They have no territory and no visible presence in the [wasteland](../glossary.md#wasteland). Possibly descended from pre-Ruin intelligence agencies or corporate interests that survived by going underground. Most people don't believe they exist.
 
 They only surface when someone gets too close to the truth. The mentor's journal appears to reference them — whether as allies, pursuers, or something else is — TBD.
 
@@ -32,7 +32,7 @@ They only surface when someone gets too close to the truth. The mentor's journal
 
 Factions may affect the run in the following ways — specifics TBD:
 
-- Influence which [encounters](glossary.md#encounter) appear in a given region
-- Determine which [companions](glossary.md#companion) are available for recruitment
-- Affect available [loot](glossary.md#loot) and merchant inventory
+- Influence which [encounters](../glossary.md#encounter) appear in a given region
+- Determine which [companions](../glossary.md#companion) are available for recruitment
+- Affect available [loot](../glossary.md#loot) and merchant inventory
 - Create faction-specific events or quests on the world map

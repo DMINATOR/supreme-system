@@ -56,7 +56,7 @@ A series of events or objectives unique to a specific companion. Completing stag
 A passive card slotted into an [equipment slot](glossary.md#equipment-slot) before combat. Each party member has their own equipment slots. Provides stats or enables the use of [attack cards](glossary.md#attack-card).
 
 ## Equipment Slot
-A dedicated slot on a party member where an [equipment card](glossary.md#equipment-card) can be placed before combat. Modelled similarly to Diablo-style item slots. See [Equipment](equipment.md) for the full slot list.
+A dedicated slot on a party member where an [equipment card](glossary.md#equipment-card) can be placed before combat. Modelled similarly to Diablo-style item slots. See [Equipment](systems/equipment.md) for the full slot list.
 
 ## Attack Card
 A combat card that performs an offensive action using the weapon equipped in the relevant [equipment slot](glossary.md#equipment-slot). Requires a compatible weapon to be equipped.
@@ -71,10 +71,10 @@ A single-use combat card (e.g. potions). Behaviour after use — TBD.
 The condition where all party members have been killed, ending the current run.
 
 ## The Ruin
-The catastrophic event that collapsed civilization roughly 100 years before the game takes place. The exact cause is — TBD. See [The Ruin](the-ruin.md) for full detail.
+The catastrophic event that collapsed civilization roughly 100 years before the game takes place. The exact cause is — TBD. See [The Ruin](world/the-ruin.md) for full detail.
 
 ## Wasteland
 The post-collapse world the game takes place in — a landscape of ruins, toxic zones, and struggling survivor settlements left in the wake of [The Ruin](glossary.md#the-ruin).
 
 ## Faction
-One of several organized groups competing for resources and territory across the [wasteland](glossary.md#wasteland). Factions may influence available [encounters](glossary.md#encounter), companions, and [loot](glossary.md#loot). See [Factions](factions.md).
+One of several organized groups competing for resources and territory across the [wasteland](glossary.md#wasteland). Factions may influence available [encounters](glossary.md#encounter), companions, and [loot](glossary.md#loot). See [Factions](world/factions.md).

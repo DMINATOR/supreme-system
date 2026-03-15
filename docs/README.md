@@ -4,20 +4,28 @@ Roguelike deck-building 2D game.
 
 ## Sections
 
-- [Core Loop](core-loop.md)
-- [Party](party.md)
-- [Player Character](player-character.md)
-- [Companions](companions.md)
-- [Setting & Theme](setting-and-theme.md)
-- [The Ruin](the-ruin.md)
-- [World](world.md)
-- [Factions](factions.md)
-- [Deck](deck.md)
-- [Cards](cards.md)
-- [Equipment](equipment.md)
-- [Progression & Meta](progression-and-meta.md)
-- [Map & Structure](map-and-structure.md)
-- [Enemies & Bosses](enemies-and-bosses.md)
+### World
+Lore, setting, and the state of the game world.
+- [Setting & Theme](world/setting-and-theme.md)
+- [The Ruin](world/the-ruin.md)
+- [World](world/world.md)
+- [Factions](world/factions.md)
+
+### Characters
+Who exists in the game and how they behave.
+- [Player Character](characters/player-character.md)
+- [Companions](characters/companions.md)
+- [Party](characters/party.md)
+- [Enemies & Bosses](characters/enemies-and-bosses.md)
+
+### Systems
+Gameplay mechanics and rules.
+- [Core Loop](systems/core-loop.md)
+- [Deck](systems/deck.md)
+- [Cards](systems/cards.md)
+- [Equipment](systems/equipment.md)
+- [Map & Structure](systems/map-and-structure.md)
+- [Progression & Meta](systems/progression-and-meta.md)
 
 ## Reference
 

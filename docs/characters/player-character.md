@@ -1,8 +1,8 @@
-# Player Character
+﻿# Player Character
 
 ## Overview
 
-The player character grew up in a small, isolated settlement on the edges of the [wasteland](glossary.md#wasteland) — never venturing far, never needing to. Their mentor, a legendary wanderer known for travelling roads no one else dared, kept the settlement protected and supplied. That mentor has just died.
+The player character grew up in a small, isolated settlement on the edges of the [wasteland](../glossary.md#wasteland) — never venturing far, never needing to. Their mentor, a legendary wanderer known for travelling roads no one else dared, kept the settlement protected and supplied. That mentor has just died.
 
 Before dying, they passed everything on: a worn weapon, a hand-drawn journal full of maps and cryptic notes, and a destination — a place the mentor spent years trying to reach but never did. The player character has never left their home region. They don't fully understand the mission they've inherited. But they leave anyway.
 
@@ -17,7 +17,7 @@ The destination and what awaits there are — TBD.
 
 Complete the mentor's unfinished mission. The player starts without fully understanding what that means, and the truth of it unfolds over the course of runs as they travel further and encounter people and places the mentor's journal references.
 
-Secondary motivations may develop through [companion](glossary.md#companion) relationships and world events encountered during a run.
+Secondary motivations may develop through [companion](../glossary.md#companion) relationships and world events encountered during a run.
 
 ## The Inheritance
 
@@ -29,4 +29,4 @@ The mentor left behind three things:
 
 ## Deck & Combat Role
 
-The player character participates in combat like any other [party](glossary.md#party) member, with their own [deck](glossary.md#deck) and [equipment slots](glossary.md#equipment-slot). Their starting deck reflects the mentor's fighting style — passed down through years of training. [Deck limit](glossary.md#deck-limit) is — TBD value.
+The player character participates in combat like any other [party](../glossary.md#party) member, with their own [deck](../glossary.md#deck) and [equipment slots](../glossary.md#equipment-slot). Their starting deck reflects the mentor's fighting style — passed down through years of training. [Deck limit](../glossary.md#deck-limit) is — TBD value.
