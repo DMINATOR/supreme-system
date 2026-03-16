@@ -4,23 +4,23 @@
 
 Definition of individual cards and their types used in [decks](../glossary.md#deck).
 
-## Card Categories
+Cards have four types: **Equipment**, **Attack**, **Spell**, and **Consumable**.
 
-Cards fall into two categories: **passive** and **combat**.
+### Equipment
 
-### Passive Cards
+Assigned before combat begins. Cannot normally be changed once combat starts. Slotted into [equipment slots](../glossary.md#equipment-slot) (one per slot, per member). A weapon must be equipped to play attack cards.
 
-Assigned before combat begins. Cannot normally be changed once combat starts.
+### Attack
 
-- **[Equipment](../glossary.md#equipment-card)** — items worn by a [party](../glossary.md#party) member. Slotted into [equipment slots](../glossary.md#equipment-slot) (one per slot, per member). Equipment is required to play [attack cards](../glossary.md#attack-card). Equipment slots and slot types — TBD.
+Offensive cards that require a weapon to be equipped in the relevant [equipment slot](../glossary.md#equipment-slot). The attack is made using that weapon.
 
-### Combat Cards
+### Spell
 
-Played during combat from the member's [hand](../glossary.md#hand).
+Offensive or utility cards that require no equipped weapon.
 
-- **[Attack](../glossary.md#attack-card)** — offensive cards that require a weapon to be equipped in the relevant [equipment slot](../glossary.md#equipment-slot). The attack is made using that weapon.
-- **[Spell](../glossary.md#spell-card)** — offensive or utility cards that require no equipped weapon.
-- **[Consumable](../glossary.md#consumable-card)** — single-use cards such as potions. When played, the card is discarded and unavailable for the rest of combat. It returns to the deck after combat ends.
+### Consumable
+
+Single-use cards such as potions. When played, the card is discarded and unavailable for the rest of combat. It returns to the deck after combat ends.
 
 ## Card Rarity
 
