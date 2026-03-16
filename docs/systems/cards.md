@@ -20,11 +20,14 @@ Played during combat from the member's [hand](../glossary.md#hand).
 
 - **[Attack](../glossary.md#attack-card)** — offensive cards that require a weapon to be equipped in the relevant [equipment slot](../glossary.md#equipment-slot). The attack is made using that weapon.
 - **[Spell](../glossary.md#spell-card)** — offensive or utility cards that require no equipped weapon.
-- **[Consumable](../glossary.md#consumable-card)** — single-use cards such as potions. Behaviour after use (removed from deck or discarded) — TBD.
+- **[Consumable](../glossary.md#consumable-card)** — single-use cards such as potions. When played, the card is discarded and unavailable for the rest of combat. It returns to the deck after combat ends.
 
 ## Card Rarity
 
-— TBD
+Cards have five rarity tiers: **Common**, **Uncommon**, **Rare**, **Legendary**, and **Unique**.
+
+- Common through Legendary cards can be acquired through drops: Common 63%, Uncommon 25%, Rare 10%, Legendary 2%.
+- **Unique** cards never drop. They are acquired exclusively through [companion quest lines](../glossary.md#companion-quest-line).
 
 ## Unique Companion Cards
 

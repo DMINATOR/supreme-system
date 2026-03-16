@@ -4,11 +4,13 @@
 
 ## Facts
 
-- Card rarity: [TBD](cards_tbd.md)
+- Card rarity tiers: Common, Uncommon, Rare, Legendary, Unique
+- Unique cards do not drop — acquired through quest lines only
+- Drop rates: Common 63%, Uncommon 25%, Rare 10%, Legendary 2%
 - Two top-level categories: passive and combat
 - Passive types: equipment
 - Combat types: attack, spell, consumable
-- Consumable behavior after use (removed or discarded): [TBD](cards_tbd.md)
+- Consumable cards are discarded on use and return to the deck after combat ends
 
 ## Rules
 
