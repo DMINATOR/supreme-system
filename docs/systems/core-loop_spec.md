@@ -18,7 +18,7 @@
 - A run ends only on a party wipe; individual member deaths do not end it
 - Progress is saved at rest sites only
 - On party wipe: current decks, items, and map progress are lost
-- On party wipe: meta progression (currency, unlocks) is kept (specifics [TBD](core-loop_tbd.md))
+- On party wipe: meta progression (currency, unlocks) for that slot is kept (specifics [TBD](core-loop_tbd.md))
 - After a party wipe the player does not resume from the last rest site — the run ends
 
 ## Behaviors

@@ -30,6 +30,7 @@ Gameplay mechanics and rules.
 - [Equipment](systems/equipment.md)
 - [Map & Structure](systems/map-and-structure.md)
 - [Progression & Meta](systems/progression-and-meta.md)
+- [Save Slots](systems/save-slots.md)
 
 ## Reference
 

@@ -79,5 +79,11 @@ The catastrophic event that collapsed civilization roughly 100 years before the 
 ## Wasteland
 The post-collapse world the game takes place in — a landscape of ruins, toxic zones, and struggling survivor settlements left in the wake of [The Ruin](glossary.md#the-ruin).
 
+## Save Slot
+One of three independent save files available to the player. Each slot holds the complete world state of a single run, tracked separately from all other slots. Players can start a new run, load an existing run, or delete a slot from the slot selection screen. See [Save Slots](systems/save-slots.md).
+
+## Slot Selection Screen
+The screen shown on game launch and accessible from the main menu where the player chooses which [save slot](glossary.md#save-slot) to play.
+
 ## Faction
 One of several organized groups competing for resources and territory across the [wasteland](glossary.md#wasteland). Factions may influence available [encounters](glossary.md#encounter), companions, and [loot](glossary.md#loot). See [Factions](world/factions.md).
