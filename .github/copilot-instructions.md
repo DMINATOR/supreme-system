@@ -55,6 +55,19 @@ Godot's [C# style guide](https://docs.godotengine.org/en/stable/tutorials/script
 - Test class naming: `<Subject>Test` (e.g. `EngineTest`)
 - Follow Arrange / Act / Assert structure within each test
 
+## Spec References
+
+Every `SupremeEngine` class that implements a game design concept must include an XML doc comment referencing its spec file:
+
+```csharp
+/// <see href="../../../docs/systems/element_spec.md"/>
+public class MyClass { }
+```
+
+- The path is relative from the `.cs` file to the `docs/` spec file
+- Enums that belong to a concept share the same spec reference as the class they support
+- If no spec exists yet, omit the comment rather than linking a non-existent file
+
 ## Do's and Don'ts
 
 ### Do
