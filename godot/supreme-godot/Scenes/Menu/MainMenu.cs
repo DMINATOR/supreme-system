@@ -2,13 +2,16 @@ using Godot;
 
 public partial class MainMenu : Control
 {
+	private SceneManager _sceneManager;
+
 	public override void _Ready()
 	{
+		_sceneManager = GetNode<SceneManager>("/root/SceneManager");
 		GetNode<Button>("VBoxContainer/PlayButton").Pressed += OnPlayPressed;
 	}
 
 	private void OnPlayPressed()
 	{
-		GetTree().ChangeSceneToFile("res://Scenes/Menu/SlotSelection.tscn");
+		_sceneManager.GoToSlotSelection();
 	}
 }

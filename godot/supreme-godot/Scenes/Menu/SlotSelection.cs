@@ -5,10 +5,12 @@ using SupremeEngine;
 public partial class SlotSelection : Control
 {
 	private SaveManager _saveManager;
+	private SceneManager _sceneManager;
 
 	public override void _Ready()
 	{
 		_saveManager = GetNode<SaveManager>("/root/SaveManager");
+		_sceneManager = GetNode<SceneManager>("/root/SceneManager");
 		GetNode<Button>("VBoxContainer/BackButton").Pressed += OnBackPressed;
 		RefreshSlots();
 	}
@@ -68,13 +70,13 @@ public partial class SlotSelection : Control
 		var world = new WorldState();
 		_saveManager.SaveWorld(index, world);
 		_saveManager.SetActiveSlot(index);
-		GetTree().ChangeSceneToFile("res://Scenes/World/DefaultScene.tscn");
+		_sceneManager.GoToWorld();
 	}
 
 	private void OnLoadPressed(int index)
 	{
 		_saveManager.SetActiveSlot(index);
-		GetTree().ChangeSceneToFile("res://Scenes/World/DefaultScene.tscn");
+		_sceneManager.GoToWorld();
 	}
 
 	private void OnDeletePressed(int index)
@@ -94,6 +96,6 @@ public partial class SlotSelection : Control
 
 	private void OnBackPressed()
 	{
-		GetTree().ChangeSceneToFile("res://Scenes/Menu/MainMenu.tscn");
+		_sceneManager.GoToMainMenu();
 	}
 }
