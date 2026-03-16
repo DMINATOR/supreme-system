@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cslotselscn11"]
 
-[ext_resource type="Script" uid="uid://cslotselscr11" path="res://Scenes/SlotSelection.cs" id="1_slot0"]
+[ext_resource type="Script" uid="uid://cslotselscr11" path="res://Scenes/Menu/SlotSelection.cs" id="1_slot0"]
 
 [node name="SlotSelection" type="Control"]
 anchor_right = 1.0

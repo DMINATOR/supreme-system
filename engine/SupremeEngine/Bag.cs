@@ -22,4 +22,17 @@ public class Bag
         if (!_cards.Remove(card))
             throw new InvalidOperationException("Card not found in bag.");
     }
+
+    public BagDto ToDto() => new()
+    {
+        Cards = _cards.Select(c => c.ToDto()).ToList()
+    };
+
+    public static Bag FromDto(BagDto dto)
+    {
+        var bag = new Bag();
+        foreach (var cardDto in dto.Cards)
+            bag.AddCard(Card.FromDto(cardDto));
+        return bag;
+    }
 }

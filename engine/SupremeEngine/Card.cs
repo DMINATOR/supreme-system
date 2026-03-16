@@ -15,4 +15,15 @@ public class Card
         Rarity = rarity;
         Type = type;
     }
+
+    public CardDto ToDto() => new()
+    {
+        Id = Id,
+        Name = Name,
+        Rarity = Rarity,
+        Type = Type
+    };
+
+    public static Card FromDto(CardDto dto) =>
+        new(dto.Id, dto.Name, dto.Rarity, dto.Type);
 }

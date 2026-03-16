@@ -87,5 +87,17 @@ public partial class SaveManager : Node
 		_sessionStartTime = now;
 	}
 
+	public WorldState SnapshotWorld(Bag bag, WorldState current)
+	{
+		AccumulateSessionTime(current);
+		return new WorldState
+		{
+			TotalSecondsPlayed = current.TotalSecondsPlayed,
+			Bag = bag.ToDto()
+		};
+	}
+
+	public Bag RestoreBag(WorldState state) => Bag.FromDto(state.Bag);
+
 	private static string SlotPath(int index) => $"{SaveDir}/slot_{index}.json";
 }

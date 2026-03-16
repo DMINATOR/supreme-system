@@ -4,5 +4,5 @@ namespace SupremeEngine;
 public class WorldState
 {
     public double TotalSecondsPlayed { get; set; }
-    public List<string> BagCardIds { get; set; } = new();
+    public BagDto Bag { get; set; } = new();
 }
