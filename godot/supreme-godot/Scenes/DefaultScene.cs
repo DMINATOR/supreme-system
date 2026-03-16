@@ -7,9 +7,9 @@ public partial class DefaultScene : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		var engine = new SupremeEngine.Engine();
-		var version = engine.GetVersion();
-		GD.Print($"Info: MainScene is ready = {version}");         // Standard log
+		var saveManager = GetNode<SaveManager>("/root/SaveManager");
+		var world = saveManager.LoadWorld(saveManager.ActiveSlotIndex);
+		GD.Print($"Info: DefaultScene ready — slot {saveManager.ActiveSlotIndex}, time played: {TimeSpan.FromSeconds(world?.TotalSecondsPlayed ?? 0):hh\\:mm\\:ss}");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
