@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using SupremeEngine;
 
 public partial class DefaultScene : Node2D
 {
@@ -8,8 +6,7 @@ public partial class DefaultScene : Node2D
 	public override void _Ready()
 	{
 		var saveManager = GetNode<SaveManager>("/root/SaveManager");
-		var world = saveManager.LoadWorld(saveManager.ActiveSlotIndex);
-		GD.Print($"Info: DefaultScene ready — slot {saveManager.ActiveSlotIndex}, time played: {TimeSpan.FromSeconds(world?.TotalSecondsPlayed ?? 0):hh\\:mm\\:ss}");
+		GD.Print($"Info: DefaultScene ready — slot {saveManager.ActiveSlotIndex}");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

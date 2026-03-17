@@ -1,16 +1,17 @@
 using Godot;
-using System;
 using SupremeEngine;
 
 public partial class SlotSelection : Control
 {
 	private SaveManager _saveManager;
 	private SceneManager _sceneManager;
+	private WorldManager _worldManager;
 
 	public override void _Ready()
 	{
 		_saveManager = GetNode<SaveManager>("/root/SaveManager");
 		_sceneManager = GetNode<SceneManager>("/root/SceneManager");
+		_worldManager = GetNode<WorldManager>("/root/WorldManager");
 		GetNode<Button>("VBoxContainer/BackButton").Pressed += OnBackPressed;
 		RefreshSlots();
 	}
@@ -48,8 +49,7 @@ public partial class SlotSelection : Control
 		}
 		else
 		{
-			var time = TimeSpan.FromSeconds(summary.TotalSecondsPlayed);
-			label.Text = $"Slot {summary.Index + 1} — {(int)time.TotalHours:D2}:{time.Minutes:D2}:{time.Seconds:D2}";
+			label.Text = $"Slot {summary.Index + 1} — In Progress";
 
 			var loadBtn = new Button { Text = "Load" };
 			loadBtn.Pressed += () => OnLoadPressed(summary.Index);
@@ -67,15 +67,14 @@ public partial class SlotSelection : Control
 
 	private void OnNewPressed(int index)
 	{
-		var world = new WorldState();
-		_saveManager.SaveWorld(index, world);
-		_saveManager.SetActiveSlot(index);
+		_worldManager.StartNewGame(_saveManager, index);
+		_worldManager.SaveToActiveSlot(_saveManager);
 		_sceneManager.GoToWorld();
 	}
 
 	private void OnLoadPressed(int index)
 	{
-		_saveManager.SetActiveSlot(index);
+		_worldManager.LoadFromSlot(_saveManager, index);
 		_sceneManager.GoToWorld();
 	}
 

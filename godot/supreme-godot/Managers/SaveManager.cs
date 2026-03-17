@@ -7,7 +7,6 @@ public partial class SaveManager : Node
 	public const int SlotCount = 3;
 
 	private const string SaveDir = "user://saves";
-	private double _sessionStartTime;
 
 	public int ActiveSlotIndex { get; private set; } = -1;
 
@@ -32,19 +31,18 @@ public partial class SaveManager : Node
 		if (!FileAccess.FileExists(path))
 			return new SlotSummary { Index = index, State = SlotState.Empty };
 
-		var state = LoadWorld(index);
-		if (state == null)
+		var data = LoadSaveData(index);
+		if (data == null)
 			return new SlotSummary { Index = index, State = SlotState.Empty };
 
 		return new SlotSummary
 		{
 			Index = index,
-			State = SlotState.InProgress,
-			TotalSecondsPlayed = state.TotalSecondsPlayed
+			State = SlotState.InProgress
 		};
 	}
 
-	public WorldState LoadWorld(int index)
+	public WorldSaveData LoadSaveData(int index)
 	{
 		var path = SlotPath(index);
 		if (!FileAccess.FileExists(path))
@@ -52,14 +50,14 @@ public partial class SaveManager : Node
 
 		using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
 		var json = file.GetAsText();
-		return JsonSerializer.Deserialize<WorldState>(json);
+		return JsonSerializer.Deserialize<WorldSaveData>(json);
 	}
 
-	public void SaveWorld(int index, WorldState state)
+	public void SaveWorld(int index, WorldSaveData data)
 	{
 		var path = SlotPath(index);
 		var options = new JsonSerializerOptions { WriteIndented = true };
-		var json = JsonSerializer.Serialize(state, options);
+		var json = JsonSerializer.Serialize(data, options);
 		using var file = FileAccess.Open(path, FileAccess.ModeFlags.Write);
 		file.StoreString(json);
 	}
@@ -77,27 +75,7 @@ public partial class SaveManager : Node
 	public void SetActiveSlot(int index)
 	{
 		ActiveSlotIndex = index;
-		_sessionStartTime = Time.GetUnixTimeFromSystem();
 	}
-
-	public void AccumulateSessionTime(WorldState state)
-	{
-		var now = Time.GetUnixTimeFromSystem();
-		state.TotalSecondsPlayed += now - _sessionStartTime;
-		_sessionStartTime = now;
-	}
-
-	public WorldState SnapshotWorld(Bag bag, WorldState current)
-	{
-		AccumulateSessionTime(current);
-		return new WorldState
-		{
-			TotalSecondsPlayed = current.TotalSecondsPlayed,
-			Bag = bag.ToDto()
-		};
-	}
-
-	public Bag RestoreBag(WorldState state) => Bag.FromDto(state.Bag);
 
 	private static string SlotPath(int index) => $"{SaveDir}/slot_{index}.json";
 }
