@@ -11,6 +11,7 @@ public partial class DebugScene : Control
 		_sceneOption = GetNode<OptionButton>("VBoxContainer/SceneOption");
 		_sceneOption.AddItem("Main Menu");
 		_sceneOption.AddItem("Default Scene");
+		_sceneOption.AddItem("Bag");
 		GetNode<Button>("VBoxContainer/LoadButton").Pressed += OnLoadPressed;
 	}
 
@@ -23,6 +24,9 @@ public partial class DebugScene : Control
 				break;
 			case 1:
 				_sceneManager.GoToDefaultScene();
+				break;
+			case 2:
+				_sceneManager.GoToBag();
 				break;
 		}
 	}

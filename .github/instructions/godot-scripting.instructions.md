@@ -26,4 +26,6 @@ applyTo: "godot/**/*.cs"
 
 ### SceneManager
 - All scene transitions go through `SceneManager` — do not call `GetTree().ChangeSceneToFile(...)` directly from node scripts
-- Add a new method to `SceneManager` for each new destination scene
+- When a scene is **created, renamed, or removed**, always update all of the following without being asked:
+  - `SceneManager.cs`: path constant and `GoTo<SceneName>()` method (add, rename, or remove)
+  - `DebugScene.cs`: `OptionButton` item and matching `case` (add, rename, remove, and re-number cases when needed)

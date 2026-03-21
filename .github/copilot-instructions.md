@@ -35,6 +35,24 @@ Area-specific rules are in `.github/instructions/`:
 | `testing.instructions.md` | `engine/SupremeEngine.Test/**/*.cs` |
 | `game-docs.instructions.md` | `docs/**/*.md` |
 
+### Scene Registration
+Whenever a Godot scene is **created, renamed, or removed**, automatically apply all relevant changes below without being asked:
+
+**Creating a scene:**
+1. Add a path constant and `GoTo<SceneName>()` method to `godot/supreme-godot/Managers/SceneManager.cs`
+2. Add the scene as an item in the `OptionButton` and a matching `case` in `godot/supreme-godot/Scenes/Debug/DebugScene.cs`
+3. Create the `.cs`, `.cs.uid`, and `.tscn` files for the scene
+
+**Renaming a scene:**
+1. Rename the `.cs`, `.cs.uid`, and `.tscn` files
+2. Update the path constant and `GoTo` method name in `SceneManager.cs`
+3. Update the `OptionButton` item label and `case` handler in `DebugScene.cs`
+
+**Removing a scene:**
+1. Delete the `.cs`, `.cs.uid`, and `.tscn` files
+2. Remove the path constant and `GoTo` method from `SceneManager.cs`
+3. Remove the `OptionButton` item and `case` handler from `DebugScene.cs`, and re-number remaining cases
+
 ### Glossary as Primary Reference
 - `docs/glossary.md` is the **single source of truth** for all game design terms
 - Every term that has a glossary entry must be linked to it when referenced in any doc page

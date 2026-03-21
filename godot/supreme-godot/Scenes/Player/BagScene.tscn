@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cbagscenesss1"]
+
+[ext_resource type="Script" uid="uid://bagscene0001" path="res://Scenes/Player/BagScene.cs" id="1_bag01"]
+
+[node name="BagScene" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_bag01")
