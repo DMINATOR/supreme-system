@@ -40,9 +40,17 @@ applyTo: "godot/**/*.cs"
 - `godot/supreme-godot/Util/` contains shared Godot-layer helpers — check here before writing one-off boilerplate in a scene script
 - Current helpers:
   - `DialogHelper.ShowConfirm(Node parent, string message, Action onConfirmed)` — shows a `ConfirmationDialog`, wires confirm/cancel, and calls `QueueFree` automatically
+  - `DialogHelper.ShowError(Node parent, string message)` — logs via `GD.PushError` and shows an `AcceptDialog`
+  - `CardSceneHelper.CreateCardScene(Card card)` — loads `CardScene.tscn`, instantiates it, calls `Setup(card)`, and returns the ready node
 - When adding new reusable Godot UI/node utilities, place them in `Util/` as `static` classes
 
-### SceneManager
+### Error Handling
+- Never silently swallow missing state — use `GD.PushError` to make programming mistakes visible in the Godot debugger
+- For optional/recoverable failures (e.g. missing save data): call `GD.PushError` with a descriptive message, then return early
+- For missing required pre-conditions set before `_Ready` (e.g. `Setup()` not called): use `GD.PushError` and return — never silently continue with null state
+- Do not use C# exceptions for Godot-layer errors; `GD.PushError` is the idiomatic equivalent
+
+
 - All scene transitions go through `SceneManager` — do not call `GetTree().ChangeSceneToFile(...)` directly from node scripts
 - When a scene is **created, renamed, or removed**, always update all of the following without being asked:
   - `SceneManager.cs`: path constant and `GoTo<SceneName>()` method (add, rename, or remove)
