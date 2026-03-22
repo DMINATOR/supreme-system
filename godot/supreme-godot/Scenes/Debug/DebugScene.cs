@@ -11,6 +11,8 @@ public partial class DebugScene : Control
 	private Label _activeSlotLabel;
 	private Button _loadFromSlotButton;
 	private Button _saveToActiveSlotButton;
+	private Label _slotSummaryLabel;
+	private TextEdit _slotJsonTextEdit;
 
 	public override void _Ready()
 	{
@@ -29,6 +31,8 @@ public partial class DebugScene : Control
 		_activeSlotLabel = GetNode<Label>("VBoxContainer/TabContainer/World/ActiveSlotLabel");
 		_loadFromSlotButton = GetNode<Button>("VBoxContainer/TabContainer/World/LoadFromSlotButton");
 		_saveToActiveSlotButton = GetNode<Button>("VBoxContainer/TabContainer/World/SaveToActiveSlotButton");
+		_slotSummaryLabel = GetNode<Label>("VBoxContainer/TabContainer/World/SlotSummaryLabel");
+		_slotJsonTextEdit = GetNode<TextEdit>("VBoxContainer/TabContainer/World/SlotJsonTextEdit");
 	}
 
 	private void PrepareNodes()
@@ -44,6 +48,19 @@ public partial class DebugScene : Control
 	private void RefreshWorldTab()
 	{
 		_activeSlotLabel.Text = $"Active Slot: {_saveManager.ActiveSlotIndex}";
+
+		var index = _saveManager.ActiveSlotIndex;
+		if (index >= 0)
+		{
+			var summary = _saveManager.GetSlotSummary(index);
+			_slotSummaryLabel.Text = summary.ToString();
+			_slotJsonTextEdit.Text = _saveManager.GetRawJson(index) ?? string.Empty;
+		}
+		else
+		{
+			_slotSummaryLabel.Text = "Slot Summary: —";
+			_slotJsonTextEdit.Text = string.Empty;
+		}
 	}
 
 	private void OnLoadFromSlotPressed()

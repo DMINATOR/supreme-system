@@ -38,19 +38,28 @@ public partial class SaveManager : Node
 		return new SlotSummary
 		{
 			Index = index,
-			State = SlotState.InProgress
+			State = SlotState.InProgress,
+			Data = data
 		};
 	}
 
 	public WorldSaveData LoadSaveData(int index)
+	{
+		var json = GetRawJson(index);
+		if (json == null)
+			return null;
+
+		return JsonSerializer.Deserialize<WorldSaveData>(json);
+	}
+
+	public string GetRawJson(int index)
 	{
 		var path = SlotPath(index);
 		if (!FileAccess.FileExists(path))
 			return null;
 
 		using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
-		var json = file.GetAsText();
-		return JsonSerializer.Deserialize<WorldSaveData>(json);
+		return file.GetAsText();
 	}
 
 	public void SaveWorld(int index, WorldSaveData data)

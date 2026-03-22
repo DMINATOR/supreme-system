@@ -53,7 +53,7 @@ public partial class SlotSelection : Control
 
 		if (summary.State == SlotState.Empty)
 		{
-			label.Text = $"Slot {summary.Index + 1} — Empty";
+			label.Text = summary.ToString();
 
 			var newBtn = new Button { Text = "New" };
 			newBtn.Pressed += () => OnNewPressed(summary.Index);
@@ -62,7 +62,7 @@ public partial class SlotSelection : Control
 		}
 		else
 		{
-			label.Text = $"Slot {summary.Index + 1} — In Progress";
+			label.Text = summary.ToString();
 
 			var loadBtn = new Button { Text = "Load" };
 			loadBtn.Pressed += () => OnLoadPressed(summary.Index);

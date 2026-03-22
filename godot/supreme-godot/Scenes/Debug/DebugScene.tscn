@@ -2,39 +2,66 @@
 
 [ext_resource type="Script" uid="uid://oqgpdpi88sf5" path="res://Scenes/Debug/DebugScene.cs" id="1_dbg0"]
 
-[node name="DebugScene" type="Control"]
+[node name="DebugScene" type="Control" unique_id=385510113]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("1_dbg0")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2059728861]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Title" type="Label" parent="VBoxContainer"]
+[node name="Title" type="Label" parent="VBoxContainer" unique_id=1961221677]
+layout_mode = 2
 text = "Debug"
 
-[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer" unique_id=150529506]
+layout_mode = 2
 size_flags_vertical = 3
+current_tab = 1
 
-[node name="Scenes" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+[node name="Scenes" type="VBoxContainer" parent="VBoxContainer/TabContainer" unique_id=1958301431]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
 
-[node name="MainMenuButton" type="Button" parent="VBoxContainer/TabContainer/Scenes"]
+[node name="MainMenuButton" type="Button" parent="VBoxContainer/TabContainer/Scenes" unique_id=1384965293]
+layout_mode = 2
 text = "Main Menu"
 
-[node name="DefaultSceneButton" type="Button" parent="VBoxContainer/TabContainer/Scenes"]
+[node name="DefaultSceneButton" type="Button" parent="VBoxContainer/TabContainer/Scenes" unique_id=1364455739]
+layout_mode = 2
 text = "Default Scene"
 
-[node name="BagButton" type="Button" parent="VBoxContainer/TabContainer/Scenes"]
+[node name="BagButton" type="Button" parent="VBoxContainer/TabContainer/Scenes" unique_id=1485343375]
+layout_mode = 2
 text = "Bag"
 
-[node name="World" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+[node name="World" type="VBoxContainer" parent="VBoxContainer/TabContainer" unique_id=946127892]
+layout_mode = 2
+metadata/_tab_index = 1
 
-[node name="ActiveSlotLabel" type="Label" parent="VBoxContainer/TabContainer/World"]
+[node name="ActiveSlotLabel" type="Label" parent="VBoxContainer/TabContainer/World" unique_id=360779016]
+layout_mode = 2
 text = "Active Slot: -1"
 
-[node name="LoadFromSlotButton" type="Button" parent="VBoxContainer/TabContainer/World"]
+[node name="LoadFromSlotButton" type="Button" parent="VBoxContainer/TabContainer/World" unique_id=765490330]
+layout_mode = 2
 text = "Load From Slot"
 
-[node name="SaveToActiveSlotButton" type="Button" parent="VBoxContainer/TabContainer/World"]
+[node name="SaveToActiveSlotButton" type="Button" parent="VBoxContainer/TabContainer/World" unique_id=1977332725]
+layout_mode = 2
 text = "Save To Active Slot"
+
+[node name="SlotSummaryLabel" type="Label" parent="VBoxContainer/TabContainer/World" unique_id=2103847561]
+layout_mode = 2
+text = "Slot Summary: —"
+
+[node name="SlotJsonTextEdit" type="TextEdit" parent="VBoxContainer/TabContainer/World" unique_id=2103847562]
+layout_mode = 2
+size_flags_vertical = 3
+editable = false
+placeholder_text = "No save data loaded"
