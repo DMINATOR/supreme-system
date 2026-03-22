@@ -7,27 +7,30 @@ public partial class SlotSelection : Control
 	private SceneManager _sceneManager;
 	private WorldManager _worldManager;
 
+	private Button _backButton;
+	private VBoxContainer _slotsContainer;
+
 	public override void _Ready()
 	{
-		_saveManager = GetNode<SaveManager>("/root/SaveManager");
-		_sceneManager = GetNode<SceneManager>("/root/SceneManager");
-		_worldManager = GetNode<WorldManager>("/root/WorldManager");
-		GetNode<Button>("VBoxContainer/BackButton").Pressed += OnBackPressed;
+		_saveManager = GetNode<SaveManager>(AutoloadPath.SaveManager);
+		_sceneManager = GetNode<SceneManager>(AutoloadPath.SceneManager);
+		_worldManager = GetNode<WorldManager>(AutoloadPath.WorldManager);
+		_backButton = GetNode<Button>("VBoxContainer/BackButton");
+		_slotsContainer = GetNode<VBoxContainer>("VBoxContainer/SlotsContainer");
+		_backButton.Pressed += OnBackPressed;
 		RefreshSlots();
 	}
 
 	private void RefreshSlots()
 	{
-		var container = GetNode<VBoxContainer>("VBoxContainer/SlotsContainer");
-
-		foreach (Node child in container.GetChildren())
+		foreach (Node child in _slotsContainer.GetChildren())
 			child.QueueFree();
 
 		var summaries = _saveManager.GetAllSummaries();
 		for (int i = 0; i < SaveManager.SlotCount; i++)
 		{
 			var row = BuildSlotRow(summaries[i]);
-			container.CallDeferred(Node.MethodName.AddChild, row);
+			_slotsContainer.CallDeferred(Node.MethodName.AddChild, row);
 		}
 	}
 

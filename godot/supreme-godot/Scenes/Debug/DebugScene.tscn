@@ -12,9 +12,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Title" type="Label" parent="VBoxContainer"]
-text = "Debug — Scene Selector"
+text = "Debug"
 
-[node name="SceneOption" type="OptionButton" parent="VBoxContainer"]
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+size_flags_vertical = 3
 
-[node name="LoadButton" type="Button" parent="VBoxContainer"]
-text = "Load Scene"
+[node name="Scenes" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+
+[node name="MainMenuButton" type="Button" parent="VBoxContainer/TabContainer/Scenes"]
+text = "Main Menu"
+
+[node name="DefaultSceneButton" type="Button" parent="VBoxContainer/TabContainer/Scenes"]
+text = "Default Scene"
+
+[node name="BagButton" type="Button" parent="VBoxContainer/TabContainer/Scenes"]
+text = "Bag"
