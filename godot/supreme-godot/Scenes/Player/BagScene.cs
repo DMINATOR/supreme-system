@@ -41,9 +41,6 @@ public partial class BagScene : Control
 		}
 
 		foreach (var card in cards)
-		{
-			var cardNode = CardSceneHelper.CreateCardScene(card);
-			_cardsContainer.AddChild(cardNode);
-		}
+			CardSceneHelper.CreateCardScene(_cardsContainer, card);
 	}
 }

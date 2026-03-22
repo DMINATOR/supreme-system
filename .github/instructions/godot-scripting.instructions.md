@@ -14,10 +14,16 @@ applyTo: "godot/**/*.cs"
 - Use `GD.Print` for logging — never `Console.WriteLine`
 
 ### _Ready Structure
-- `_Ready` must only call `LoadNodes()` then `PrepareNodes()` — no other logic directly in `_Ready`
+- `_Ready` calls `LoadNodes()` and then `PrepareNodes()` — omit `PrepareNodes()` only if the scene has no signal wiring or state initialization
 - `LoadNodes()`: every `GetNode<T>(...)` assignment goes here and nowhere else
 - `PrepareNodes()`: signal wiring, initial state setup, and any calls that rely on loaded nodes go here
 - Both are `private void` methods placed in the private methods section of the class
+
+### Setup Methods
+- Scenes that require external data before display must expose a `Setup(...)` method
+- **Never call `Setup` before `AddChild`** — `_Ready` must have already fired so that `LoadNodes` has run and nodes are available; `Setup` then populates them directly
+- For Util helpers that instantiate scenes, the helper must call `parent.AddChild(scene)` first, then `scene.Setup(...)` — this guarantees `_Ready` has fired by the time `Setup` runs
+- Do not use null checks on node fields inside `Setup` to detect whether `_Ready` has fired; that is a design flaw — fix the call order instead
 
 ### Node References
 - Every `GetNode<T>(...)` call must be stored in a private field in `LoadNodes` — never chain `.Pressed`, `.Text`, etc. directly off a `GetNode` call
@@ -33,6 +39,10 @@ applyTo: "godot/**/*.cs"
 - When creating a `.tscn` or `.tres` manually for a script that **already has** a `.cs.uid` file: read the `.cs.uid` file and copy the exact value into the `[ext_resource]` line
 - When creating a `.tscn` or `.tres` manually for a **new script** (no `.cs.uid` exists yet): omit the `uid=` attribute from `[ext_resource]` entirely — Godot will use the path as a fallback and generate the `.cs.uid` and assign the UID on next project load
 - Never create `.cs.uid` files manually — always let Godot generate them
+- When embedding a sub-scene inside a `.tscn`, use `instance=ExtResource("...")` on the node line — **never combine `type=` and `instance=` on the same node**; `type=` overrides `instance=` and the script won't be attached:
+  ```
+  [node name="CardScene" parent="VBoxContainer" instance=ExtResource("2_card")]
+  ```
 - Scene/Node names in the editor: PascalCase
 - To change the entry-point scene, update `run/main_scene` in `project.godot`
 
@@ -41,8 +51,19 @@ applyTo: "godot/**/*.cs"
 - Current helpers:
   - `DialogHelper.ShowConfirm(Node parent, string message, Action onConfirmed)` — shows a `ConfirmationDialog`, wires confirm/cancel, and calls `QueueFree` automatically
   - `DialogHelper.ShowError(Node parent, string message)` — logs via `GD.PushError` and shows an `AcceptDialog`
-  - `CardSceneHelper.CreateCardScene(Card card)` — loads `CardScene.tscn`, instantiates it, calls `Setup(card)`, and returns the ready node
+  - `CardSceneHelper.CreateCardScene(Node parent, Card card)` — loads `CardScene.tscn`, adds it to `parent` (triggering `_Ready`/`LoadNodes`), calls `Setup(card)`, and returns the ready node
+  - `CardOfferSceneHelper.CreateCardOfferScene(Card card, Action<Card> onAccepted, Action onDeclined)` — instantiates `CardOfferScene.tscn`, wires `Accepted`/`Declined` signals to the provided callbacks, and returns the ready node
 - When adding new reusable Godot UI/node utilities, place them in `Util/` as `static` classes
+
+### Signals vs C# Events
+- Use `[Signal]` delegates only when the event needs to cross the GDScript boundary or be visible in the Godot editor
+- `[Signal]` delegates only support Godot Variant-compatible types (built-in Godot types, `GodotObject` subclasses) — **never use pure C# types like `Card`, `Bag`, etc. as signal parameters**
+- When communicating between C#-only nodes with pure C# payloads, use a standard C# `event` instead:
+  ```csharp
+  public event Action<Card> Accepted;
+  public event Action Declined;
+  ```
+- Wire C# events in `PrepareNodes` the same way as Godot signals
 
 ### Error Handling
 - Never silently swallow missing state — use `GD.PushError` to make programming mistakes visible in the Godot debugger

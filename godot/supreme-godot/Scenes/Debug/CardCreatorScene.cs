@@ -9,6 +9,7 @@ public partial class CardCreatorScene : Control
 	private WorldManager _worldManager;
 	private Button _backButton;
 	private VBoxContainer _templatesContainer;
+	private Control _offerContainer;
 
 	public override void _Ready()
 	{
@@ -22,6 +23,7 @@ public partial class CardCreatorScene : Control
 		_worldManager = GetNode<WorldManager>(AutoloadPath.WorldManager);
 		_backButton = GetNode<Button>("VBoxContainer/BackButton");
 		_templatesContainer = GetNode<VBoxContainer>("VBoxContainer/ScrollContainer/TemplatesContainer");
+		_offerContainer = GetNode<Control>("VBoxContainer/OfferContainer");
 	}
 
 	private void PrepareNodes()
@@ -54,18 +56,39 @@ public partial class CardCreatorScene : Control
 		label.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
 		label.Text = $"{resource.Name} [{resource.Rarity} / {resource.Type}]";
 
-		var addButton = new Button { Text = "Add to Bag" };
-		addButton.Pressed += () => OnAddToBagPressed(resource);
+		var createButton = new Button { Text = "Create" };
+		createButton.Pressed += () => OnCreatePressed(resource);
 
 		row.AddChild(label);
-		row.AddChild(addButton);
+		row.AddChild(createButton);
 		return row;
 	}
 
-	private void OnAddToBagPressed(CardTemplateResource resource)
+	private void OnCreatePressed(CardTemplateResource resource)
 	{
+		foreach (Node child in _offerContainer.GetChildren())
+			child.QueueFree();
+
 		var factory = new CardFactory(_worldManager.State.Random);
 		var card = factory.Create(resource.ToCardTemplate());
-		_worldManager.State.Bag.AddCard(card);
+
+		var offer = CardOfferSceneHelper.CreateCardOfferScene(
+			card,
+			onAccepted: c =>
+			{
+				_worldManager.State.Bag.AddCard(c);
+				ClearOffer();
+			},
+			onDeclined: ClearOffer
+		);
+
+		_offerContainer.AddChild(offer);
+	}
+
+	private void ClearOffer()
+	{
+		foreach (Node child in _offerContainer.GetChildren())
+			child.QueueFree();
 	}
 }
+
