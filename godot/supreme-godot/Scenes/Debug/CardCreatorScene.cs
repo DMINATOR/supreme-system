@@ -71,18 +71,7 @@ public partial class CardCreatorScene : Control
 
 		var factory = new CardFactory(_worldManager.State.Random);
 		var card = factory.Create(resource.ToCardTemplate());
-
-		var offer = CardOfferSceneHelper.CreateCardOfferScene(
-			card,
-			onAccepted: c =>
-			{
-				_worldManager.State.Bag.AddCard(c);
-				ClearOffer();
-			},
-			onDeclined: ClearOffer
-		);
-
-		_offerContainer.AddChild(offer);
+        _worldManager.State.BagManager.AddCard(card);
 	}
 
 	private void ClearOffer()

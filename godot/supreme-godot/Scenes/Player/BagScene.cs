@@ -32,7 +32,7 @@ public partial class BagScene : Control
 		foreach (Node child in _cardsContainer.GetChildren())
 			child.QueueFree();
 
-		var cards = _worldManager.State.Bag.Cards;
+		var cards = _worldManager.State.BagManager.Cards;
 		if (cards.Count == 0)
 		{
 			var empty = new Label { Text = "Bag is empty." };
