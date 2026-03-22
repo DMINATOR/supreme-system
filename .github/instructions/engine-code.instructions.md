@@ -1,6 +1,6 @@
 ---
 description: "Use when writing, editing, or reviewing code in the SupremeEngine library. Covers the no-Godot rule and XML doc spec references."
-applyTo: "engine/SupremeEngine/*.cs"
+applyTo: "engine/SupremeEngine/**/*.cs"
 ---
 
 # SupremeEngine Code Conventions

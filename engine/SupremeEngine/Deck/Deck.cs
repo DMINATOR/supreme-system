@@ -1,6 +1,6 @@
 namespace SupremeEngine;
 
-/// <see href="../../../docs/systems/deck_spec.md"/>
+/// <see href="../../../../docs/systems/deck_spec.md"/>
 public class Deck
 {
     public const int MaxSize = 20;

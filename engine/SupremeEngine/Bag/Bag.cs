@@ -1,6 +1,6 @@
 namespace SupremeEngine;
 
-/// <see href="../../../docs/systems/bag_spec.md"/>
+/// <see href="../../../../docs/systems/bag_spec.md"/>
 public class Bag
 {
     public const int Capacity = 100;

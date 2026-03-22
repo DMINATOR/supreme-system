@@ -1,6 +1,6 @@
 namespace SupremeEngine;
 
-/// <see href="../../../docs/systems/save-slots_spec.md"/>
+/// <see href="../../../../docs/systems/save-slots_spec.md"/>
 public class WorldState
 {
     public Bag Bag { get; set; } = new();
