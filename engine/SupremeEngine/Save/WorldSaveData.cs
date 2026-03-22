@@ -4,5 +4,5 @@ namespace SupremeEngine;
 public class WorldSaveData
 {
     public int Seed { get; set; }
-    public BagDto Bag { get; set; } = new();
+    public InventoryDto Inventory { get; set; } = new();
 }

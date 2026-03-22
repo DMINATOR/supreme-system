@@ -4,7 +4,7 @@ namespace SupremeEngine;
 public class WorldState
 {
     public Random Random { get; }
-    public BagManager BagManager { get; private set; } = new();
+    public InventoryManager Inventory { get; private set; } = new();
 
     public WorldState(int seed)
     {
@@ -14,12 +14,12 @@ public class WorldState
 
     private int Seed { get; }
 
-    public WorldSaveData ToSaveData() => new WorldSaveData { Seed = Seed, Bag = BagManager.ToDto() };
+    public WorldSaveData ToSaveData() => new WorldSaveData { Seed = Seed, Inventory = Inventory.ToDto() };
 
     public static WorldState From(WorldSaveData data)
     {
         var state = new WorldState(data.Seed);
-        state.BagManager = BagManager.FromDto(data.Bag);
+        state.Inventory = InventoryManager.FromDto(data.Inventory);
         return state;
     }
 }

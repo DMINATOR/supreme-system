@@ -71,7 +71,7 @@ public partial class CardCreatorScene : Control
 
 		var factory = new CardFactory(_worldManager.State.Random);
 		var card = factory.Create(resource.ToCardTemplate());
-        _worldManager.State.BagManager.AddCard(card);
+        _worldManager.State.Inventory.Bag.AddCard(card);
 	}
 
 	private void ClearOffer()
