@@ -12,11 +12,21 @@ public partial class SlotSelection : Control
 
 	public override void _Ready()
 	{
+		LoadNodes();
+		PrepareNodes();
+	}
+
+	private void LoadNodes()
+	{
 		_saveManager = GetNode<SaveManager>(AutoloadPath.SaveManager);
 		_sceneManager = GetNode<SceneManager>(AutoloadPath.SceneManager);
 		_worldManager = GetNode<WorldManager>(AutoloadPath.WorldManager);
 		_backButton = GetNode<Button>("VBoxContainer/BackButton");
 		_slotsContainer = GetNode<VBoxContainer>("VBoxContainer/SlotsContainer");
+	}
+
+	private void PrepareNodes()
+	{
 		_backButton.Pressed += OnBackPressed;
 		RefreshSlots();
 	}

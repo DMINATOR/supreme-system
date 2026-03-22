@@ -13,8 +13,14 @@ applyTo: "godot/**/*.cs"
 ### Logging
 - Use `GD.Print` for logging — never `Console.WriteLine`
 
+### _Ready Structure
+- `_Ready` must only call `LoadNodes()` then `PrepareNodes()` — no other logic directly in `_Ready`
+- `LoadNodes()`: every `GetNode<T>(...)` assignment goes here and nowhere else
+- `PrepareNodes()`: signal wiring, initial state setup, and any calls that rely on loaded nodes go here
+- Both are `private void` methods placed in the private methods section of the class
+
 ### Node References
-- Every `GetNode<T>(...)` call must be stored in a private field in `_Ready` — never chain `.Pressed`, `.Text`, etc. directly off a `GetNode` call
+- Every `GetNode<T>(...)` call must be stored in a private field in `LoadNodes` — never chain `.Pressed`, `.Text`, etc. directly off a `GetNode` call
 - This applies to both autoloads and scene-tree nodes; storing in a field makes null-reference issues easy to spot and debug
 - Autoloads are retrieved using path constants from `AutoloadPath` — never hard-code `"/root/..."` strings inline
   - Current autoloads: `AutoloadPath.SceneManager`, `AutoloadPath.SaveManager`, `AutoloadPath.WorldManager`
@@ -37,4 +43,4 @@ applyTo: "godot/**/*.cs"
 - All scene transitions go through `SceneManager` — do not call `GetTree().ChangeSceneToFile(...)` directly from node scripts
 - When a scene is **created, renamed, or removed**, always update all of the following without being asked:
   - `SceneManager.cs`: path constant and `GoTo<SceneName>()` method (add, rename, or remove)
-  - `DebugScene.cs`: button node in the `Scenes` tab of the `TabContainer`, and `GetNode<Button>` + signal wiring in `_Ready` (add, rename, or remove)
+  - `DebugScene.cs`: button node in the `Scenes` tab of the `TabContainer`, and `GetNode<Button>` in `LoadNodes` + signal wiring in `PrepareNodes` (add, rename, or remove)

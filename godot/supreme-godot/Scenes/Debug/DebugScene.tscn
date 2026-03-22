@@ -27,3 +27,14 @@ text = "Default Scene"
 
 [node name="BagButton" type="Button" parent="VBoxContainer/TabContainer/Scenes"]
 text = "Bag"
+
+[node name="World" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+
+[node name="ActiveSlotLabel" type="Label" parent="VBoxContainer/TabContainer/World"]
+text = "Active Slot: -1"
+
+[node name="LoadFromSlotButton" type="Button" parent="VBoxContainer/TabContainer/World"]
+text = "Load From Slot"
+
+[node name="SaveToActiveSlotButton" type="Button" parent="VBoxContainer/TabContainer/World"]
+text = "Save To Active Slot"
