@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CardTemplateResource" load_steps=2 format=3 uid="uid://trainwreckcrd"]
+
+[ext_resource type="Script" path="res://Data/Cards/CardTemplateResource.cs" id="1_tw0"]
+
+[resource]
+script = ExtResource("1_tw0")
+TemplateId = "train-wreck"
+Name = "Train Wreck"
+Rarity = 1
+Type = 1
