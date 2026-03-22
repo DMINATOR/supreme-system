@@ -83,17 +83,11 @@ public partial class SlotSelection : Control
 
 	private void OnDeletePressed(int index)
 	{
-		var dialog = new ConfirmationDialog();
-		dialog.DialogText = $"Delete Slot {index + 1}? This cannot be undone.";
-		dialog.Confirmed += () =>
+		DialogHelper.ShowConfirm(this, $"Delete Slot {index + 1}? This cannot be undone.", () =>
 		{
 			_saveManager.DeleteSlot(index);
-			dialog.QueueFree();
 			RefreshSlots();
-		};
-		dialog.Canceled += () => dialog.QueueFree();
-		AddChild(dialog);
-		dialog.PopupCentered();
+		});
 	}
 
 	private void OnBackPressed()

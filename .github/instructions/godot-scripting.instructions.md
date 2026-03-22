@@ -27,6 +27,12 @@ applyTo: "godot/**/*.cs"
 - Scene/Node names in the editor: PascalCase
 - To change the entry-point scene, update `run/main_scene` in `project.godot`
 
+### Util
+- `godot/supreme-godot/Util/` contains shared Godot-layer helpers — check here before writing one-off boilerplate in a scene script
+- Current helpers:
+  - `DialogHelper.ShowConfirm(Node parent, string message, Action onConfirmed)` — shows a `ConfirmationDialog`, wires confirm/cancel, and calls `QueueFree` automatically
+- When adding new reusable Godot UI/node utilities, place them in `Util/` as `static` classes
+
 ### SceneManager
 - All scene transitions go through `SceneManager` — do not call `GetTree().ChangeSceneToFile(...)` directly from node scripts
 - When a scene is **created, renamed, or removed**, always update all of the following without being asked:
