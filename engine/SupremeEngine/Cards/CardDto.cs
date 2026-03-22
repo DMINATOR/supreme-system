@@ -1,6 +1,6 @@
 namespace SupremeEngine;
 
-/// <see href="../../../../docs/systems/save-slots_spec.md"/>
+/// <see href="../../../../docs/systems/cards_spec.md"/>
 public record CardDto
 {
     public required string Id { get; init; }

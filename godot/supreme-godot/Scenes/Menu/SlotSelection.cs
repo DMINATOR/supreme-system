@@ -87,8 +87,8 @@ public partial class SlotSelection : Control
 
 	private void OnLoadPressed(int index)
 	{
-		_worldManager.LoadFromSlot(_saveManager, index);
-		_sceneManager.GoToWorld();
+		if (_worldManager.LoadFromSlot(this, _saveManager, index))
+			_sceneManager.GoToWorld();
 	}
 
 	private void OnDeletePressed(int index)

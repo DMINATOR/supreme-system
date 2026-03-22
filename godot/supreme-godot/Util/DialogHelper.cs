@@ -16,4 +16,14 @@ public static class DialogHelper
         parent.AddChild(dialog);
         dialog.PopupCentered();
     }
+
+    public static void ShowError(Node parent, string message)
+    {
+        GD.PushError(message);
+        var dialog = new AcceptDialog();
+        dialog.DialogText = message;
+        dialog.Confirmed += () => dialog.QueueFree();
+        parent.AddChild(dialog);
+        dialog.PopupCentered();
+    }
 }

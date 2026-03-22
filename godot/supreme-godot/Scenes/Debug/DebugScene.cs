@@ -49,7 +49,7 @@ public partial class DebugScene : Control
 	private void OnLoadFromSlotPressed()
 	{
 		if (_saveManager.ActiveSlotIndex >= 0)
-			_worldManager.LoadFromSlot(_saveManager, _saveManager.ActiveSlotIndex);
+			_worldManager.LoadFromSlot(this, _saveManager, _saveManager.ActiveSlotIndex);
 		RefreshWorldTab();
 	}
 
