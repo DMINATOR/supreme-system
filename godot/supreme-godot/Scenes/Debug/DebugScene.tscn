@@ -40,6 +40,10 @@ text = "Default Scene"
 layout_mode = 2
 text = "Bag"
 
+[node name="CardCreatorButton" type="Button" parent="VBoxContainer/TabContainer/Scenes" unique_id=1485343376]
+layout_mode = 2
+text = "Card Creator"
+
 [node name="World" type="VBoxContainer" parent="VBoxContainer/TabContainer" unique_id=946127892]
 layout_mode = 2
 metadata/_tab_index = 1

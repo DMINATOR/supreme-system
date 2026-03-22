@@ -7,6 +7,7 @@ public partial class SceneManager : Node
     private static readonly string DebugScene = "res://Scenes/Debug/DebugScene.tscn";
     private static readonly string DefaultScene = "res://Scenes/World/DefaultScene.tscn";
     private static readonly string BagScene = "res://Scenes/Player/BagScene.tscn";
+    private static readonly string CardCreatorScene = "res://Scenes/Debug/CardCreatorScene.tscn";
 
     public void GoToMainMenu() => GetTree().ChangeSceneToFile(MainMenu);
 
@@ -17,4 +18,6 @@ public partial class SceneManager : Node
     public void GoToDefaultScene() => GetTree().ChangeSceneToFile(DefaultScene);
 
     public void GoToBag() => GetTree().ChangeSceneToFile(BagScene);
+
+    public void GoToCardCreator() => GetTree().ChangeSceneToFile(CardCreatorScene);
 }
