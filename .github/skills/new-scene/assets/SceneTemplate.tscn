@@ -1,0 +1,20 @@
+; Omit uid= from [gd_scene] and uid= from [ext_resource] — Godot assigns both on first project load.
+; Never create a .cs.uid file manually — Godot generates it.
+; Replace {SceneName} and {Folder} and {BaseType} with appropriate values before saving.
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://{Folder}/{SceneName}.cs" id="1_script"]
+
+[node name="{SceneName}" type="{BaseType}"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_script")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "{SceneName}"
