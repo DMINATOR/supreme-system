@@ -4,19 +4,19 @@ using System;
 
 public static class CardSceneHelper
 {
-    public static CardScene CreateCardScene(Node parent, Card card)
+    public static CardPrefabScene CreateCardScene(Node parent, Card card)
     {
-        var prefab = GD.Load<PackedScene>(SceneManager.CardScene);
-        var cardScene = prefab.Instantiate<CardScene>();
+        var prefab = GD.Load<PackedScene>(SceneManager.CardPrefabScene);
+        var cardScene = prefab.Instantiate<CardPrefabScene>();
         parent.AddChild(cardScene);
         cardScene.Setup(card);
         return cardScene;
     }
 
-    public static CardOfferScene CreateCardOfferScene(Card card, Action<Card> onAccepted, Action onDeclined)
+    public static CardOfferPrefabScene CreateCardOfferScene(Card card, Action<Card> onAccepted, Action onDeclined)
     {
-        var prefab = GD.Load<PackedScene>(SceneManager.CardOfferScene);
-        var offerScene = prefab.Instantiate<CardOfferScene>();
+        var prefab = GD.Load<PackedScene>(SceneManager.CardOfferPrefabScene);
+        var offerScene = prefab.Instantiate<CardOfferPrefabScene>();
         offerScene.Setup(card);
         offerScene.Accepted += onAccepted;
         offerScene.Declined += onDeclined;

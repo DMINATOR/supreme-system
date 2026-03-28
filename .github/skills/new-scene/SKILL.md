@@ -1,14 +1,15 @@
 ---
 name: new-scene
-description: 'Create a new Godot scene in SupremeGodot. Use when adding a new scene, screen, or UI view to the game. Covers all required coordinated changes: .cs script, .tscn file, SceneManager path constant and GoTo method, and DebugScene button wiring. Do NOT use for renaming or removing scenes.'
+description: 'Create a new Godot game scene in SupremeGodot. Use when adding a new scene, screen, or UI view that is navigated to via SceneManager. Covers all required coordinated changes: .cs script, .tscn file, SceneManager path constant and GoTo method, and DebugScene button wiring. Do NOT use for renaming or removing scenes. Do NOT use for prefab scenes (Scenes/Prefabs/) — those are instantiated programmatically via Util/ helpers, not navigated to.'
 argument-hint: 'SceneName and folder (e.g. "CombatScene in Scenes/World")'
 ---
 
 # New Scene
 
 ## When to Use
-- Adding any new playable, menu, or debug scene to `godot/supreme-godot/`
+- Adding any new playable, menu, or debug scene that is navigated to via `SceneManager`
 - Any time a `.tscn` file and its backing `.cs` are being created together
+- **Not for prefab scenes** — if the scene lives in `Scenes/Prefabs/` and is instantiated programmatically, do not use this skill; add a helper in `Util/` instead
 
 ## Required Inputs
 Before starting, determine:
@@ -44,9 +45,9 @@ Rules:
 ### Step 3 — Update SceneManager
 Edit `godot/supreme-godot/Managers/SceneManager.cs`:
 
-1. Add a `private static readonly string` path constant — alphabetical order among existing constants:
+1. Add a `public const string` path constant — alphabetical order among existing constants:
    ```csharp
-   private static readonly string {SceneName} = "res://{Folder}/{SceneName}.tscn";
+   public const string {SceneName} = "res://{Folder}/{SceneName}.tscn";
    ```
 2. Add a `public void GoTo{SceneName}()` method — alphabetical order among existing methods:
    ```csharp

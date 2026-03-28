@@ -46,13 +46,21 @@ applyTo: "godot/**/*.cs"
 - Scene/Node names in the editor: PascalCase
 - To change the entry-point scene, update `run/main_scene` in `project.godot`
 
+### Prefab Scenes
+- **Prefab scenes** are reusable scene fragments that are instantiated programmatically and embedded inside other scenes — they are **not** navigated to via `SceneManager`
+- They live in `Scenes/Prefabs/` and their filenames end with `PrefabScene` (e.g. `CardPrefabScene.tscn`, `CardOfferPrefabScene.tscn`)
+- Their C# class names also end with `PrefabScene` (e.g. `CardPrefabScene`, `CardOfferPrefabScene`)
+- Their path constants in `SceneManager` end with `PrefabScene` — no `GoTo` method is added for them
+- They are always instantiated via a `CardSceneHelper`-style helper in `Util/`, never directly from a scene script
+- **Never call `Setup` before `AddChild`** on a prefab scene — `_Ready` (and therefore `LoadNodes`) must fire first; the helper is responsible for the correct order
+
 ### Util
 - `godot/supreme-godot/Util/` contains shared Godot-layer helpers — check here before writing one-off boilerplate in a scene script
 - Current helpers:
   - `DialogHelper.ShowConfirm(Node parent, string message, Action onConfirmed)` — shows a `ConfirmationDialog`, wires confirm/cancel, and calls `QueueFree` automatically
   - `DialogHelper.ShowError(Node parent, string message)` — logs via `GD.PushError` and shows an `AcceptDialog`
-  - `CardSceneHelper.CreateCardScene(Node parent, Card card)` — loads `CardScene.tscn`, adds it to `parent` (triggering `_Ready`/`LoadNodes`), calls `Setup(card)`, and returns the ready node
-  - `CardSceneHelper.CreateCardOfferScene(Card card, Action<Card> onAccepted, Action onDeclined)` — instantiates `CardOfferScene.tscn`, wires `Accepted`/`Declined` signals to the provided callbacks, and returns the ready node
+  - `CardSceneHelper.CreateCardScene(Node parent, Card card)` — loads `CardPrefabScene.tscn`, adds it to `parent` (triggering `_Ready`/`LoadNodes`), calls `Setup(card)`, and returns the ready node
+  - `CardSceneHelper.CreateCardOfferScene(Card card, Action<Card> onAccepted, Action onDeclined)` — instantiates `CardOfferPrefabScene.tscn`, wires `Accepted`/`Declined` signals to the provided callbacks, and returns the ready node
 - When adding new reusable Godot UI/node utilities, place them in `Util/` as `static` classes
 - When a helper needs a scene path, reference the `public const` on `SceneManager` — do not declare a duplicate path string in the helper
 

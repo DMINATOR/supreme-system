@@ -2,13 +2,13 @@ using Godot;
 using SupremeEngine;
 using System;
 
-public partial class CardOfferScene : Control
+public partial class CardOfferPrefabScene : Control
 {
 	public event Action<Card> Accepted;
 	public event Action Declined;
 
 	private Card _card;
-	private CardScene _cardScene;
+	private CardPrefabScene _cardScene;
 	private Button _keepButton;
 	private Button _discardButton;
 
@@ -25,7 +25,7 @@ public partial class CardOfferScene : Control
 
 	private void LoadNodes()
 	{
-		_cardScene = GetNode<CardScene>("VBoxContainer/CardScene");
+		_cardScene = GetNode<CardPrefabScene>("VBoxContainer/CardPrefabScene");
 		_keepButton = GetNode<Button>("VBoxContainer/ButtonRow/KeepButton");
 		_discardButton = GetNode<Button>("VBoxContainer/ButtonRow/DiscardButton");
 	}
@@ -34,7 +34,7 @@ public partial class CardOfferScene : Control
 	{
 		if (_card == null)
 		{
-			GD.PushError("CardOfferScene.Setup() must be called before adding to the scene tree.");
+			GD.PushError("CardOfferPrefabScene.Setup() must be called before adding to the scene tree.");
 			return;
 		}
 

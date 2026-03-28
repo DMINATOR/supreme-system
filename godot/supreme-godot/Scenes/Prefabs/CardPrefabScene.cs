@@ -1,7 +1,7 @@
 using Godot;
 using SupremeEngine;
 
-public partial class CardScene : PanelContainer
+public partial class CardPrefabScene : PanelContainer
 {
 	private Label _nameLabel;
 	private Label _rarityLabel;
