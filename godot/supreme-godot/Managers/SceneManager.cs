@@ -2,12 +2,14 @@ using Godot;
 
 public partial class SceneManager : Node
 {
-    private static readonly string MainMenu = "res://Scenes/Menu/MainMenu.tscn";
-    private static readonly string SlotSelection = "res://Scenes/Menu/SlotSelection.tscn";
-    private static readonly string DebugScene = "res://Scenes/Debug/DebugScene.tscn";
-    private static readonly string DefaultScene = "res://Scenes/World/DefaultScene.tscn";
-    private static readonly string BagScene = "res://Scenes/Player/BagScene.tscn";
-    private static readonly string CardCreatorScene = "res://Scenes/Debug/CardCreatorScene.tscn";
+    public const string MainMenu = "res://Scenes/Menu/MainMenu.tscn";
+    public const string SlotSelection = "res://Scenes/Menu/SlotSelection.tscn";
+    public const string DebugScene = "res://Scenes/Debug/DebugScene.tscn";
+    public const string DefaultScene = "res://Scenes/World/DefaultScene.tscn";
+    public const string BagScene = "res://Scenes/Player/BagScene.tscn";
+    public const string CardCreatorScene = "res://Scenes/Debug/CardCreatorScene.tscn";
+    public const string CardScene = "res://Scenes/Player/CardScene.tscn";
+    public const string CardOfferScene = "res://Scenes/Player/CardOfferScene.tscn";
 
     public void GoToMainMenu() => GetTree().ChangeSceneToFile(MainMenu);
 

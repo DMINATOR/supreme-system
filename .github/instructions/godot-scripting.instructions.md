@@ -52,8 +52,9 @@ applyTo: "godot/**/*.cs"
   - `DialogHelper.ShowConfirm(Node parent, string message, Action onConfirmed)` — shows a `ConfirmationDialog`, wires confirm/cancel, and calls `QueueFree` automatically
   - `DialogHelper.ShowError(Node parent, string message)` — logs via `GD.PushError` and shows an `AcceptDialog`
   - `CardSceneHelper.CreateCardScene(Node parent, Card card)` — loads `CardScene.tscn`, adds it to `parent` (triggering `_Ready`/`LoadNodes`), calls `Setup(card)`, and returns the ready node
-  - `CardOfferSceneHelper.CreateCardOfferScene(Card card, Action<Card> onAccepted, Action onDeclined)` — instantiates `CardOfferScene.tscn`, wires `Accepted`/`Declined` signals to the provided callbacks, and returns the ready node
+  - `CardSceneHelper.CreateCardOfferScene(Card card, Action<Card> onAccepted, Action onDeclined)` — instantiates `CardOfferScene.tscn`, wires `Accepted`/`Declined` signals to the provided callbacks, and returns the ready node
 - When adding new reusable Godot UI/node utilities, place them in `Util/` as `static` classes
+- When a helper needs a scene path, reference the `public const` on `SceneManager` — do not declare a duplicate path string in the helper
 
 ### Signals vs C# Events
 - Use `[Signal]` delegates only when the event needs to cross the GDScript boundary or be visible in the Godot editor
