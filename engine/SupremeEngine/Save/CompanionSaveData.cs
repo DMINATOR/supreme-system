@@ -1,8 +1,9 @@
 namespace SupremeEngine;
 
 /// <see href="../../../../docs/systems/save-slots_spec.md"/>
-public record InventoryDto
+public record CompanionSaveData
 {
-    public CardCollectionDto Bag { get; init; } = new();
+    public required string CompanionId { get; init; }
     public CardCollectionDto Deck { get; init; } = new();
+    public EquipmentSlotsDto Equipment { get; init; } = new();
 }

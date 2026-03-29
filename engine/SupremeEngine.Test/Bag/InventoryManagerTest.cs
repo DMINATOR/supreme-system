@@ -8,18 +8,19 @@ public class InventoryManagerTest
         new Card(id, "Test Card", CardRarity.Common, CardType.Attack);
 
     [Fact]
-    public void InventoryManager_StartsWithEmptyBagAndDeck()
+    public void InventoryManager_StartsWithEmptyBagAndPlayerAndNoCompanions()
     {
         // Arrange / Act
         var inventory = new InventoryManager();
 
         // Assert
         Assert.Empty(inventory.Bag.Cards);
-        Assert.Empty(inventory.Deck.Cards);
+        Assert.Empty(inventory.Player.Deck.Cards);
+        Assert.Empty(inventory.Companions);
     }
 
     [Fact]
-    public void Transfer_MovesCardFromBagToDeck()
+    public void Transfer_MovesCardFromBagToPlayerDeck()
     {
         // Arrange
         var inventory = new InventoryManager();
@@ -27,27 +28,27 @@ public class InventoryManagerTest
         inventory.Bag.AddCard(card);
 
         // Act
-        inventory.Transfer(card, inventory.Bag, inventory.Deck);
+        inventory.Transfer(card, inventory.Bag, inventory.Player.Deck);
 
         // Assert
         Assert.Empty(inventory.Bag.Cards);
-        Assert.Single(inventory.Deck.Cards);
-        Assert.Contains(card, inventory.Deck.Cards);
+        Assert.Single(inventory.Player.Deck.Cards);
+        Assert.Contains(card, inventory.Player.Deck.Cards);
     }
 
     [Fact]
-    public void Transfer_MovesCardFromDeckToBag()
+    public void Transfer_MovesCardFromPlayerDeckToBag()
     {
         // Arrange
         var inventory = new InventoryManager();
         var card = MakeCard();
-        inventory.Deck.AddCard(card);
+        inventory.Player.Deck.AddCard(card);
 
         // Act
-        inventory.Transfer(card, inventory.Deck, inventory.Bag);
+        inventory.Transfer(card, inventory.Player.Deck, inventory.Bag);
 
         // Assert
-        Assert.Empty(inventory.Deck.Cards);
+        Assert.Empty(inventory.Player.Deck.Cards);
         Assert.Single(inventory.Bag.Cards);
         Assert.Contains(card, inventory.Bag.Cards);
     }
@@ -60,7 +61,7 @@ public class InventoryManagerTest
         var card = MakeCard();
 
         // Act / Assert
-        Assert.Throws<InvalidOperationException>(() => inventory.Transfer(card, inventory.Bag, inventory.Deck));
+        Assert.Throws<InvalidOperationException>(() => inventory.Transfer(card, inventory.Bag, inventory.Player.Deck));
     }
 
     [Fact]
@@ -71,28 +72,42 @@ public class InventoryManagerTest
         var card = MakeCard();
 
         // Act
-        try { inventory.Transfer(card, inventory.Bag, inventory.Deck); } catch { }
+        try { inventory.Transfer(card, inventory.Bag, inventory.Player.Deck); } catch { }
 
-        // Assert — deck must still be empty, no phantom card added
-        Assert.Empty(inventory.Deck.Cards);
+        // Assert — player deck must still be empty, no phantom card added
+        Assert.Empty(inventory.Player.Deck.Cards);
     }
 
     [Fact]
-    public void ToDto_FromDto_RoundTrip()
+    public void From_RoundTrip()
     {
         // Arrange
         var inventory = new InventoryManager();
         inventory.Bag.AddCard(MakeCard("bag-001"));
-        inventory.Deck.AddCard(MakeCard("deck-001"));
+        inventory.Player.Deck.AddCard(MakeCard("player-deck-001"));
+        inventory.Companions.Add(new CompanionState("aria"));
+        inventory.Companions[0].Deck.AddCard(MakeCard("companion-deck-001"));
+
+        var saveData = new WorldSaveData
+        {
+            Seed = 42,
+            Bag = inventory.Bag.ToDto(),
+            Player = inventory.Player.ToSaveData(),
+            Companions = inventory.Companions.Select(c => c.ToSaveData()).ToList()
+        };
 
         // Act
-        var dto = inventory.ToDto();
-        var restored = InventoryManager.FromDto(dto);
+        var restored = InventoryManager.From(saveData);
 
         // Assert
         Assert.Single(restored.Bag.Cards);
         Assert.Equal("bag-001", restored.Bag.Cards[0].Id);
-        Assert.Single(restored.Deck.Cards);
-        Assert.Equal("deck-001", restored.Deck.Cards[0].Id);
+        Assert.Single(restored.Player.Deck.Cards);
+        Assert.Equal("player-deck-001", restored.Player.Deck.Cards[0].Id);
+        Assert.Single(restored.Companions);
+        Assert.Equal("aria", restored.Companions[0].CompanionId);
+        Assert.Single(restored.Companions[0].Deck.Cards);
+        Assert.Equal("companion-deck-001", restored.Companions[0].Deck.Cards[0].Id);
     }
 }
+

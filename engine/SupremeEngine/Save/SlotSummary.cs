@@ -18,5 +18,5 @@ public class SlotSummary
         $"Slot {Index + 1} — Empty";
 
     private string ToInProgressString() =>
-        $"Slot {Index + 1} — In Progress | Seed: {Data!.Seed} | Cards: {Data.Inventory.Bag.Cards.Count}";
+        $"Slot {Index + 1} — In Progress | Seed: {Data!.Seed} | Cards: {Data.Bag.Cards.Count}";
 }
