@@ -1,16 +1,18 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bmj38xjnn6p4"]
 
-[ext_resource type="Script" path="res://Scenes/Prefabs/CardPrefabHeaderScene.cs" id="1_header"]
-[ext_resource type="Texture2D" path="res://Data/Images/Card/header_common.png" id="2_common"]
-[ext_resource type="Texture2D" path="res://Data/Images/Card/header_uncommon.png" id="3_uncommon"]
-[ext_resource type="Texture2D" path="res://Data/Images/Card/header_rare.png" id="4_rare"]
-[ext_resource type="Texture2D" path="res://Data/Images/Card/header_legendary.png" id="5_legendary"]
-[ext_resource type="Texture2D" path="res://Data/Images/Card/header_unique.png" id="6_unique"]
+[ext_resource type="Script" uid="uid://cjr7k0glgrtt1" path="res://Scenes/Prefabs/CardPrefabHeaderScene.cs" id="1_header"]
+[ext_resource type="Texture2D" uid="uid://btfg0yghds83m" path="res://Data/Images/Card/header_common_512x32.png" id="2_common"]
+[ext_resource type="Texture2D" uid="uid://duec2uxyhvvdb" path="res://Data/Images/Card/header_uncommon_512x32.png" id="3_uncommon"]
+[ext_resource type="Texture2D" uid="uid://b4gmxoljlre5w" path="res://Data/Images/Card/header_rare_512x32.png" id="4_rare"]
+[ext_resource type="Texture2D" uid="uid://dul7cjtdotbux" path="res://Data/Images/Card/header_legendary_512x32.png" id="5_legendary"]
+[ext_resource type="Texture2D" uid="uid://bqro7cq85rkny" path="res://Data/Images/Card/header_unique_512x32.png" id="6_unique"]
 
-[node name="CardPrefabHeaderScene" type="TextureRect"]
+[node name="CardPrefabHeaderScene" type="TextureRect" unique_id=467803151]
+custom_minimum_size = Vector2(32, 32)
+size_flags_horizontal = 3
+texture = ExtResource("2_common")
+expand_mode = 5
 script = ExtResource("1_header")
-expand_mode = 1
-stretch_mode = 3
 CommonHeader = ExtResource("2_common")
 UncommonHeader = ExtResource("3_uncommon")
 RareHeader = ExtResource("4_rare")
