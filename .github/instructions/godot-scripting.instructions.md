@@ -54,6 +54,22 @@ applyTo: "godot/**/*.cs"
 - They are always instantiated via a `CardSceneHelper`-style helper in `Util/`, never directly from a scene script
 - **Never call `Setup` before `AddChild`** on a prefab scene — `_Ready` (and therefore `LoadNodes`) must fire first; the helper is responsible for the correct order
 
+### Asset Binding — Prefer Exported Fields Over Hardcoded Paths
+- **Never hardcode `res://` resource paths inside C# scripts** — use `[Export]` fields and bind the resources in the `.tscn` file instead
+- This keeps resource references deterministic and editor-visible: the scene file is the single source of truth for which assets are used
+- When a sub-component needs to select from a fixed set of assets based on data (e.g. a header image per rarity), extract it into its own prefab scene with one `[Export]` field per variant, bind all variants in that scene's `.tscn`, and expose a `Setup(...)` method that picks the correct one:
+  ```csharp
+  // CardPrefabHeaderScene.cs
+  [Export] public Texture2D CommonHeader { get; set; }
+  [Export] public Texture2D RareHeader   { get; set; }
+
+  public void Setup(CardRarity rarity)
+  {
+      Texture = rarity switch { CardRarity.Common => CommonHeader, _ => RareHeader };
+  }
+  ```
+- The parent scene embeds the sub-scene via `instance=ExtResource(...)` and calls `Setup(...)` from its own `Setup` method — no path strings appear anywhere in C#
+
 ### Util
 - `godot/supreme-godot/Util/` contains shared Godot-layer helpers — check here before writing one-off boilerplate in a scene script
 - Current helpers:

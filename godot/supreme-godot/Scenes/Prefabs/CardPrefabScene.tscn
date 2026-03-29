@@ -1,6 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://Scenes/Prefabs/CardPrefabScene.cs" id="1_card"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/CardPrefabHeaderScene.tscn" id="2_header"]
 
 [node name="CardPrefabScene" type="PanelContainer"]
 custom_minimum_size = Vector2(120, 160)
@@ -12,6 +13,9 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = -8.0
 offset_bottom = -8.0
+
+[node name="HeaderImage" parent="VBoxContainer" instance=ExtResource("2_header")]
+layout_mode = 2
 
 [node name="NameLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
