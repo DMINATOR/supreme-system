@@ -20,11 +20,13 @@ text = "Bag"
 layout_mode = 2
 text = "Back"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CardsContainer" type="HFlowContainer" parent="VBoxContainer/ScrollContainer"]
+[node name="Bag" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
+
+[node name="Player" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+layout_mode = 2
 

@@ -8,8 +8,10 @@ public partial class SceneManager : Node
 	public const string DefaultScene = "res://Scenes/World/DefaultScene.tscn";
 	public const string BagScene = "res://Scenes/Player/BagScene.tscn";
 	public const string CardCreatorScene = "res://Scenes/Debug/CardCreatorScene.tscn";
-	public const string CardPrefabScene = "res://Scenes/Prefabs/CardPrefabScene.tscn";
+	public const string CardCollectionPrefabScene = "res://Scenes/Prefabs/CardCollectionPrefabScene.tscn";
 	public const string CardOfferPrefabScene = "res://Scenes/Prefabs/CardOfferPrefabScene.tscn";
+	public const string CardPrefabScene = "res://Scenes/Prefabs/CardPrefabScene.tscn";
+	public const string EquipmentSlotsPrefabScene = "res://Scenes/Prefabs/EquipmentSlotsPrefabScene.tscn";
 
 	public void GoToMainMenu() => GetTree().ChangeSceneToFile(MainMenu);
 

@@ -5,7 +5,9 @@ public partial class BagScene : Control
 	private SceneManager _sceneManager;
 	private WorldManager _worldManager;
 	private Button _backButton;
-	private HFlowContainer _cardsContainer;
+	private TabContainer _tabContainer;
+	private VBoxContainer _bagContainer;
+	private VBoxContainer _playerContainer;
 
 	public override void _Ready()
 	{
@@ -18,29 +20,51 @@ public partial class BagScene : Control
 		_sceneManager = GetNode<SceneManager>(AutoloadPath.SceneManager);
 		_worldManager = GetNode<WorldManager>(AutoloadPath.WorldManager);
 		_backButton = GetNode<Button>("VBoxContainer/BackButton");
-		_cardsContainer = GetNode<HFlowContainer>("VBoxContainer/ScrollContainer/CardsContainer");
+		_tabContainer = GetNode<TabContainer>("VBoxContainer/TabContainer");
+		_bagContainer = GetNode<VBoxContainer>("VBoxContainer/TabContainer/Bag");
+		_playerContainer = GetNode<VBoxContainer>("VBoxContainer/TabContainer/Player");
 	}
 
 	private void PrepareNodes()
 	{
 		_backButton.Pressed += _sceneManager.GoToWorld;
-		RefreshCards();
+		RefreshScene();
 	}
 
-	private void RefreshCards()
+	private void RefreshScene()
 	{
-		foreach (Node child in _cardsContainer.GetChildren())
-			child.QueueFree();
+		ClearContainer(_bagContainer);
+		ClearContainer(_playerContainer);
+		RemoveCompanionTabs();
 
-		var cards = _worldManager.State.Inventory.Bag.Cards;
-		if (cards.Count == 0)
+		var inventory = _worldManager.State.Inventory;
+
+		CardSceneHelper.CreateCardCollectionScene(_bagContainer, inventory.Bag, "Bag");
+
+		CardSceneHelper.CreateCardCollectionScene(_playerContainer, inventory.Player.Deck, "Deck");
+		CardSceneHelper.CreateEquipmentSlotsScene(_playerContainer, inventory.Player.Equipment, "Equipment");
+
+		foreach (var companion in inventory.Companions)
 		{
-			var empty = new Label { Text = "Bag is empty." };
-			_cardsContainer.AddChild(empty);
-			return;
+			var container = new VBoxContainer { Name = $"Companion: {companion.CompanionId}" };
+			_tabContainer.AddChild(container);
+			CardSceneHelper.CreateCardCollectionScene(container, companion.Deck, "Deck");
+			CardSceneHelper.CreateEquipmentSlotsScene(container, companion.Equipment, "Equipment");
 		}
+	}
 
-		foreach (var card in cards)
-			CardSceneHelper.CreateCardScene(_cardsContainer, card);
+	private static void ClearContainer(VBoxContainer container)
+	{
+		foreach (Node child in container.GetChildren())
+			child.QueueFree();
+	}
+
+	private void RemoveCompanionTabs()
+	{
+		foreach (Node child in _tabContainer.GetChildren())
+		{
+			if (child != _bagContainer && child != _playerContainer)
+				child.QueueFree();
+		}
 	}
 }

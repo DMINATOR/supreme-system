@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scenes/Prefabs/EquipmentSlotsPrefabScene.cs" id="1_eqslots"]
+
+[node name="EquipmentSlotsPrefabScene" type="VBoxContainer"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_eqslots")
+
+[node name="TitleLabel" type="Label" parent="."]
+layout_mode = 2
+
+[node name="SlotsContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3

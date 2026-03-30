@@ -77,6 +77,9 @@ applyTo: "godot/**/*.cs"
   - `DialogHelper.ShowError(Node parent, string message)` — logs via `GD.PushError` and shows an `AcceptDialog`
   - `CardSceneHelper.CreateCardScene(Node parent, Card card)` — loads `CardPrefabScene.tscn`, adds it to `parent` (triggering `_Ready`/`LoadNodes`), calls `Setup(card)`, and returns the ready node
   - `CardSceneHelper.CreateCardOfferScene(Card card, Action<Card> onAccepted, Action onDeclined)` — instantiates `CardOfferPrefabScene.tscn`, wires `Accepted`/`Declined` signals to the provided callbacks, and returns the ready node
+  - `CardSceneHelper.CreateCardCollectionScene(Node parent, CardCollection collection, string label)` — instantiates `CardCollectionPrefabScene.tscn`, calls `Setup(collection, label)`, and returns the ready node
+  - `CardSceneHelper.CreateEquipmentSlotsScene(Node parent, EquipmentSlots slots, string label)` — instantiates `EquipmentSlotsPrefabScene.tscn`, calls `Setup(slots, label)`, and returns the ready node
+- All prefab instantiation helpers live in `CardSceneHelper` — do not create separate helper classes per prefab type
 - When adding new reusable Godot UI/node utilities, place them in `Util/` as `static` classes
 - When a helper needs a scene path, reference the `public const` on `SceneManager` — do not declare a duplicate path string in the helper
 
