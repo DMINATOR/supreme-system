@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cbagscenesss1"]
 
 [ext_resource type="Script" uid="uid://bagscene0001" path="res://Scenes/Player/BagScene.cs" id="1_bag01"]
-[ext_resource type="PackedScene" path="res://Scenes/Prefabs/CardCollectionPrefabScene.tscn" id="2_ccp"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/CardManagement/CardCollectionPrefabScene.tscn" id="2_ccp"]
 [ext_resource type="PackedScene" path="res://Scenes/Prefabs/InventoryPrefabScene.tscn" id="4_inv"]
 
 [node name="BagScene" type="Control" unique_id=375467906]

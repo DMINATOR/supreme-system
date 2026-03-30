@@ -1,24 +1,28 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://sso4cisgfwr7"]
 
-[ext_resource type="Script" path="res://Scenes/Prefabs/InventoryPrefabScene.cs" id="1_inv"]
-[ext_resource type="PackedScene" path="res://Scenes/Prefabs/CardCollectionPrefabScene.tscn" id="2_ccp"]
+[ext_resource type="Script" uid="uid://00p2qjlvxllt" path="res://Scenes/Prefabs/InventoryPrefabScene.cs" id="1_inv"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/CardManagement/CardCollectionPrefabScene.tscn" id="2_ccp"]
 [ext_resource type="PackedScene" path="res://Scenes/Prefabs/EquipmentSlotsPrefabScene.tscn" id="3_eqp"]
 
-[node name="InventoryPrefabScene" type="VBoxContainer"]
+[node name="InventoryPrefabScene" type="VBoxContainer" unique_id=349339869]
+offset_right = 538.0
+offset_bottom = 403.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_inv")
 
-[node name="MemberTabContainer" type="TabContainer" parent="."]
+[node name="MemberTabContainer" type="TabContainer" parent="." unique_id=112435265]
 layout_mode = 2
 size_flags_vertical = 3
+current_tab = 0
 
-[node name="Player" type="VBoxContainer" parent="MemberTabContainer"]
+[node name="Player" type="VBoxContainer" parent="MemberTabContainer" unique_id=2140550503]
 layout_mode = 2
+metadata/_tab_index = 0
 
-[node name="PlayerDeck" parent="MemberTabContainer/Player" instance=ExtResource("2_ccp")]
+[node name="PlayerDeck" parent="MemberTabContainer/Player" unique_id=1643078274 instance=ExtResource("2_ccp")]
 layout_mode = 2
 Source = 1
 
-[node name="PlayerEquipment" parent="MemberTabContainer/Player" instance=ExtResource("3_eqp")]
+[node name="PlayerEquipment" parent="MemberTabContainer/Player" unique_id=568184662 instance=ExtResource("3_eqp")]
 layout_mode = 2

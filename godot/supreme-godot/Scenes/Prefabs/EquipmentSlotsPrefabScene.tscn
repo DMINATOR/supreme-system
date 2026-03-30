@@ -1,101 +1,101 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dnf8o1cp8uisl"]
 
-[ext_resource type="Script" path="res://Scenes/Prefabs/EquipmentSlotsPrefabScene.cs" id="1_eqslots"]
+[ext_resource type="Script" uid="uid://3kyp7nadjx2g" path="res://Scenes/Prefabs/EquipmentSlotsPrefabScene.cs" id="1_eqslots"]
 
-[node name="EquipmentSlotsPrefabScene" type="VBoxContainer"]
+[node name="EquipmentSlotsPrefabScene" type="VBoxContainer" unique_id=1951941562]
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_eqslots")
 
-[node name="TitleLabel" type="Label" parent="."]
+[node name="TitleLabel" type="Label" parent="." unique_id=1950131830]
 layout_mode = 2
 
-[node name="WeaponSlot" type="HBoxContainer" parent="."]
+[node name="WeaponSlot" type="HBoxContainer" parent="." unique_id=737171361]
 layout_mode = 2
 
-[node name="SlotLabel" type="Label" parent="WeaponSlot"]
+[node name="SlotLabel" type="Label" parent="WeaponSlot" unique_id=2094835488]
 layout_mode = 2
 text = "Weapon"
 
-[node name="CardContainer" type="VBoxContainer" parent="WeaponSlot"]
+[node name="CardContainer" type="VBoxContainer" parent="WeaponSlot" unique_id=1481363498]
 layout_mode = 2
 
-[node name="OffHandSlot" type="HBoxContainer" parent="."]
+[node name="OffHandSlot" type="HBoxContainer" parent="." unique_id=974300840]
 layout_mode = 2
 
-[node name="SlotLabel" type="Label" parent="OffHandSlot"]
+[node name="SlotLabel" type="Label" parent="OffHandSlot" unique_id=447593794]
 layout_mode = 2
 text = "Off-Hand"
 
-[node name="CardContainer" type="VBoxContainer" parent="OffHandSlot"]
+[node name="CardContainer" type="VBoxContainer" parent="OffHandSlot" unique_id=303530372]
 layout_mode = 2
 
-[node name="HeadSlot" type="HBoxContainer" parent="."]
+[node name="HeadSlot" type="HBoxContainer" parent="." unique_id=904349774]
 layout_mode = 2
 
-[node name="SlotLabel" type="Label" parent="HeadSlot"]
+[node name="SlotLabel" type="Label" parent="HeadSlot" unique_id=168677002]
 layout_mode = 2
 text = "Head"
 
-[node name="CardContainer" type="VBoxContainer" parent="HeadSlot"]
+[node name="CardContainer" type="VBoxContainer" parent="HeadSlot" unique_id=1864203691]
 layout_mode = 2
 
-[node name="ChestSlot" type="HBoxContainer" parent="."]
+[node name="ChestSlot" type="HBoxContainer" parent="." unique_id=1730612918]
 layout_mode = 2
 
-[node name="SlotLabel" type="Label" parent="ChestSlot"]
+[node name="SlotLabel" type="Label" parent="ChestSlot" unique_id=1761989177]
 layout_mode = 2
 text = "Chest"
 
-[node name="CardContainer" type="VBoxContainer" parent="ChestSlot"]
+[node name="CardContainer" type="VBoxContainer" parent="ChestSlot" unique_id=1297920944]
 layout_mode = 2
 
-[node name="HandsSlot" type="HBoxContainer" parent="."]
+[node name="HandsSlot" type="HBoxContainer" parent="." unique_id=1678047876]
 layout_mode = 2
 
-[node name="SlotLabel" type="Label" parent="HandsSlot"]
+[node name="SlotLabel" type="Label" parent="HandsSlot" unique_id=768705662]
 layout_mode = 2
 text = "Hands"
 
-[node name="CardContainer" type="VBoxContainer" parent="HandsSlot"]
+[node name="CardContainer" type="VBoxContainer" parent="HandsSlot" unique_id=1628660918]
 layout_mode = 2
 
-[node name="FeetSlot" type="HBoxContainer" parent="."]
+[node name="FeetSlot" type="HBoxContainer" parent="." unique_id=860299223]
 layout_mode = 2
 
-[node name="SlotLabel" type="Label" parent="FeetSlot"]
+[node name="SlotLabel" type="Label" parent="FeetSlot" unique_id=1229769632]
 layout_mode = 2
 text = "Feet"
 
-[node name="CardContainer" type="VBoxContainer" parent="FeetSlot"]
+[node name="CardContainer" type="VBoxContainer" parent="FeetSlot" unique_id=1098449192]
 layout_mode = 2
 
-[node name="AmuletSlot" type="HBoxContainer" parent="."]
+[node name="AmuletSlot" type="HBoxContainer" parent="." unique_id=2060993876]
 layout_mode = 2
 
-[node name="SlotLabel" type="Label" parent="AmuletSlot"]
+[node name="SlotLabel" type="Label" parent="AmuletSlot" unique_id=819997338]
 layout_mode = 2
 text = "Amulet"
 
-[node name="CardContainer" type="VBoxContainer" parent="AmuletSlot"]
+[node name="CardContainer" type="VBoxContainer" parent="AmuletSlot" unique_id=889885027]
 layout_mode = 2
 
-[node name="Ring1Slot" type="HBoxContainer" parent="."]
+[node name="Ring1Slot" type="HBoxContainer" parent="." unique_id=1117531645]
 layout_mode = 2
 
-[node name="SlotLabel" type="Label" parent="Ring1Slot"]
+[node name="SlotLabel" type="Label" parent="Ring1Slot" unique_id=746158577]
 layout_mode = 2
 text = "Ring 1"
 
-[node name="CardContainer" type="VBoxContainer" parent="Ring1Slot"]
+[node name="CardContainer" type="VBoxContainer" parent="Ring1Slot" unique_id=1830079722]
 layout_mode = 2
 
-[node name="Ring2Slot" type="HBoxContainer" parent="."]
+[node name="Ring2Slot" type="HBoxContainer" parent="." unique_id=1208702994]
 layout_mode = 2
 
-[node name="SlotLabel" type="Label" parent="Ring2Slot"]
+[node name="SlotLabel" type="Label" parent="Ring2Slot" unique_id=338965467]
 layout_mode = 2
 text = "Ring 2"
 
-[node name="CardContainer" type="VBoxContainer" parent="Ring2Slot"]
+[node name="CardContainer" type="VBoxContainer" parent="Ring2Slot" unique_id=936713260]
 layout_mode = 2
