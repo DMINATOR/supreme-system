@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scenes/Prefabs/Control/SceneButtonPrefabScene.cs" id="1_scenebutton"]
+
+[node name="SceneButtonPrefabScene" type="Button"]
+script = ExtResource("1_scenebutton")

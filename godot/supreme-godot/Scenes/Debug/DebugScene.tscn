@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://cdebugscen11"]
 
 [ext_resource type="Script" uid="uid://oqgpdpi88sf5" path="res://Scenes/Debug/DebugScene.cs" id="1_dbg0"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/Control/SceneButtonPrefabScene.tscn" id="2_scenebutton"]
+[ext_resource type="PackedScene" path="res://Scenes/Menu/MainMenu.tscn" id="3_mainmenu"]
+[ext_resource type="PackedScene" path="res://Scenes/World/DefaultScene.tscn" id="4_defaultscene"]
+[ext_resource type="PackedScene" path="res://Scenes/Player/BagScene.tscn" id="5_bagscene"]
+[ext_resource type="PackedScene" path="res://Scenes/Debug/CardCreatorScene.tscn" id="6_cardcreator"]
 
 [node name="DebugScene" type="Control" unique_id=385510113]
 layout_mode = 3
@@ -28,21 +33,25 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="MainMenuButton" type="Button" parent="VBoxContainer/TabContainer/Scenes" unique_id=1384965293]
+[node name="MainMenuButton" parent="VBoxContainer/TabContainer/Scenes" instance=ExtResource("2_scenebutton")]
 layout_mode = 2
 text = "Main Menu"
+TargetScene = ExtResource("3_mainmenu")
 
-[node name="DefaultSceneButton" type="Button" parent="VBoxContainer/TabContainer/Scenes" unique_id=1364455739]
+[node name="DefaultSceneButton" parent="VBoxContainer/TabContainer/Scenes" instance=ExtResource("2_scenebutton")]
 layout_mode = 2
 text = "Default Scene"
+TargetScene = ExtResource("4_defaultscene")
 
-[node name="BagButton" type="Button" parent="VBoxContainer/TabContainer/Scenes" unique_id=1485343375]
+[node name="BagButton" parent="VBoxContainer/TabContainer/Scenes" instance=ExtResource("2_scenebutton")]
 layout_mode = 2
 text = "Bag"
+TargetScene = ExtResource("5_bagscene")
 
-[node name="CardCreatorButton" type="Button" parent="VBoxContainer/TabContainer/Scenes" unique_id=1485343376]
+[node name="CardCreatorButton" parent="VBoxContainer/TabContainer/Scenes" instance=ExtResource("2_scenebutton")]
 layout_mode = 2
 text = "Card Creator"
+TargetScene = ExtResource("6_cardcreator")
 
 [node name="World" type="VBoxContainer" parent="VBoxContainer/TabContainer" unique_id=946127892]
 layout_mode = 2
