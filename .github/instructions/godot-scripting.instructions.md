@@ -39,6 +39,7 @@ applyTo: "godot/**/*.cs"
 - When creating a `.tscn` or `.tres` manually for a script that **already has** a `.cs.uid` file: read the `.cs.uid` file and copy the exact value into the `[ext_resource]` line
 - When creating a `.tscn` or `.tres` manually for a **new script** (no `.cs.uid` exists yet): omit the `uid=` attribute from `[ext_resource]` entirely — Godot will use the path as a fallback and generate the `.cs.uid` and assign the UID on next project load
 - Never create `.cs.uid` files manually — always let Godot generate them
+- **Never use a `.cs.uid` value as the `uid=` for a `PackedScene` ext_resource** — `.cs.uid` files hold script UIDs, not scene UIDs; scene UIDs live in the `uid=` attribute on the `[gd_scene]` header line of the `.tscn` file itself; if the `.tscn` was created manually and has no header UID, omit `uid=` from the `[ext_resource]` reference entirely
 - When embedding a sub-scene inside a `.tscn`, use `instance=ExtResource("...")` on the node line — **never combine `type=` and `instance=` on the same node**; `type=` overrides `instance=` and the script won't be attached:
   ```
   [node name="CardScene" parent="VBoxContainer" instance=ExtResource("2_card")]
@@ -77,9 +78,12 @@ applyTo: "godot/**/*.cs"
   - `DialogHelper.ShowError(Node parent, string message)` — logs via `GD.PushError` and shows an `AcceptDialog`
   - `CardSceneHelper.CreateCardScene(Node parent, Card card)` — loads `CardPrefabScene.tscn`, adds it to `parent` (triggering `_Ready`/`LoadNodes`), calls `Setup(card)`, and returns the ready node
   - `CardSceneHelper.CreateCardOfferScene(Card card, Action<Card> onAccepted, Action onDeclined)` — instantiates `CardOfferPrefabScene.tscn`, wires `Accepted`/`Declined` signals to the provided callbacks, and returns the ready node
-  - `CardSceneHelper.CreateCardCollectionScene(Node parent, CardCollection collection, string label)` — instantiates `CardCollectionPrefabScene.tscn`, calls `Setup(collection, label)`, and returns the ready node
-  - `CardSceneHelper.CreateEquipmentSlotsScene(Node parent, EquipmentSlots slots, string label)` — instantiates `EquipmentSlotsPrefabScene.tscn`, calls `Setup(slots, label)`, and returns the ready node
+  - `CardSceneHelper.CreateCompanionDeckScene(Node parent, string companionId)` — instantiates `CardCollectionPrefabScene.tscn`, sets `Source = CompanionDeck` and `CompanionId` before `AddChild`, and returns the ready node
+  - `CardSceneHelper.CreateCompanionEquipmentScene(Node parent, string companionId)` — instantiates `EquipmentSlotsPrefabScene.tscn`, sets `Source = Companion` and `CompanionId` before `AddChild`, and returns the ready node
 - All prefab instantiation helpers live in `CardSceneHelper` — do not create separate helper classes per prefab type
+- Self-loading prefab scenes use `[Export]` properties to identify their data source; set these properties on the instantiated node **before** calling `AddChild` so they are available when `_Ready` fires — this is the correct pattern, not `Setup()`
+- Static prefab instances (non-companion) are embedded directly in the parent `.tscn` using `instance=ExtResource(...)` with their `[Export]` values set inline — no runtime instantiation needed for fixed slots
+- `InventoryPrefabScene` is the prefab that owns the member `TabContainer`; it embeds static Player tab sub-scenes in its `.tscn` and adds dynamic companion tabs in `PrepareNodes` — embed it in parent scenes via `instance=ExtResource(...)` rather than instantiating it in code
 - When adding new reusable Godot UI/node utilities, place them in `Util/` as `static` classes
 - When a helper needs a scene path, reference the `public const` on `SceneManager` — do not declare a duplicate path string in the helper
 

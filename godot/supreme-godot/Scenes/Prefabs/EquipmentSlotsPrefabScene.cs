@@ -1,43 +1,78 @@
 using Godot;
 using SupremeEngine;
+using System.Linq;
+
+public enum EquipmentSource { Player, Companion }
 
 public partial class EquipmentSlotsPrefabScene : Control
 {
+	[Export] public EquipmentSource Source { get; set; }
+	[Export] public string CompanionId { get; set; } = "";
+
+	private WorldManager _worldManager;
 	private Label _titleLabel;
-	private VBoxContainer _slotsContainer;
+	private VBoxContainer _weaponContainer;
+	private VBoxContainer _offHandContainer;
+	private VBoxContainer _headContainer;
+	private VBoxContainer _chestContainer;
+	private VBoxContainer _handsContainer;
+	private VBoxContainer _feetContainer;
+	private VBoxContainer _amuletContainer;
+	private VBoxContainer _ring1Container;
+	private VBoxContainer _ring2Container;
 
 	public override void _Ready()
 	{
 		LoadNodes();
+		PrepareNodes();
 	}
 
 	private void LoadNodes()
 	{
+		_worldManager = GetNode<WorldManager>(AutoloadPath.WorldManager);
 		_titleLabel = GetNode<Label>("TitleLabel");
-		_slotsContainer = GetNode<VBoxContainer>("SlotsContainer");
+		_weaponContainer = GetNode<VBoxContainer>("WeaponSlot/CardContainer");
+		_offHandContainer = GetNode<VBoxContainer>("OffHandSlot/CardContainer");
+		_headContainer = GetNode<VBoxContainer>("HeadSlot/CardContainer");
+		_chestContainer = GetNode<VBoxContainer>("ChestSlot/CardContainer");
+		_handsContainer = GetNode<VBoxContainer>("HandsSlot/CardContainer");
+		_feetContainer = GetNode<VBoxContainer>("FeetSlot/CardContainer");
+		_amuletContainer = GetNode<VBoxContainer>("AmuletSlot/CardContainer");
+		_ring1Container = GetNode<VBoxContainer>("Ring1Slot/CardContainer");
+		_ring2Container = GetNode<VBoxContainer>("Ring2Slot/CardContainer");
 	}
 
-	public void Setup(EquipmentSlots slots, string label)
+	private void PrepareNodes()
 	{
-		_titleLabel.Text = label;
+		var inventory = _worldManager.State.Inventory;
 
-		foreach (Node child in _slotsContainer.GetChildren())
-			child.QueueFree();
+		var slots = Source switch
+		{
+			EquipmentSource.Player => inventory.Player.Equipment,
+			EquipmentSource.Companion => inventory.Companions.First(c => c.CompanionId == CompanionId).Equipment,
+			_ => null
+		};
 
-		AddSlotLabel("Weapon", slots.Weapon);
-		AddSlotLabel("Off-Hand", slots.OffHand);
-		AddSlotLabel("Head", slots.Head);
-		AddSlotLabel("Chest", slots.Chest);
-		AddSlotLabel("Hands", slots.Hands);
-		AddSlotLabel("Feet", slots.Feet);
-		AddSlotLabel("Amulet", slots.Amulet);
-		AddSlotLabel("Ring 1", slots.Ring1);
-		AddSlotLabel("Ring 2", slots.Ring2);
+		if (slots is null)
+			return;
+
+		_titleLabel.Text = "Equipment";
+
+		PopulateSlot(_weaponContainer, slots.Weapon);
+		PopulateSlot(_offHandContainer, slots.OffHand);
+		PopulateSlot(_headContainer, slots.Head);
+		PopulateSlot(_chestContainer, slots.Chest);
+		PopulateSlot(_handsContainer, slots.Hands);
+		PopulateSlot(_feetContainer, slots.Feet);
+		PopulateSlot(_amuletContainer, slots.Amulet);
+		PopulateSlot(_ring1Container, slots.Ring1);
+		PopulateSlot(_ring2Container, slots.Ring2);
 	}
 
-	private void AddSlotLabel(string slotName, Card card)
+	private void PopulateSlot(VBoxContainer container, Card card)
 	{
-		var text = card is not null ? $"{slotName}: {card.Name}" : $"{slotName}: —";
-		_slotsContainer.AddChild(new Label { Text = text });
+		if (card is not null)
+			CardSceneHelper.CreateCardScene(container, card);
 	}
 }
+

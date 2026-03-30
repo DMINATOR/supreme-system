@@ -4,21 +4,23 @@ using System;
 
 public static class CardSceneHelper
 {
-    public static EquipmentSlotsPrefabScene CreateEquipmentSlotsScene(Node parent, EquipmentSlots slots, string label)
-    {
-        var prefab = GD.Load<PackedScene>(SceneManager.EquipmentSlotsPrefabScene);
-        var scene = prefab.Instantiate<EquipmentSlotsPrefabScene>();
-        parent.AddChild(scene);
-        scene.Setup(slots, label);
-        return scene;
-    }
-
-    public static CardCollectionPrefabScene CreateCardCollectionScene(Node parent, CardCollection collection, string label)
+    public static CardCollectionPrefabScene CreateCompanionDeckScene(Node parent, string companionId)
     {
         var prefab = GD.Load<PackedScene>(SceneManager.CardCollectionPrefabScene);
         var scene = prefab.Instantiate<CardCollectionPrefabScene>();
+        scene.Source = CollectionSource.CompanionDeck;
+        scene.CompanionId = companionId;
         parent.AddChild(scene);
-        scene.Setup(collection, label);
+        return scene;
+    }
+
+    public static EquipmentSlotsPrefabScene CreateCompanionEquipmentScene(Node parent, string companionId)
+    {
+        var prefab = GD.Load<PackedScene>(SceneManager.EquipmentSlotsPrefabScene);
+        var scene = prefab.Instantiate<EquipmentSlotsPrefabScene>();
+        scene.Source = EquipmentSource.Companion;
+        scene.CompanionId = companionId;
+        parent.AddChild(scene);
         return scene;
     }
 

@@ -1,0 +1,24 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scenes/Prefabs/InventoryPrefabScene.cs" id="1_inv"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/CardCollectionPrefabScene.tscn" id="2_ccp"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/EquipmentSlotsPrefabScene.tscn" id="3_eqp"]
+
+[node name="InventoryPrefabScene" type="VBoxContainer"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_inv")
+
+[node name="MemberTabContainer" type="TabContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Player" type="VBoxContainer" parent="MemberTabContainer"]
+layout_mode = 2
+
+[node name="PlayerDeck" parent="MemberTabContainer/Player" instance=ExtResource("2_ccp")]
+layout_mode = 2
+Source = 1
+
+[node name="PlayerEquipment" parent="MemberTabContainer/Player" instance=ExtResource("3_eqp")]
+layout_mode = 2

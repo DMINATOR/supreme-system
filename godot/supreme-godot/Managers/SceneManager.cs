@@ -12,6 +12,7 @@ public partial class SceneManager : Node
 	public const string CardOfferPrefabScene = "res://Scenes/Prefabs/CardOfferPrefabScene.tscn";
 	public const string CardPrefabScene = "res://Scenes/Prefabs/CardPrefabScene.tscn";
 	public const string EquipmentSlotsPrefabScene = "res://Scenes/Prefabs/EquipmentSlotsPrefabScene.tscn";
+	public const string InventoryPrefabScene = "res://Scenes/Prefabs/InventoryPrefabScene.tscn";
 
 	public void GoToMainMenu() => GetTree().ChangeSceneToFile(MainMenu);
 

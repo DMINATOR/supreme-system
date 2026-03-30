@@ -10,6 +10,92 @@ script = ExtResource("1_eqslots")
 [node name="TitleLabel" type="Label" parent="."]
 layout_mode = 2
 
-[node name="SlotsContainer" type="VBoxContainer" parent="."]
+[node name="WeaponSlot" type="HBoxContainer" parent="."]
 layout_mode = 2
-size_flags_vertical = 3
+
+[node name="SlotLabel" type="Label" parent="WeaponSlot"]
+layout_mode = 2
+text = "Weapon"
+
+[node name="CardContainer" type="VBoxContainer" parent="WeaponSlot"]
+layout_mode = 2
+
+[node name="OffHandSlot" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="SlotLabel" type="Label" parent="OffHandSlot"]
+layout_mode = 2
+text = "Off-Hand"
+
+[node name="CardContainer" type="VBoxContainer" parent="OffHandSlot"]
+layout_mode = 2
+
+[node name="HeadSlot" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="SlotLabel" type="Label" parent="HeadSlot"]
+layout_mode = 2
+text = "Head"
+
+[node name="CardContainer" type="VBoxContainer" parent="HeadSlot"]
+layout_mode = 2
+
+[node name="ChestSlot" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="SlotLabel" type="Label" parent="ChestSlot"]
+layout_mode = 2
+text = "Chest"
+
+[node name="CardContainer" type="VBoxContainer" parent="ChestSlot"]
+layout_mode = 2
+
+[node name="HandsSlot" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="SlotLabel" type="Label" parent="HandsSlot"]
+layout_mode = 2
+text = "Hands"
+
+[node name="CardContainer" type="VBoxContainer" parent="HandsSlot"]
+layout_mode = 2
+
+[node name="FeetSlot" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="SlotLabel" type="Label" parent="FeetSlot"]
+layout_mode = 2
+text = "Feet"
+
+[node name="CardContainer" type="VBoxContainer" parent="FeetSlot"]
+layout_mode = 2
+
+[node name="AmuletSlot" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="SlotLabel" type="Label" parent="AmuletSlot"]
+layout_mode = 2
+text = "Amulet"
+
+[node name="CardContainer" type="VBoxContainer" parent="AmuletSlot"]
+layout_mode = 2
+
+[node name="Ring1Slot" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="SlotLabel" type="Label" parent="Ring1Slot"]
+layout_mode = 2
+text = "Ring 1"
+
+[node name="CardContainer" type="VBoxContainer" parent="Ring1Slot"]
+layout_mode = 2
+
+[node name="Ring2Slot" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="SlotLabel" type="Label" parent="Ring2Slot"]
+layout_mode = 2
+text = "Ring 2"
+
+[node name="CardContainer" type="VBoxContainer" parent="Ring2Slot"]
+layout_mode = 2
