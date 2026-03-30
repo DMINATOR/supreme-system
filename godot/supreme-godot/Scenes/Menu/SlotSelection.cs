@@ -7,7 +7,6 @@ public partial class SlotSelection : Control
 	private SceneManager _sceneManager;
 	private WorldManager _worldManager;
 
-	private Button _backButton;
 	private VBoxContainer _slotsContainer;
 
 	public override void _Ready()
@@ -21,13 +20,11 @@ public partial class SlotSelection : Control
 		_saveManager = GetNode<SaveManager>(AutoloadPath.SaveManager);
 		_sceneManager = GetNode<SceneManager>(AutoloadPath.SceneManager);
 		_worldManager = GetNode<WorldManager>(AutoloadPath.WorldManager);
-		_backButton = GetNode<Button>("VBoxContainer/BackButton");
 		_slotsContainer = GetNode<VBoxContainer>("VBoxContainer/SlotsContainer");
 	}
 
 	private void PrepareNodes()
 	{
-		_backButton.Pressed += OnBackPressed;
 		RefreshSlots();
 	}
 

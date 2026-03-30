@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cnquabh1r2gho"]
 
 [ext_resource type="Script" path="res://Scenes/Debug/CardCreatorScene.cs" id="1_cc0"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/Control/SceneButtonPrefabScene.tscn" id="2_scenebutton"]
 
 [node name="CardCreatorScene" type="Control" unique_id=301847291]
 layout_mode = 3
@@ -18,9 +19,10 @@ anchor_bottom = 1.0
 layout_mode = 2
 text = "Card Creator"
 
-[node name="BackButton" type="Button" parent="VBoxContainer" unique_id=401847293]
+[node name="BackButton" parent="VBoxContainer" instance=ExtResource("2_scenebutton")]
 layout_mode = 2
 text = "Back"
+TargetScene = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer" unique_id=401847294]
 layout_mode = 2

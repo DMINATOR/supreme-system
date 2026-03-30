@@ -1,13 +1,24 @@
 using Godot;
+using System.Reflection;
 
 public partial class SceneManager : Node
 {
-	public const string MainMenu = "res://Scenes/Menu/MainMenu.tscn";
-	public const string SlotSelection = "res://Scenes/Menu/SlotSelection.tscn";
-	public const string DebugScene = "res://Scenes/Debug/DebugScene.tscn";
-	public const string DefaultScene = "res://Scenes/World/DefaultScene.tscn";
-	public const string BagScene = "res://Scenes/Player/BagScene.tscn";
-	public const string CardCreatorScene = "res://Scenes/Debug/CardCreatorScene.tscn";
+	public enum GameScene
+	{
+		[ScenePath("res://Scenes/Menu/MainMenu.tscn")]
+		MainMenu,
+		[ScenePath("res://Scenes/Menu/SlotSelection.tscn")]
+		SlotSelection,
+		[ScenePath("res://Scenes/Debug/DebugScene.tscn")]
+		DebugScene,
+		[ScenePath("res://Scenes/World/DefaultScene.tscn")]
+		DefaultScene,
+		[ScenePath("res://Scenes/Player/BagScene.tscn")]
+		BagScene,
+		[ScenePath("res://Scenes/Debug/CardCreatorScene.tscn")]
+		CardCreatorScene,
+	}
+
 	public const string CardCollectionPrefabScene = "res://Scenes/Prefabs/CardManagement/CardCollectionPrefabScene.tscn";
 	public const string CardOfferPrefabScene = "res://Scenes/Prefabs/CardManagement/CardOfferPrefabScene.tscn";
 	public const string CardPrefabScene = "res://Scenes/Prefabs/CardManagement/CardPrefabScene.tscn";
@@ -15,15 +26,31 @@ public partial class SceneManager : Node
 	public const string InventoryPrefabScene = "res://Scenes/Prefabs/InventoryPrefabScene.tscn";
 	public const string SceneButtonPrefabScene = "res://Scenes/Prefabs/Control/SceneButtonPrefabScene.tscn";
 
-	public void GoToMainMenu() => GetTree().ChangeSceneToFile(MainMenu);
+	public void GoToMainMenu() => GoTo(GameScene.MainMenu);
 
-	public void GoToSlotSelection() => GetTree().ChangeSceneToFile(SlotSelection);
+	public void GoToSlotSelection() => GoTo(GameScene.SlotSelection);
 
-	public void GoToWorld() => GetTree().ChangeSceneToFile(DebugScene);
+	public void GoToWorld() => GoTo(GameScene.DebugScene);
 
-	public void GoToDefaultScene() => GetTree().ChangeSceneToFile(DefaultScene);
+	public void GoToDefaultScene() => GoTo(GameScene.DefaultScene);
 
-	public void GoToBag() => GetTree().ChangeSceneToFile(BagScene);
+	public void GoToBag() => GoTo(GameScene.BagScene);
 
-	public void GoToCardCreator() => GetTree().ChangeSceneToFile(CardCreatorScene);
+	public void GoToCardCreator() => GoTo(GameScene.CardCreatorScene);
+
+	public void GoTo(GameScene scene)
+	{
+		var path = typeof(GameScene)
+			.GetField(scene.ToString())
+			?.GetCustomAttribute<ScenePathAttribute>()
+			?.Path;
+
+		if (path == null)
+		{
+			GD.PushError($"SceneManager.GoTo: no ScenePath attribute for '{scene}'.");
+			return;
+		}
+
+		GetTree().ChangeSceneToFile(path);
+	}
 }

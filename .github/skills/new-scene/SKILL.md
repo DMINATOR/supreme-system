@@ -42,14 +42,21 @@ Rules:
 - Use `type="{BaseType}"` on the root node
 - Add child nodes to match the scene's layout; keep it minimal for now
 
-### Step 3 — Update SceneManager
-Edit `godot/supreme-godot/Managers/SceneManager.cs`:
+### Step 3 — Update SceneManager and GameScene
+Edit `godot/supreme-godot/Managers/SceneManager.cs` and `godot/supreme-godot/Managers/GameScene.cs`:
 
-1. Add a `public const string` path constant — alphabetical order among existing constants:
+1. Add a value to the `GameScene` enum (in `GameScene.cs`) at the end — note its integer index:
+   ```csharp
+   {SceneName},  // index N
+   ```
+2. Add a `public const string` path constant to `SceneManager` — alphabetical order:
    ```csharp
    public const string {SceneName} = "res://{Folder}/{SceneName}.tscn";
    ```
-2. Add a `public void GoTo{SceneName}()` method — alphabetical order among existing methods:
+3. Add a case to `SceneManager.GoTo(GameScene)` and a `GoTo{SceneName}()` convenience method:
+   ```csharp
+   GameScene.{SceneName} => {SceneName},
+   ```
    ```csharp
    public void GoTo{SceneName}() => GetTree().ChangeSceneToFile({SceneName});
    ```
@@ -57,39 +64,27 @@ Edit `godot/supreme-godot/Managers/SceneManager.cs`:
 ### Step 4 — Update DebugScene.tscn
 Edit `godot/supreme-godot/Scenes/Debug/DebugScene.tscn`.
 
-Add a `Button` node as a child of `VBoxContainer/TabContainer/Scenes`, after the last existing Button:
+Add a `SceneButtonPrefabScene` instance as a child of `VBoxContainer/TabContainer/Scenes`, after the last existing button node. The `SceneButtonPrefabScene` ext_resource must already be declared (id `2_scenebutton`). Set `TargetScene` to the integer index of the new `GameScene` enum value:
 ```
-[node name="{SceneName}Button" type="Button" parent="VBoxContainer/TabContainer/Scenes"]
+[node name="{SceneName}Button" parent="VBoxContainer/TabContainer/Scenes" instance=ExtResource("2_scenebutton")]
 layout_mode = 2
 text = "{Display Name}"
+TargetScene = N
 ```
-- Button name: `{SceneName}Button`
+- Node name: `{SceneName}Button`
 - Text: human-readable label (e.g. `"Combat Scene"` for `CombatScene`)
-- Do NOT add a `unique_id` — omit entirely
+- Do NOT add a `unique_id`
 
-### Step 5 — Update DebugScene.cs
-Edit `godot/supreme-godot/Scenes/Debug/DebugScene.cs`:
-
-1. Add a private field at the top of the fields block (with other `Button` fields):
-   ```csharp
-   private Button _{sceneName}Button;
-   ```
-2. Add a `GetNode` call in `LoadNodes()` after the last button `GetNode`:
-   ```csharp
-   _{sceneName}Button = GetNode<Button>("VBoxContainer/TabContainer/Scenes/{SceneName}Button");
-   ```
-3. Add a signal wire in `PrepareNodes()` after the last button signal:
-   ```csharp
-   _{sceneName}Button.Pressed += _sceneManager.GoTo{SceneName};
-   ```
+### Step 5 — No DebugScene.cs changes needed
+Navigation is handled entirely by `SceneButtonPrefabScene` via the `TargetScenePath` export. Do not add fields, `GetNode` calls, or signal wiring to `DebugScene.cs`.
 
 ## Checklist
 - [ ] `{SceneName}.cs` created (partial class, LoadNodes/PrepareNodes)
 - [ ] `{SceneName}.tscn` created (no UIDs)
 - [ ] No `.cs.uid` created manually
+- [ ] `GameScene.cs` — new enum value added
 - [ ] `SceneManager.cs` — path constant added
 - [ ] `SceneManager.cs` — `GoTo{SceneName}()` method added
-- [ ] `DebugScene.tscn` — Button node added under `VBoxContainer/TabContainer/Scenes`
-- [ ] `DebugScene.cs` — private field added
-- [ ] `DebugScene.cs` — `GetNode` in `LoadNodes` added
-- [ ] `DebugScene.cs` — signal wired in `PrepareNodes`
+- [ ] `SceneManager.cs` — case added to `GoTo(GameScene)`
+- [ ] `DebugScene.tscn` — `SceneButtonPrefabScene` instance node added under `VBoxContainer/TabContainer/Scenes` with `TargetScene` bound
+- [ ] `DebugScene.cs` — no changes needed

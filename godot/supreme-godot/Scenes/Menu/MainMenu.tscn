@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cmainmenuscn1"]
 
 [ext_resource type="Script" uid="uid://cmainmenuscrp" path="res://Scenes/Menu/MainMenu.cs" id="1_main0"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/Control/SceneButtonPrefabScene.tscn" id="2_scenebutton"]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -14,5 +15,6 @@ anchor_bottom = 1.0
 [node name="Title" type="Label" parent="VBoxContainer"]
 text = "Supreme"
 
-[node name="PlayButton" type="Button" parent="VBoxContainer"]
+[node name="PlayButton" parent="VBoxContainer" instance=ExtResource("2_scenebutton")]
 text = "Play"
+TargetScene = 1

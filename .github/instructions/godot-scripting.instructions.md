@@ -105,6 +105,13 @@ applyTo: "godot/**/*.cs"
 
 
 - All scene transitions go through `SceneManager` — do not call `GetTree().ChangeSceneToFile(...)` directly from node scripts
+- **Navigation-only buttons** (whose sole purpose is to navigate to a scene) must use `SceneButtonPrefabScene` — embed `instance=ExtResource(...)` in the `.tscn` with `text` and `TargetScenePath` set inline; do NOT add a `private Button` field, `GetNode`, or `_sceneManager.GoTo*` wiring in C#
+  - `SceneButtonPrefabScene` lives at `res://Scenes/Prefabs/Control/SceneButtonPrefabScene.tscn`
+  - `TargetScene` is a `GameScene` enum export — set it to the integer value of the enum in the `.tscn` (e.g. `TargetScene = 0` for `GameScene.MainMenu`); the `GameScene` enum is defined inside `SceneManager` and lists all navigable scenes in order
+  - Each `GameScene` value is decorated with `[ScenePath("res://...")]` — `SceneManager.GoTo(GameScene)` resolves the path via reflection; no switch statement is needed
+  - When a new navigable scene is added, add its value to `GameScene` with a `[ScenePath(...)]` attribute and a `GoTo<SceneName>()` convenience method to `SceneManager`
+  - Only use a plain `Button` + `_sceneManager.GoTo*` when navigation is conditional (e.g. guarded by a load result or confirmation dialog)
 - When a scene is **created, renamed, or removed**, always update all of the following without being asked:
   - `SceneManager.cs`: path constant and `GoTo<SceneName>()` method (add, rename, or remove)
-  - `DebugScene.cs`: button node in the `Scenes` tab of the `TabContainer`, and `GetNode<Button>` in `LoadNodes` + signal wiring in `PrepareNodes` (add, rename, or remove)
+  - `DebugScene.tscn`: `SceneButtonPrefabScene` instance node in `VBoxContainer/TabContainer/Scenes`, with `text` and `TargetScene` bound inline (add, rename, or remove)
+  - `DebugScene.cs`: no C# changes needed for navigation buttons — handled entirely by the `.tscn`

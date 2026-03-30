@@ -5,9 +5,7 @@ public partial class CardCreatorScene : Control
 {
 	private const string LibraryPath = "res://Data/Cards/CardTemplateLibrary.tres";
 
-	private SceneManager _sceneManager;
 	private WorldManager _worldManager;
-	private Button _backButton;
 	private VBoxContainer _templatesContainer;
 	private Control _offerContainer;
 
@@ -19,16 +17,13 @@ public partial class CardCreatorScene : Control
 
 	private void LoadNodes()
 	{
-		_sceneManager = GetNode<SceneManager>(AutoloadPath.SceneManager);
 		_worldManager = GetNode<WorldManager>(AutoloadPath.WorldManager);
-		_backButton = GetNode<Button>("VBoxContainer/BackButton");
 		_templatesContainer = GetNode<VBoxContainer>("VBoxContainer/ScrollContainer/TemplatesContainer");
 		_offerContainer = GetNode<Control>("VBoxContainer/OfferContainer");
 	}
 
 	private void PrepareNodes()
 	{
-		_backButton.Pressed += _sceneManager.GoToWorld;
 		PopulateTemplates();
 	}
 
@@ -71,7 +66,7 @@ public partial class CardCreatorScene : Control
 
 		var factory = new CardFactory(_worldManager.State.Random);
 		var card = factory.Create(resource.ToCardTemplate());
-        _worldManager.State.Inventory.Bag.AddCard(card);
+		_worldManager.State.Inventory.Bag.AddCard(card);
 	}
 
 	private void ClearOffer()
@@ -80,4 +75,3 @@ public partial class CardCreatorScene : Control
 			child.QueueFree();
 	}
 }
-

@@ -3,11 +3,19 @@ using Godot;
 public partial class SceneButtonPrefabScene : Button
 {
 	[Export]
-	public PackedScene TargetScene { get; set; }
+	public SceneManager.GameScene TargetScene { get; set; }
+
+	private SceneManager _sceneManager;
 
 	public override void _Ready()
 	{
+		LoadNodes();
 		PrepareNodes();
+	}
+
+	private void LoadNodes()
+	{
+		_sceneManager = GetNode<SceneManager>(AutoloadPath.SceneManager);
 	}
 
 	private void PrepareNodes()
@@ -17,12 +25,6 @@ public partial class SceneButtonPrefabScene : Button
 
 	private void OnPressed()
 	{
-		if (TargetScene == null)
-		{
-			GD.PushError("SceneButtonPrefabScene: TargetScene export is not set.");
-			return;
-		}
-
-		GetTree().ChangeSceneToPacked(TargetScene);
+		_sceneManager.GoTo(TargetScene);
 	}
 }

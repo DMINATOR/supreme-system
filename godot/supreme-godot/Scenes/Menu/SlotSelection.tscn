@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cslotselscn11"]
 
 [ext_resource type="Script" uid="uid://cslotselscr11" path="res://Scenes/Menu/SlotSelection.cs" id="1_slot0"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/Control/SceneButtonPrefabScene.tscn" id="2_scenebutton"]
 
 [node name="SlotSelection" type="Control"]
 anchor_right = 1.0
@@ -17,5 +18,6 @@ text = "Select Save Slot"
 [node name="SlotsContainer" type="VBoxContainer" parent="VBoxContainer"]
 size_flags_horizontal = 3
 
-[node name="BackButton" type="Button" parent="VBoxContainer"]
+[node name="BackButton" parent="VBoxContainer" instance=ExtResource("2_scenebutton")]
 text = "Back"
+TargetScene = 0
