@@ -5,8 +5,8 @@ public partial class BagScene : Control
 	private SceneManager _sceneManager;
 	private WorldManager _worldManager;
 	private Button _backButton;
-	private TabContainer _tabContainer;
 	private VBoxContainer _bagContainer;
+	private TabContainer _memberTabContainer;
 	private VBoxContainer _playerContainer;
 
 	public override void _Ready()
@@ -20,9 +20,9 @@ public partial class BagScene : Control
 		_sceneManager = GetNode<SceneManager>(AutoloadPath.SceneManager);
 		_worldManager = GetNode<WorldManager>(AutoloadPath.WorldManager);
 		_backButton = GetNode<Button>("VBoxContainer/BackButton");
-		_tabContainer = GetNode<TabContainer>("VBoxContainer/TabContainer");
-		_bagContainer = GetNode<VBoxContainer>("VBoxContainer/TabContainer/Bag");
-		_playerContainer = GetNode<VBoxContainer>("VBoxContainer/TabContainer/Player");
+		_bagContainer = GetNode<VBoxContainer>("VBoxContainer/HBoxContainer/BagContainer");
+		_memberTabContainer = GetNode<TabContainer>("VBoxContainer/HBoxContainer/MemberTabContainer");
+		_playerContainer = GetNode<VBoxContainer>("VBoxContainer/HBoxContainer/MemberTabContainer/Player");
 	}
 
 	private void PrepareNodes()
@@ -47,7 +47,7 @@ public partial class BagScene : Control
 		foreach (var companion in inventory.Companions)
 		{
 			var container = new VBoxContainer { Name = $"Companion: {companion.CompanionId}" };
-			_tabContainer.AddChild(container);
+			_memberTabContainer.AddChild(container);
 			CardSceneHelper.CreateCardCollectionScene(container, companion.Deck, "Deck");
 			CardSceneHelper.CreateEquipmentSlotsScene(container, companion.Equipment, "Equipment");
 		}
@@ -61,9 +61,9 @@ public partial class BagScene : Control
 
 	private void RemoveCompanionTabs()
 	{
-		foreach (Node child in _tabContainer.GetChildren())
+		foreach (Node child in _memberTabContainer.GetChildren())
 		{
-			if (child != _bagContainer && child != _playerContainer)
+			if (child != _playerContainer)
 				child.QueueFree();
 		}
 	}
