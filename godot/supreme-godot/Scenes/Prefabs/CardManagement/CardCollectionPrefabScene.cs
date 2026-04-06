@@ -43,13 +43,10 @@ public partial class CardCollectionPrefabScene : Control
 
 		_titleLabel.Text = label;
 
-		if (collection.Cards.Count == 0)
+		for (var i = 0; i < collection.Capacity; i++)
 		{
-			_cardsContainer.AddChild(new Label { Text = "Empty." });
-			return;
+			var card = i < collection.Cards.Count ? collection.Cards[i] : null;
+			PrefabFactory.CreateCardSlotScene(_cardsContainer, i, card);
 		}
-
-		foreach (var card in collection.Cards)
-			PrefabFactory.CreateCardScene(_cardsContainer, card);
 	}
 }

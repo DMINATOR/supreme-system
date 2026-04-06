@@ -22,6 +22,7 @@ public partial class SceneManager : Node
 	public const string CardCollectionPrefabScene = "res://Scenes/Prefabs/CardManagement/CardCollectionPrefabScene.tscn";
 	public const string CardOfferPrefabScene = "res://Scenes/Prefabs/CardManagement/CardOfferPrefabScene.tscn";
 	public const string CardPrefabScene = "res://Scenes/Prefabs/CardManagement/CardPrefabScene.tscn";
+	public const string CardSlotPrefabScene = "res://Scenes/Prefabs/CardManagement/CardSlotPrefabScene.tscn";
 	public const string EquipmentSlotsPrefabScene = "res://Scenes/Prefabs/EquipmentSlotsPrefabScene.tscn";
 	public const string InventoryPrefabScene = "res://Scenes/Prefabs/InventoryPrefabScene.tscn";
 	public const string SceneButtonPrefabScene = "res://Scenes/Prefabs/Control/SceneButtonPrefabScene.tscn";

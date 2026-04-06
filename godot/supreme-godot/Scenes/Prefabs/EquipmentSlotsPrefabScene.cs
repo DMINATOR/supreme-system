@@ -75,4 +75,3 @@ public partial class EquipmentSlotsPrefabScene : Control
 			PrefabFactory.CreateCardScene(container, card);
 	}
 }
-

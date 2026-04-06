@@ -13,6 +13,8 @@ public class CardCollection : ICardCollection
 
     public bool IsLocked { get; set; }
 
+    public int Capacity => _capacity;
+
     public IReadOnlyList<Card> Cards => _cards.AsReadOnly();
 
     public void AddCard(Card card)
