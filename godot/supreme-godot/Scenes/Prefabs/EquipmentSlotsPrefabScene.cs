@@ -11,15 +11,15 @@ public partial class EquipmentSlotsPrefabScene : Control
 
 	private WorldManager _worldManager;
 	private Label _titleLabel;
-	private VBoxContainer _weaponContainer;
-	private VBoxContainer _offHandContainer;
-	private VBoxContainer _headContainer;
-	private VBoxContainer _chestContainer;
-	private VBoxContainer _handsContainer;
-	private VBoxContainer _feetContainer;
-	private VBoxContainer _amuletContainer;
-	private VBoxContainer _ring1Container;
-	private VBoxContainer _ring2Container;
+	private CardSlotPrefabScene _headSlot;
+	private CardSlotPrefabScene _weaponSlot;
+	private CardSlotPrefabScene _offHandSlot;
+	private CardSlotPrefabScene _chestSlot;
+	private CardSlotPrefabScene _handsSlot;
+	private CardSlotPrefabScene _feetSlot;
+	private CardSlotPrefabScene _amuletSlot;
+	private CardSlotPrefabScene _ring1Slot;
+	private CardSlotPrefabScene _ring2Slot;
 
 	public override void _Ready()
 	{
@@ -31,15 +31,15 @@ public partial class EquipmentSlotsPrefabScene : Control
 	{
 		_worldManager = GetNode<WorldManager>(AutoloadPath.WorldManager);
 		_titleLabel = GetNode<Label>("TitleLabel");
-		_weaponContainer = GetNode<VBoxContainer>("WeaponSlot/CardContainer");
-		_offHandContainer = GetNode<VBoxContainer>("OffHandSlot/CardContainer");
-		_headContainer = GetNode<VBoxContainer>("HeadSlot/CardContainer");
-		_chestContainer = GetNode<VBoxContainer>("ChestSlot/CardContainer");
-		_handsContainer = GetNode<VBoxContainer>("HandsSlot/CardContainer");
-		_feetContainer = GetNode<VBoxContainer>("FeetSlot/CardContainer");
-		_amuletContainer = GetNode<VBoxContainer>("AmuletSlot/CardContainer");
-		_ring1Container = GetNode<VBoxContainer>("Ring1Slot/CardContainer");
-		_ring2Container = GetNode<VBoxContainer>("Ring2Slot/CardContainer");
+		_headSlot = GetNode<CardSlotPrefabScene>("ScrollContainer/SlotsContainer/Row1/HeadSlot");
+		_weaponSlot = GetNode<CardSlotPrefabScene>("ScrollContainer/SlotsContainer/Row2/WeaponSlot");
+		_chestSlot = GetNode<CardSlotPrefabScene>("ScrollContainer/SlotsContainer/Row2/ChestSlot");
+		_offHandSlot = GetNode<CardSlotPrefabScene>("ScrollContainer/SlotsContainer/Row2/OffHandSlot");
+		_handsSlot = GetNode<CardSlotPrefabScene>("ScrollContainer/SlotsContainer/Row3/HandsSlot");
+		_amuletSlot = GetNode<CardSlotPrefabScene>("ScrollContainer/SlotsContainer/Row3/AmuletSlot");
+		_feetSlot = GetNode<CardSlotPrefabScene>("ScrollContainer/SlotsContainer/Row4/FeetSlot");
+		_ring1Slot = GetNode<CardSlotPrefabScene>("ScrollContainer/SlotsContainer/Row4/Ring1Slot");
+		_ring2Slot = GetNode<CardSlotPrefabScene>("ScrollContainer/SlotsContainer/Row4/Ring2Slot");
 	}
 
 	private void PrepareNodes()
@@ -58,20 +58,14 @@ public partial class EquipmentSlotsPrefabScene : Control
 
 		_titleLabel.Text = "Equipment";
 
-		PopulateSlot(_weaponContainer, slots.Weapon);
-		PopulateSlot(_offHandContainer, slots.OffHand);
-		PopulateSlot(_headContainer, slots.Head);
-		PopulateSlot(_chestContainer, slots.Chest);
-		PopulateSlot(_handsContainer, slots.Hands);
-		PopulateSlot(_feetContainer, slots.Feet);
-		PopulateSlot(_amuletContainer, slots.Amulet);
-		PopulateSlot(_ring1Container, slots.Ring1);
-		PopulateSlot(_ring2Container, slots.Ring2);
-	}
-
-	private void PopulateSlot(VBoxContainer container, Card card)
-	{
-		if (card is not null)
-			PrefabFactory.CreateCardScene(container, card);
+		_headSlot.Setup("Head", slots.Head);
+		_weaponSlot.Setup("Weapon", slots.Weapon);
+		_offHandSlot.Setup("Off-Hand", slots.OffHand);
+		_chestSlot.Setup("Chest", slots.Chest);
+		_handsSlot.Setup("Hands", slots.Hands);
+		_feetSlot.Setup("Feet", slots.Feet);
+		_amuletSlot.Setup("Amulet", slots.Amulet);
+		_ring1Slot.Setup("Ring 1", slots.Ring1);
+		_ring2Slot.Setup("Ring 2", slots.Ring2);
 	}
 }

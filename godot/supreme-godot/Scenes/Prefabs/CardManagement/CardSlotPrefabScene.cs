@@ -7,9 +7,9 @@ public partial class CardSlotPrefabScene : PanelContainer
 	private Control _cardContainer;
 	private Label _emptyLabel;
 
-	public void Setup(int slotIndex, Card card)
+	public void Setup(string label, Card card)
 	{
-		_indexLabel.Text = (slotIndex + 1).ToString();
+		_indexLabel.Text = label;
 
 		if (card is not null)
 		{

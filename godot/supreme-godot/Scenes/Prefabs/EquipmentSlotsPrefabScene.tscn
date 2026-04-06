@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dnf8o1cp8uisl"]
 
 [ext_resource type="Script" uid="uid://3kyp7nadjx2g" path="res://Scenes/Prefabs/EquipmentSlotsPrefabScene.cs" id="1_eqslots"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/CardManagement/CardSlotPrefabScene.tscn" id="2_cardslot"]
 
 [node name="EquipmentSlotsPrefabScene" type="VBoxContainer" unique_id=1951941562]
 size_flags_horizontal = 3
@@ -10,92 +11,75 @@ script = ExtResource("1_eqslots")
 [node name="TitleLabel" type="Label" parent="." unique_id=1950131830]
 layout_mode = 2
 
-[node name="WeaponSlot" type="HBoxContainer" parent="." unique_id=737171361]
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="SlotLabel" type="Label" parent="WeaponSlot" unique_id=2094835488]
+[node name="SlotsContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=2028009815]
 layout_mode = 2
-text = "Weapon"
+size_flags_horizontal = 3
 
-[node name="CardContainer" type="VBoxContainer" parent="WeaponSlot" unique_id=1481363498]
+[node name="Row1" type="HBoxContainer" parent="ScrollContainer/SlotsContainer" unique_id=762625720]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="OffHandSlot" type="HBoxContainer" parent="." unique_id=974300840]
+[node name="SpacerL" type="Control" parent="ScrollContainer/SlotsContainer/Row1"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="SlotLabel" type="Label" parent="OffHandSlot" unique_id=447593794]
+[node name="HeadSlot" parent="ScrollContainer/SlotsContainer/Row1" unique_id=1908702996 instance=ExtResource("2_cardslot")]
 layout_mode = 2
-text = "Off-Hand"
+size_flags_horizontal = 3
 
-[node name="CardContainer" type="VBoxContainer" parent="OffHandSlot" unique_id=303530372]
+[node name="SpacerR" type="Control" parent="ScrollContainer/SlotsContainer/Row1"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="HeadSlot" type="HBoxContainer" parent="." unique_id=904349774]
+[node name="Row2" type="HBoxContainer" parent="ScrollContainer/SlotsContainer" unique_id=781034203]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="SlotLabel" type="Label" parent="HeadSlot" unique_id=168677002]
+[node name="WeaponSlot" parent="ScrollContainer/SlotsContainer/Row2" unique_id=1528114050 instance=ExtResource("2_cardslot")]
 layout_mode = 2
-text = "Head"
+size_flags_horizontal = 3
 
-[node name="CardContainer" type="VBoxContainer" parent="HeadSlot" unique_id=1864203691]
+[node name="ChestSlot" parent="ScrollContainer/SlotsContainer/Row2" unique_id=747730349 instance=ExtResource("2_cardslot")]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="ChestSlot" type="HBoxContainer" parent="." unique_id=1730612918]
+[node name="OffHandSlot" parent="ScrollContainer/SlotsContainer/Row2" unique_id=1182736790 instance=ExtResource("2_cardslot")]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="SlotLabel" type="Label" parent="ChestSlot" unique_id=1761989177]
+[node name="Row3" type="HBoxContainer" parent="ScrollContainer/SlotsContainer" unique_id=1885228141]
 layout_mode = 2
-text = "Chest"
+size_flags_horizontal = 3
 
-[node name="CardContainer" type="VBoxContainer" parent="ChestSlot" unique_id=1297920944]
+[node name="HandsSlot" parent="ScrollContainer/SlotsContainer/Row3" unique_id=18185918 instance=ExtResource("2_cardslot")]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="HandsSlot" type="HBoxContainer" parent="." unique_id=1678047876]
+[node name="Spacer" type="Control" parent="ScrollContainer/SlotsContainer/Row3" unique_id=735010772]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="SlotLabel" type="Label" parent="HandsSlot" unique_id=768705662]
+[node name="AmuletSlot" parent="ScrollContainer/SlotsContainer/Row3" unique_id=709740516 instance=ExtResource("2_cardslot")]
 layout_mode = 2
-text = "Hands"
+size_flags_horizontal = 3
 
-[node name="CardContainer" type="VBoxContainer" parent="HandsSlot" unique_id=1628660918]
+[node name="Row4" type="HBoxContainer" parent="ScrollContainer/SlotsContainer" unique_id=1914361142]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="FeetSlot" type="HBoxContainer" parent="." unique_id=860299223]
+[node name="FeetSlot" parent="ScrollContainer/SlotsContainer/Row4" unique_id=45905603 instance=ExtResource("2_cardslot")]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="SlotLabel" type="Label" parent="FeetSlot" unique_id=1229769632]
+[node name="Ring1Slot" parent="ScrollContainer/SlotsContainer/Row4" unique_id=965726342 instance=ExtResource("2_cardslot")]
 layout_mode = 2
-text = "Feet"
+size_flags_horizontal = 3
 
-[node name="CardContainer" type="VBoxContainer" parent="FeetSlot" unique_id=1098449192]
+[node name="Ring2Slot" parent="ScrollContainer/SlotsContainer/Row4" unique_id=581366746 instance=ExtResource("2_cardslot")]
 layout_mode = 2
-
-[node name="AmuletSlot" type="HBoxContainer" parent="." unique_id=2060993876]
-layout_mode = 2
-
-[node name="SlotLabel" type="Label" parent="AmuletSlot" unique_id=819997338]
-layout_mode = 2
-text = "Amulet"
-
-[node name="CardContainer" type="VBoxContainer" parent="AmuletSlot" unique_id=889885027]
-layout_mode = 2
-
-[node name="Ring1Slot" type="HBoxContainer" parent="." unique_id=1117531645]
-layout_mode = 2
-
-[node name="SlotLabel" type="Label" parent="Ring1Slot" unique_id=746158577]
-layout_mode = 2
-text = "Ring 1"
-
-[node name="CardContainer" type="VBoxContainer" parent="Ring1Slot" unique_id=1830079722]
-layout_mode = 2
-
-[node name="Ring2Slot" type="HBoxContainer" parent="." unique_id=1208702994]
-layout_mode = 2
-
-[node name="SlotLabel" type="Label" parent="Ring2Slot" unique_id=338965467]
-layout_mode = 2
-text = "Ring 2"
-
-[node name="CardContainer" type="VBoxContainer" parent="Ring2Slot" unique_id=936713260]
-layout_mode = 2
+size_flags_horizontal = 3

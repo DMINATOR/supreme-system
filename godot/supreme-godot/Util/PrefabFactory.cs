@@ -34,11 +34,14 @@ public static class PrefabFactory
     }
 
     public static CardSlotPrefabScene CreateCardSlotScene(Node parent, int slotIndex, Card card)
+        => CreateCardSlotScene(parent, (slotIndex + 1).ToString(), card);
+
+    public static CardSlotPrefabScene CreateCardSlotScene(Node parent, string slotName, Card card)
     {
         var prefab = GD.Load<PackedScene>(SceneManager.CardSlotPrefabScene);
         var scene = prefab.Instantiate<CardSlotPrefabScene>();
         parent.AddChild(scene);
-        scene.Setup(slotIndex, card);
+        scene.Setup(slotName, card);
         return scene;
     }
 
