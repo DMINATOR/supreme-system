@@ -72,7 +72,7 @@ public partial class EquipmentSlotsPrefabScene : Control
 	private void PopulateSlot(VBoxContainer container, Card card)
 	{
 		if (card is not null)
-			CardSceneHelper.CreateCardScene(container, card);
+			PrefabFactory.CreateCardScene(container, card);
 	}
 }
 

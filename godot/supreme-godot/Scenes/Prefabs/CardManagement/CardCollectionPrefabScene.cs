@@ -50,6 +50,6 @@ public partial class CardCollectionPrefabScene : Control
 		}
 
 		foreach (var card in collection.Cards)
-			CardSceneHelper.CreateCardScene(_cardsContainer, card);
+			PrefabFactory.CreateCardScene(_cardsContainer, card);
 	}
 }

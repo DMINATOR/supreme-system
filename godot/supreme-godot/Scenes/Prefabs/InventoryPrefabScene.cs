@@ -25,8 +25,8 @@ public partial class InventoryPrefabScene : VBoxContainer
 		{
 			var container = new VBoxContainer { Name = $"Companion: {companion.CompanionId}" };
 			_memberTabContainer.AddChild(container);
-			CardSceneHelper.CreateCompanionDeckScene(container, companion.CompanionId);
-			CardSceneHelper.CreateCompanionEquipmentScene(container, companion.CompanionId);
+			PrefabFactory.CreateCompanionDeckScene(container, companion.CompanionId);
+			PrefabFactory.CreateCompanionEquipmentScene(container, companion.CompanionId);
 		}
 	}
 }

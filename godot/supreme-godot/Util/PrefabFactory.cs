@@ -2,7 +2,7 @@ using Godot;
 using SupremeEngine;
 using System;
 
-public static class CardSceneHelper
+public static class PrefabFactory
 {
     public static CardCollectionPrefabScene CreateCompanionDeckScene(Node parent, string companionId)
     {
