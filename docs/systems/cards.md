@@ -33,3 +33,7 @@ Cards have five rarity tiers: **Common**, **Uncommon**, **Rare**, **Legendary**,
 
 - Some cards are exclusive to specific [companions](../glossary.md#companion) and can only appear in their [deck](../glossary.md#deck)
 - These are acquired through [companion quest lines](../glossary.md#companion-quest-line)
+
+## Durability
+
+Every card has a [durability](../glossary.md#durability) value. When a card is played or damaged, its durability decreases by the card's **durability on use** amount (defined in the card template). A card whose durability reaches 0 is **broken** — it loses all its properties and cannot be played.

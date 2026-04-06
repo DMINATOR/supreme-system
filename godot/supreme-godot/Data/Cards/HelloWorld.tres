@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="CardTemplateResource" load_steps=2 format=3 uid="uid://helloworldcrd"]
+[gd_resource type="Resource" format=3 uid="uid://di6p3uri05g0l"]
 
-[ext_resource type="Script" path="res://Data/Cards/CardTemplateResource.cs" id="1_hw0"]
+[ext_resource type="Script" uid="uid://d2e7uag6sxwbp" path="res://Data/Cards/CardTemplateResource.cs" id="1_hw0"]
 
 [resource]
 script = ExtResource("1_hw0")
 TemplateId = "hello-world"
 Name = "Hello World"
-Rarity = 0
 Type = 2
+DurabilityOnUse = 1.0

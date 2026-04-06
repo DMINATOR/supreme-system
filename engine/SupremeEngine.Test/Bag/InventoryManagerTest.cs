@@ -5,7 +5,7 @@ using SupremeEngine;
 public class InventoryManagerTest
 {
     private static Card MakeCard(string id = "card-001") =>
-        new Card(id, "Test Card", CardRarity.Common, CardType.Attack);
+        new Card(id, "Test Card", CardRarity.Common, CardType.Attack, 1.0f);
 
     [Fact]
     public void InventoryManager_StartsWithEmptyBagAndPlayerAndNoCompanions()

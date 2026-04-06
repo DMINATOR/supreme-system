@@ -32,3 +32,8 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "Type"
 horizontal_alignment = 1
+
+[node name="DurabilityLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Durability"
+horizontal_alignment = 1

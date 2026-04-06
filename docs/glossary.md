@@ -87,3 +87,6 @@ The screen shown on game launch and accessible from the main menu where the play
 
 ## Faction
 One of several organized groups competing for resources and territory across the [wasteland](glossary.md#wasteland). Factions may influence available [encounters](glossary.md#encounter), companions, and [loot](glossary.md#loot). See [Factions](world/factions.md).
+
+## Durability
+A float value carried by every card representing how much use it has left. Defined by the **durability on use** value on the card's template, which also sets the card's initial durability when created. Each time the card is played or damaged, durability decreases by that amount. When durability reaches 0 the card is broken and cannot be used.

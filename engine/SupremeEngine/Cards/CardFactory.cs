@@ -13,6 +13,6 @@ public class CardFactory
     public Card Create(CardTemplate template)
     {
         var id = $"{template.TemplateId}-{Guid.NewGuid():N}";
-        return new Card(id, template.Name, template.Rarity, template.Type);
+        return new Card(id, template.Name, template.Rarity, template.Type, template.DurabilityOnUse);
     }
 }
