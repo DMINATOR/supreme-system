@@ -31,15 +31,15 @@ public partial class EquipmentSlotsPrefabScene : Control
 	{
 		_worldManager = GetNode<WorldManager>(AutoloadPath.WorldManager);
 		_titleLabel = GetNode<Label>("TitleLabel");
-		_headSlot = GetNode<CardSlotPrefabScene>("ScrollContainer/SlotsContainer/Row1/HeadSlot");
-		_weaponSlot = GetNode<CardSlotPrefabScene>("ScrollContainer/SlotsContainer/Row2/WeaponSlot");
-		_chestSlot = GetNode<CardSlotPrefabScene>("ScrollContainer/SlotsContainer/Row2/ChestSlot");
-		_offHandSlot = GetNode<CardSlotPrefabScene>("ScrollContainer/SlotsContainer/Row2/OffHandSlot");
-		_handsSlot = GetNode<CardSlotPrefabScene>("ScrollContainer/SlotsContainer/Row3/HandsSlot");
-		_amuletSlot = GetNode<CardSlotPrefabScene>("ScrollContainer/SlotsContainer/Row3/AmuletSlot");
-		_feetSlot = GetNode<CardSlotPrefabScene>("ScrollContainer/SlotsContainer/Row4/FeetSlot");
-		_ring1Slot = GetNode<CardSlotPrefabScene>("ScrollContainer/SlotsContainer/Row4/Ring1Slot");
-		_ring2Slot = GetNode<CardSlotPrefabScene>("ScrollContainer/SlotsContainer/Row4/Ring2Slot");
+		_weaponSlot = GetNode<CardSlotPrefabScene>("CenterContainer/SlotsContainer/Row1/WeaponSlot");
+		_headSlot = GetNode<CardSlotPrefabScene>("CenterContainer/SlotsContainer/Row1/HeadSlot");
+		_offHandSlot = GetNode<CardSlotPrefabScene>("CenterContainer/SlotsContainer/Row1/OffHandSlot");
+		_handsSlot = GetNode<CardSlotPrefabScene>("CenterContainer/SlotsContainer/Row2/HandsSlot");
+		_chestSlot = GetNode<CardSlotPrefabScene>("CenterContainer/SlotsContainer/Row2/ChestSlot");
+		_amuletSlot = GetNode<CardSlotPrefabScene>("CenterContainer/SlotsContainer/Row2/AmuletSlot");
+		_feetSlot = GetNode<CardSlotPrefabScene>("CenterContainer/SlotsContainer/Row3/FeetSlot");
+		_ring1Slot = GetNode<CardSlotPrefabScene>("CenterContainer/SlotsContainer/Row3/Ring1Slot");
+		_ring2Slot = GetNode<CardSlotPrefabScene>("CenterContainer/SlotsContainer/Row3/Ring2Slot");
 	}
 
 	private void PrepareNodes()
