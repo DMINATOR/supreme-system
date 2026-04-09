@@ -29,7 +29,7 @@ text = "Drag & Drop Demo"
 
 [node name="InstructionsLabel" type="Label" parent="VBoxContainer" unique_id=2136914237]
 layout_mode = 2
-text = "Drag a card from a filled slot to an empty slot. Release elsewhere to cancel."
+text = "Drag a card from a filled slot to an empty slot."
 autowrap_mode = 2
 
 [node name="SlotsContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1820978436]

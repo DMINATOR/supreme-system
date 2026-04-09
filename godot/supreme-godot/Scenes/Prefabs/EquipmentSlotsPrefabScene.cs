@@ -1,5 +1,6 @@
 using Godot;
 using SupremeEngine;
+using System.Collections.Generic;
 using System.Linq;
 
 public enum EquipmentSource { Player, Companion }
@@ -21,10 +22,27 @@ public partial class EquipmentSlotsPrefabScene : Control
 	private CardSlotPrefabScene _ring1Slot;
 	private CardSlotPrefabScene _ring2Slot;
 
+	private EquipmentSlots _equipmentSlots;
+	private Dictionary<CardSlotPrefabScene, EquipmentSlot> _slotMap;
+
 	public override void _Ready()
 	{
 		LoadNodes();
 		PrepareNodes();
+	}
+
+	public override void _Notification(int what)
+	{
+		base._Notification(what);
+
+		if (what == NotificationDragEnd)
+			SetAllHighlighted(false);
+
+		if (what == NotificationPredelete)
+		{
+			CardSlotPrefabScene.AnyCardDragStarted -= OnCardDragStarted;
+			CardSlotPrefabScene.CardMoved -= OnCardMoved;
+		}
 	}
 
 	private void LoadNodes()
@@ -46,26 +64,74 @@ public partial class EquipmentSlotsPrefabScene : Control
 	{
 		var inventory = _worldManager.State.Inventory;
 
-		var slots = Source switch
+		_equipmentSlots = Source switch
 		{
 			EquipmentSource.Player => inventory.Player.Equipment,
 			EquipmentSource.Companion => inventory.Companions.First(c => c.CompanionId == CompanionId).Equipment,
 			_ => null
 		};
 
-		if (slots is null)
+		if (_equipmentSlots is null)
 			return;
 
 		_titleLabel.Text = "Equipment";
 
-		_headSlot.Setup("Head", slots.Head);
-		_weaponSlot.Setup("Weapon", slots.Weapon);
-		_offHandSlot.Setup("Off-Hand", slots.OffHand);
-		_chestSlot.Setup("Chest", slots.Chest);
-		_handsSlot.Setup("Hands", slots.Hands);
-		_feetSlot.Setup("Feet", slots.Feet);
-		_amuletSlot.Setup("Amulet", slots.Amulet);
-		_ring1Slot.Setup("Ring 1", slots.Ring1);
-		_ring2Slot.Setup("Ring 2", slots.Ring2);
+		_headSlot.Setup("Head", _equipmentSlots.Head);
+		_weaponSlot.Setup("Weapon", _equipmentSlots.Weapon);
+		_offHandSlot.Setup("Off-Hand", _equipmentSlots.OffHand);
+		_chestSlot.Setup("Chest", _equipmentSlots.Chest);
+		_handsSlot.Setup("Hands", _equipmentSlots.Hands);
+		_feetSlot.Setup("Feet", _equipmentSlots.Feet);
+		_amuletSlot.Setup("Amulet", _equipmentSlots.Amulet);
+		_ring1Slot.Setup("Ring 1", _equipmentSlots.Ring1);
+		_ring2Slot.Setup("Ring 2", _equipmentSlots.Ring2);
+
+		_slotMap = new Dictionary<CardSlotPrefabScene, EquipmentSlot>
+		{
+			{ _headSlot,    EquipmentSlot.Head },
+			{ _weaponSlot,  EquipmentSlot.Weapon },
+			{ _offHandSlot, EquipmentSlot.OffHand },
+			{ _chestSlot,   EquipmentSlot.Chest },
+			{ _handsSlot,   EquipmentSlot.Hands },
+			{ _feetSlot,    EquipmentSlot.Feet },
+			{ _amuletSlot,  EquipmentSlot.Amulet },
+			{ _ring1Slot,   EquipmentSlot.Ring1 },
+			{ _ring2Slot,   EquipmentSlot.Ring2 },
+		};
+
+		foreach (var slot in GetAllSlots())
+			slot.EnableDragAndDrop();
+
+		CardSlotPrefabScene.AnyCardDragStarted += OnCardDragStarted;
+		CardSlotPrefabScene.CardMoved += OnCardMoved;
+	}
+
+	private void OnCardMoved(CardSlotPrefabScene source, CardSlotPrefabScene target, Card card)
+	{
+		if (_slotMap.TryGetValue(source, out var sourceSlot))
+			_equipmentSlots.Unequip(sourceSlot);
+
+		if (_slotMap.TryGetValue(target, out var targetSlot))
+			_equipmentSlots.Equip(targetSlot, card);
+	}
+
+	private void OnCardDragStarted()
+	{
+		SetAllHighlighted(true);
+	}
+
+	private void SetAllHighlighted(bool highlighted)
+	{
+		foreach (var slot in GetAllSlots())
+			slot.SetHighlight(highlighted);
+	}
+
+	private CardSlotPrefabScene[] GetAllSlots()
+	{
+		return new[]
+		{
+			_headSlot, _weaponSlot, _offHandSlot, _chestSlot,
+			_handsSlot, _feetSlot, _amuletSlot, _ring1Slot, _ring2Slot
+		};
 	}
 }

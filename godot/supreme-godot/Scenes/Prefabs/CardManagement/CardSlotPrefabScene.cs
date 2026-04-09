@@ -1,9 +1,11 @@
 using Godot;
 using SupremeEngine;
+using System;
 
 public partial class CardSlotPrefabScene : PanelContainer
 {
-	[Signal] public delegate void CardDragStartedEventHandler();
+	public static event Action AnyCardDragStarted;
+	public static event Action<CardSlotPrefabScene, CardSlotPrefabScene, Card> CardMoved;
 
 	private static CardSlotPrefabScene _activeDragSource;
 	private static Card _activeDragCard;
@@ -56,7 +58,7 @@ public partial class CardSlotPrefabScene : PanelContainer
 		_activeDragCard = _card;
 		SetCard(null);
 		SetDragPreview(CreateDragPreview(_activeDragCard));
-		EmitSignal(SignalName.CardDragStarted);
+		AnyCardDragStarted?.Invoke();
 
 		return Variant.From("card_drag");
 	}
@@ -72,10 +74,12 @@ public partial class CardSlotPrefabScene : PanelContainer
 
 	public override void _DropData(Vector2 atPosition, Variant data)
 	{
+		var source = _activeDragSource;
 		var card = _activeDragCard;
 		_activeDragCard = null;
 		_activeDragSource = null;
 		SetCard(card);
+		CardMoved?.Invoke(source, this, card);
 	}
 
 	public override void _Notification(int what)

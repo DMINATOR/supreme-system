@@ -20,6 +20,9 @@ public partial class DragAndDropScene : Control
 
 		if (what == NotificationDragEnd)
 			SetAllHighlighted(false);
+
+		if (what == NotificationPredelete)
+			CardSlotPrefabScene.AnyCardDragStarted -= OnCardDragStarted;
 	}
 
 	private void LoadNodes()
@@ -41,10 +44,9 @@ public partial class DragAndDropScene : Control
 		_slot4.Setup("Slot 4", null);
 
 		foreach (var slot in GetAllSlots())
-		{
 			slot.EnableDragAndDrop();
-			slot.CardDragStarted += OnCardDragStarted;
-		}
+
+		CardSlotPrefabScene.AnyCardDragStarted += OnCardDragStarted;
 	}
 
 	private void OnCardDragStarted()
