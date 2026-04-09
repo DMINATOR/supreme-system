@@ -23,7 +23,7 @@ public partial class EquipmentSlotsPrefabScene : Control
 	private CardSlotPrefabScene _ring2Slot;
 
 	private EquipmentSlots _equipmentSlots;
-	private Dictionary<CardSlotPrefabScene, EquipmentSlot> _slotMap;
+	private Dictionary<CardSlotPrefabScene, CardSlot> _slotMap;
 
 	public override void _Ready()
 	{
@@ -76,27 +76,27 @@ public partial class EquipmentSlotsPrefabScene : Control
 
 		_titleLabel.Text = "Equipment";
 
-		_headSlot.Setup("Head", _equipmentSlots.Head);
-		_weaponSlot.Setup("Weapon", _equipmentSlots.Weapon);
-		_offHandSlot.Setup("Off-Hand", _equipmentSlots.OffHand);
-		_chestSlot.Setup("Chest", _equipmentSlots.Chest);
-		_handsSlot.Setup("Hands", _equipmentSlots.Hands);
-		_feetSlot.Setup("Feet", _equipmentSlots.Feet);
-		_amuletSlot.Setup("Amulet", _equipmentSlots.Amulet);
-		_ring1Slot.Setup("Ring 1", _equipmentSlots.Ring1);
-		_ring2Slot.Setup("Ring 2", _equipmentSlots.Ring2);
+		_headSlot.Setup("Head", _equipmentSlots.Head.Card);
+		_weaponSlot.Setup("Weapon", _equipmentSlots.Weapon.Card);
+		_offHandSlot.Setup("Off-Hand", _equipmentSlots.OffHand.Card);
+		_chestSlot.Setup("Chest", _equipmentSlots.Chest.Card);
+		_handsSlot.Setup("Hands", _equipmentSlots.Hands.Card);
+		_feetSlot.Setup("Feet", _equipmentSlots.Feet.Card);
+		_amuletSlot.Setup("Amulet", _equipmentSlots.Amulet.Card);
+		_ring1Slot.Setup("Ring 1", _equipmentSlots.Ring1.Card);
+		_ring2Slot.Setup("Ring 2", _equipmentSlots.Ring2.Card);
 
-		_slotMap = new Dictionary<CardSlotPrefabScene, EquipmentSlot>
+		_slotMap = new Dictionary<CardSlotPrefabScene, CardSlot>
 		{
-			{ _headSlot,    EquipmentSlot.Head },
-			{ _weaponSlot,  EquipmentSlot.Weapon },
-			{ _offHandSlot, EquipmentSlot.OffHand },
-			{ _chestSlot,   EquipmentSlot.Chest },
-			{ _handsSlot,   EquipmentSlot.Hands },
-			{ _feetSlot,    EquipmentSlot.Feet },
-			{ _amuletSlot,  EquipmentSlot.Amulet },
-			{ _ring1Slot,   EquipmentSlot.Ring1 },
-			{ _ring2Slot,   EquipmentSlot.Ring2 },
+			{ _headSlot,    _equipmentSlots.Head },
+			{ _weaponSlot,  _equipmentSlots.Weapon },
+			{ _offHandSlot, _equipmentSlots.OffHand },
+			{ _chestSlot,   _equipmentSlots.Chest },
+			{ _handsSlot,   _equipmentSlots.Hands },
+			{ _feetSlot,    _equipmentSlots.Feet },
+			{ _amuletSlot,  _equipmentSlots.Amulet },
+			{ _ring1Slot,   _equipmentSlots.Ring1 },
+			{ _ring2Slot,   _equipmentSlots.Ring2 },
 		};
 
 		foreach (var slot in GetAllSlots())
@@ -109,10 +109,10 @@ public partial class EquipmentSlotsPrefabScene : Control
 	private void OnCardMoved(CardSlotPrefabScene source, CardSlotPrefabScene target, Card card)
 	{
 		if (_slotMap.TryGetValue(source, out var sourceSlot))
-			_equipmentSlots.Unequip(sourceSlot);
+			sourceSlot.Unequip();
 
 		if (_slotMap.TryGetValue(target, out var targetSlot))
-			_equipmentSlots.Equip(targetSlot, card);
+			targetSlot.Equip(card);
 	}
 
 	private void OnCardDragStarted()

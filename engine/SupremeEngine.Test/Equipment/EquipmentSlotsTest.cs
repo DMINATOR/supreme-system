@@ -14,15 +14,15 @@ public class EquipmentSlotsTest
         var slots = new EquipmentSlots();
 
         // Assert
-        Assert.Null(slots.Weapon);
-        Assert.Null(slots.OffHand);
-        Assert.Null(slots.Head);
-        Assert.Null(slots.Chest);
-        Assert.Null(slots.Hands);
-        Assert.Null(slots.Feet);
-        Assert.Null(slots.Amulet);
-        Assert.Null(slots.Ring1);
-        Assert.Null(slots.Ring2);
+        Assert.Null(slots.Weapon.Card);
+        Assert.Null(slots.OffHand.Card);
+        Assert.Null(slots.Head.Card);
+        Assert.Null(slots.Chest.Card);
+        Assert.Null(slots.Hands.Card);
+        Assert.Null(slots.Feet.Card);
+        Assert.Null(slots.Amulet.Card);
+        Assert.Null(slots.Ring1.Card);
+        Assert.Null(slots.Ring2.Card);
     }
 
     [Fact]
@@ -33,10 +33,10 @@ public class EquipmentSlotsTest
         var card = MakeCard("weapon-001");
 
         // Act
-        slots.Equip(EquipmentSlot.Weapon, card);
+        slots.Weapon.Equip(card);
 
         // Assert
-        Assert.Same(card, slots.Weapon);
+        Assert.Same(card, slots.Weapon.Card);
     }
 
     [Fact]
@@ -46,13 +46,13 @@ public class EquipmentSlotsTest
         var slots = new EquipmentSlots();
         var first = MakeCard("first");
         var second = MakeCard("second");
-        slots.Equip(EquipmentSlot.Chest, first);
+        slots.Chest.Equip(first);
 
         // Act
-        slots.Equip(EquipmentSlot.Chest, second);
+        slots.Chest.Equip(second);
 
         // Assert
-        Assert.Same(second, slots.Chest);
+        Assert.Same(second, slots.Chest.Card);
     }
 
     [Fact]
@@ -60,13 +60,13 @@ public class EquipmentSlotsTest
     {
         // Arrange
         var slots = new EquipmentSlots();
-        slots.Equip(EquipmentSlot.Head, MakeCard());
+        slots.Head.Equip(MakeCard());
 
         // Act
-        slots.Unequip(EquipmentSlot.Head);
+        slots.Head.Unequip();
 
         // Assert
-        Assert.Null(slots.Head);
+        Assert.Null(slots.Head.Card);
     }
 
     [Fact]
@@ -74,22 +74,22 @@ public class EquipmentSlotsTest
     {
         // Arrange
         var slots = new EquipmentSlots();
-        slots.Equip(EquipmentSlot.Weapon, MakeCard("weapon-001"));
-        slots.Equip(EquipmentSlot.Ring1, MakeCard("ring1-001"));
-        slots.Equip(EquipmentSlot.Ring2, MakeCard("ring2-001"));
+        slots.Weapon.Equip(MakeCard("weapon-001"));
+        slots.Ring1.Equip(MakeCard("ring1-001"));
+        slots.Ring2.Equip(MakeCard("ring2-001"));
 
         // Act
         var dto = slots.ToDto();
         var restored = EquipmentSlots.FromDto(dto);
 
         // Assert
-        Assert.NotNull(restored.Weapon);
-        Assert.Equal("weapon-001", restored.Weapon!.Id);
-        Assert.NotNull(restored.Ring1);
-        Assert.Equal("ring1-001", restored.Ring1!.Id);
-        Assert.NotNull(restored.Ring2);
-        Assert.Equal("ring2-001", restored.Ring2!.Id);
-        Assert.Null(restored.OffHand);
-        Assert.Null(restored.Head);
+        Assert.NotNull(restored.Weapon.Card);
+        Assert.Equal("weapon-001", restored.Weapon.Card!.Id);
+        Assert.NotNull(restored.Ring1.Card);
+        Assert.Equal("ring1-001", restored.Ring1.Card!.Id);
+        Assert.NotNull(restored.Ring2.Card);
+        Assert.Equal("ring2-001", restored.Ring2.Card!.Id);
+        Assert.Null(restored.OffHand.Card);
+        Assert.Null(restored.Head.Card);
     }
 }
