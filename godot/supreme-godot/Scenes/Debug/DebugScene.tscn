@@ -49,6 +49,11 @@ layout_mode = 2
 text = "Card Creator"
 TargetScene = 5
 
+[node name="DragAndDropSceneButton" parent="VBoxContainer/TabContainer/Scenes" instance=ExtResource("2_scenebutton")]
+layout_mode = 2
+text = "Drag & Drop Demo"
+TargetScene = 6
+
 [node name="World" type="VBoxContainer" parent="VBoxContainer/TabContainer" unique_id=946127892]
 layout_mode = 2
 metadata/_tab_index = 1

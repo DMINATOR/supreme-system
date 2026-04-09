@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://liv37bpafvf0"]
+
+[ext_resource type="Script" uid="uid://du1duy43q75vr" path="res://Scenes/Demo/DragAndDropScene.cs" id="1_dnddemo"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/Control/SceneButtonPrefabScene.tscn" id="2_scenebutton"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/CardManagement/CardSlotPrefabScene.tscn" id="3_cardslot"]
+
+[node name="DragAndDropScene" type="Control" unique_id=772195339]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dnddemo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1359898512]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer" unique_id=913875932]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Drag & Drop Demo"
+
+[node name="InstructionsLabel" type="Label" parent="VBoxContainer" unique_id=2136914237]
+layout_mode = 2
+text = "Drag a card from a filled slot to an empty slot. Release elsewhere to cancel."
+autowrap_mode = 2
+
+[node name="SlotsContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1820978436]
+layout_mode = 2
+
+[node name="Slot1" parent="VBoxContainer/SlotsContainer" unique_id=1754814306 instance=ExtResource("3_cardslot")]
+layout_mode = 2
+
+[node name="Slot2" parent="VBoxContainer/SlotsContainer" unique_id=259355411 instance=ExtResource("3_cardslot")]
+layout_mode = 2
+
+[node name="Slot3" parent="VBoxContainer/SlotsContainer" unique_id=1649308396 instance=ExtResource("3_cardslot")]
+layout_mode = 2
+
+[node name="Slot4" parent="VBoxContainer/SlotsContainer" unique_id=1543439199 instance=ExtResource("3_cardslot")]
+layout_mode = 2
+
+[node name="BackButton" parent="." unique_id=753948697 instance=ExtResource("2_scenebutton")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -556.0
+offset_top = -31.0
+offset_right = 556.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+text = "← Back to Debug"
+TargetScene = 2

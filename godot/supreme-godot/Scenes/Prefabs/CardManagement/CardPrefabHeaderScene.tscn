@@ -9,6 +9,7 @@
 
 [node name="CardPrefabHeaderScene" type="TextureRect" unique_id=467803151]
 custom_minimum_size = Vector2(32, 32)
+mouse_filter = 2
 size_flags_horizontal = 3
 texture = ExtResource("2_common")
 expand_mode = 5
