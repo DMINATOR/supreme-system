@@ -58,7 +58,7 @@ public partial class CardSlotPrefabScene : PanelContainer
 		_activeDragSource = this;
 		_activeDragCard = _card;
 		SetCard(null);
-		SetDragPreview(CreateDragPreview(_activeDragCard));
+		SetDragPreview(PrefabFactory.CreateCardDragPreviewScene(_activeDragCard));
 		_cardActivityEvents.RaiseCardDragStarted(this);
 
 		return Variant.From("card_drag");
@@ -133,19 +133,6 @@ public partial class CardSlotPrefabScene : PanelContainer
 		MouseDefaultCursorShape = _dragAndDropEnabled && _card is not null
 			? CursorShape.PointingHand
 			: CursorShape.Arrow;
-	}
-
-	private Control CreateDragPreview(Card card)
-	{
-		var panel = new PanelContainer();
-		panel.CustomMinimumSize = new Vector2(100, 150);
-
-		var label = new Label();
-		label.Text = card.Name;
-		label.HorizontalAlignment = HorizontalAlignment.Center;
-		panel.AddChild(label);
-
-		return panel;
 	}
 
 	private void LoadNodes()

@@ -4,6 +4,14 @@ using System;
 
 public static class PrefabFactory
 {
+    public static CardDragPrefabScene CreateCardDragPreviewScene(Card card)
+    {
+        var prefab = GD.Load<PackedScene>(SceneManager.CardDragPrefabScene);
+        var scene = prefab.Instantiate<CardDragPrefabScene>();
+        scene.Setup(card);
+        return scene;
+    }
+
     public static CardCollectionPrefabScene CreateCompanionDeckScene(Node parent, string companionId)
     {
         var prefab = GD.Load<PackedScene>(SceneManager.CardCollectionPrefabScene);
