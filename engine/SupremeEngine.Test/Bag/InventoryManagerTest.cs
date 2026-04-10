@@ -1,5 +1,6 @@
 namespace SupremeEngine.Test;
 
+using System.Linq;
 using SupremeEngine;
 
 public class InventoryManagerTest
@@ -14,68 +15,9 @@ public class InventoryManagerTest
         var inventory = new InventoryManager();
 
         // Assert
-        Assert.Empty(inventory.Bag.Cards);
-        Assert.Empty(inventory.Player.Deck.Cards);
+        Assert.True(inventory.Bag.Slots.All(s => s.Card is null));
+        Assert.True(inventory.Player.Deck.Slots.All(s => s.Card is null));
         Assert.Empty(inventory.Companions);
-    }
-
-    [Fact]
-    public void Transfer_MovesCardFromBagToPlayerDeck()
-    {
-        // Arrange
-        var inventory = new InventoryManager();
-        var card = MakeCard();
-        inventory.Bag.AddCard(card);
-
-        // Act
-        inventory.Transfer(card, inventory.Bag, inventory.Player.Deck);
-
-        // Assert
-        Assert.Empty(inventory.Bag.Cards);
-        Assert.Single(inventory.Player.Deck.Cards);
-        Assert.Contains(card, inventory.Player.Deck.Cards);
-    }
-
-    [Fact]
-    public void Transfer_MovesCardFromPlayerDeckToBag()
-    {
-        // Arrange
-        var inventory = new InventoryManager();
-        var card = MakeCard();
-        inventory.Player.Deck.AddCard(card);
-
-        // Act
-        inventory.Transfer(card, inventory.Player.Deck, inventory.Bag);
-
-        // Assert
-        Assert.Empty(inventory.Player.Deck.Cards);
-        Assert.Single(inventory.Bag.Cards);
-        Assert.Contains(card, inventory.Bag.Cards);
-    }
-
-    [Fact]
-    public void Transfer_ThrowsWhenCardNotInSource()
-    {
-        // Arrange
-        var inventory = new InventoryManager();
-        var card = MakeCard();
-
-        // Act / Assert
-        Assert.Throws<InvalidOperationException>(() => inventory.Transfer(card, inventory.Bag, inventory.Player.Deck));
-    }
-
-    [Fact]
-    public void Transfer_DoesNotAddCardWhenSourceThrows()
-    {
-        // Arrange
-        var inventory = new InventoryManager();
-        var card = MakeCard();
-
-        // Act
-        try { inventory.Transfer(card, inventory.Bag, inventory.Player.Deck); } catch { }
-
-        // Assert — player deck must still be empty, no phantom card added
-        Assert.Empty(inventory.Player.Deck.Cards);
     }
 
     [Fact]
@@ -83,10 +25,10 @@ public class InventoryManagerTest
     {
         // Arrange
         var inventory = new InventoryManager();
-        inventory.Bag.AddCard(MakeCard("bag-001"));
-        inventory.Player.Deck.AddCard(MakeCard("player-deck-001"));
+        inventory.Bag.Slots[0].Equip(MakeCard("bag-001"));
+        inventory.Player.Deck.Slots[0].Equip(MakeCard("player-deck-001"));
         inventory.Companions.Add(new CompanionState("aria"));
-        inventory.Companions[0].Deck.AddCard(MakeCard("companion-deck-001"));
+        inventory.Companions[0].Deck.Slots[0].Equip(MakeCard("companion-deck-001"));
 
         var saveData = new WorldSaveData
         {
@@ -100,14 +42,14 @@ public class InventoryManagerTest
         var restored = InventoryManager.From(saveData);
 
         // Assert
-        Assert.Single(restored.Bag.Cards);
-        Assert.Equal("bag-001", restored.Bag.Cards[0].Id);
-        Assert.Single(restored.Player.Deck.Cards);
-        Assert.Equal("player-deck-001", restored.Player.Deck.Cards[0].Id);
+        Assert.Single(restored.Bag.Slots, s => s.Card is not null);
+        Assert.Equal("bag-001", restored.Bag.Slots[0].Card!.Id);
+        Assert.Single(restored.Player.Deck.Slots, s => s.Card is not null);
+        Assert.Equal("player-deck-001", restored.Player.Deck.Slots[0].Card!.Id);
         Assert.Single(restored.Companions);
         Assert.Equal("aria", restored.Companions[0].CompanionId);
-        Assert.Single(restored.Companions[0].Deck.Cards);
-        Assert.Equal("companion-deck-001", restored.Companions[0].Deck.Cards[0].Id);
+        Assert.Single(restored.Companions[0].Deck.Slots, s => s.Card is not null);
+        Assert.Equal("companion-deck-001", restored.Companions[0].Deck.Slots[0].Card!.Id);
     }
 }
 

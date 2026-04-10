@@ -1,5 +1,6 @@
 namespace SupremeEngine.Test;
 
+using System.Linq;
 using SupremeEngine;
 
 public class CardCollectionTest
@@ -8,104 +9,61 @@ public class CardCollectionTest
         new Card(id, "Test Card", CardRarity.Common, CardType.Attack, 1.0f);
 
     [Fact]
-    public void CardCollection_StartsEmpty()
+    public void CardCollection_StartsWithAllSlotsEmpty()
     {
         // Arrange / Act
-        var collection = new CardCollection(10);
+        var collection = new CardCollection(5);
 
         // Assert
-        Assert.Empty(collection.Cards);
+        Assert.Equal(5, collection.Slots.Count);
+        Assert.All(collection.Slots, s => Assert.Null(s.Card));
     }
 
     [Fact]
-    public void AddCard_AddsCardToCollection()
+    public void Slots_ReflectEquippedCard()
     {
         // Arrange
-        var collection = new CardCollection(10);
+        var collection = new CardCollection(3);
         var card = MakeCard();
 
         // Act
-        collection.AddCard(card);
+        collection.Slots[0].Equip(card);
 
         // Assert
-        Assert.Single(collection.Cards);
-        Assert.Contains(card, collection.Cards);
+        Assert.Same(card, collection.Slots[0].Card);
+        Assert.Null(collection.Slots[1].Card);
     }
 
     [Fact]
-    public void AddCard_AllowsDuplicates()
+    public void Slots_ReflectUnequippedCard()
     {
         // Arrange
-        var collection = new CardCollection(10);
+        var collection = new CardCollection(3);
         var card = MakeCard();
+        collection.Slots[0].Equip(card);
 
         // Act
-        collection.AddCard(card);
-        collection.AddCard(card);
+        collection.Slots[0].Unequip();
 
         // Assert
-        Assert.Equal(2, collection.Cards.Count);
+        Assert.Null(collection.Slots[0].Card);
     }
 
     [Fact]
-    public void AddCard_ThrowsWhenAtCapacity()
+    public void Cards_ReturnsOnlyOccupiedSlots()
     {
         // Arrange
-        var collection = new CardCollection(2);
-        collection.AddCard(MakeCard("card-1"));
-        collection.AddCard(MakeCard("card-2"));
+        var collection = new CardCollection(4);
+        var card1 = MakeCard("card-001");
+        var card2 = MakeCard("card-002");
+        collection.Slots[0].Equip(card1);
+        collection.Slots[2].Equip(card2);
 
         // Act / Assert
-        Assert.Throws<InvalidOperationException>(() => collection.AddCard(MakeCard("overflow")));
-    }
-
-    [Fact]
-    public void AddCard_ThrowsWhenLocked()
-    {
-        // Arrange
-        var collection = new CardCollection(10);
-        collection.IsLocked = true;
-
-        // Act / Assert
-        Assert.Throws<InvalidOperationException>(() => collection.AddCard(MakeCard()));
-    }
-
-    [Fact]
-    public void RemoveCard_RemovesCardFromCollection()
-    {
-        // Arrange
-        var collection = new CardCollection(10);
-        var card = MakeCard();
-        collection.AddCard(card);
-
-        // Act
-        collection.RemoveCard(card);
-
-        // Assert
-        Assert.Empty(collection.Cards);
-    }
-
-    [Fact]
-    public void RemoveCard_ThrowsWhenCardNotPresent()
-    {
-        // Arrange
-        var collection = new CardCollection(10);
-
-        // Act / Assert
-        Assert.Throws<InvalidOperationException>(() => collection.RemoveCard(MakeCard()));
-    }
-
-    [Fact]
-    public void RemoveCard_ThrowsWhenLocked()
-    {
-        // Arrange
-        var collection = new CardCollection(10);
-        var card = MakeCard();
-        collection.AddCard(card);
-        collection.IsLocked = true;
-
-        // Act / Assert
-        Assert.Throws<InvalidOperationException>(() => collection.RemoveCard(card));
+        var occupiedCards = collection.Slots.Where(s => s.Card is not null).Select(s => s.Card!).ToList();
+        Assert.Equal(2, occupiedCards.Count);
+        Assert.Contains(card1, occupiedCards);
+        Assert.Contains(card2, occupiedCards);
     }
 
     [Fact]
@@ -113,16 +71,16 @@ public class CardCollectionTest
     {
         // Arrange
         var collection = new CardCollection(10);
-        collection.AddCard(MakeCard("card-001"));
-        collection.AddCard(MakeCard("card-002"));
+        collection.Slots[0].Equip(MakeCard("card-001"));
+        collection.Slots[1].Equip(MakeCard("card-002"));
 
         // Act
         var dto = collection.ToDto();
         var restored = CardCollection.FromDto(dto, 10);
 
         // Assert
-        Assert.Equal(2, restored.Cards.Count);
-        Assert.Equal("card-001", restored.Cards[0].Id);
-        Assert.Equal("card-002", restored.Cards[1].Id);
+        Assert.Equal(2, restored.Slots.Count(s => s.Card is not null));
+        Assert.Equal("card-001", restored.Slots[0].Card!.Id);
+        Assert.Equal("card-002", restored.Slots[1].Card!.Id);
     }
 }

@@ -36,7 +36,7 @@ public class CompanionStateTest
     {
         // Arrange
         var companion = new CompanionState("aria");
-        companion.Deck.AddCard(MakeCard("deck-001"));
+        companion.Deck.Slots[0].Equip(MakeCard("deck-001"));
         companion.Equipment.Weapon.Equip(MakeCard("weapon-001"));
 
         // Act
@@ -44,8 +44,8 @@ public class CompanionStateTest
         var restored = CompanionState.From(saveData);
 
         // Assert
-        Assert.Single(restored.Deck.Cards);
-        Assert.Equal("deck-001", restored.Deck.Cards[0].Id);
+        Assert.Single(restored.Deck.Slots, s => s.Card is not null);
+        Assert.Equal("deck-001", restored.Deck.Slots[0].Card!.Id);
         Assert.NotNull(restored.Equipment.Weapon.Card);
         Assert.Equal("weapon-001", restored.Equipment.Weapon.Card!.Id);
     }

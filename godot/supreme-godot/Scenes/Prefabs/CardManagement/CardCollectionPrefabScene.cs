@@ -1,6 +1,5 @@
 using Godot;
 using SupremeEngine;
-using System.Collections.Generic;
 using System.Linq;
 
 public enum CollectionSource { Bag, PlayerDeck, CompanionDeck }
@@ -13,8 +12,6 @@ public partial class CardCollectionPrefabScene : Control
 	private WorldManager _worldManager;
 	private Label _titleLabel;
 	private HFlowContainer _cardsContainer;
-	private readonly List<CardSlotPrefabScene> _slots = new();
-	private ICardCollection _collection;
 
 	public override void _Ready()
 	{
@@ -44,24 +41,13 @@ public partial class CardCollectionPrefabScene : Control
 		if (collection is null)
 			return;
 
-		_collection = collection;
-
 		_titleLabel.Text = label;
 
 		for (var i = 0; i < collection.Capacity; i++)
 		{
-			var card = i < collection.Cards.Count ? collection.Cards[i] : null;
-			var slot = PrefabFactory.CreateCardSlotScene(_cardsContainer, i, card);
+			var slot = PrefabFactory.CreateCardSlotScene(_cardsContainer, i, collection.Slots[i].Card);
+			slot.EngineSlot = collection.Slots[i];
 			slot.EnableDragAndDrop();
-			_slots.Add(slot);
 		}
-
-		foreach (var slot in _slots)
-			slot.CardReceived = (src, card) =>
-			{
-				if (_slots.Contains(src))
-					_collection.RemoveCard(card);
-				_collection.AddCard(card);
-			};
 	}
 }

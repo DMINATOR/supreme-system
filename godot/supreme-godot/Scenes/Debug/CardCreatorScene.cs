@@ -64,9 +64,16 @@ public partial class CardCreatorScene : Control
 		foreach (Node child in _offerContainer.GetChildren())
 			child.QueueFree();
 
+		ICardCollection bag = _worldManager.State.Inventory.Bag;
+		var slot = bag.FirstEmptySlot();
+		if (slot is null)
+		{
+			DialogHelper.ShowError(this, "Bag is full.");
+			return;
+		}
+
 		var factory = new CardFactory(_worldManager.State.Random);
-		var card = factory.Create(resource.ToCardTemplate());
-		_worldManager.State.Inventory.Bag.AddCard(card);
+		slot.Equip(factory.Create(resource.ToCardTemplate()));
 	}
 
 	private void ClearOffer()

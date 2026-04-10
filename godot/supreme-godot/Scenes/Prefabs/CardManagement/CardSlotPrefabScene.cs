@@ -1,10 +1,8 @@
 using Godot;
 using SupremeEngine;
-using System;
 
 public partial class CardSlotPrefabScene : PanelContainer
 {
-	public Action<CardSlotPrefabScene, Card> CardReceived;
 	public CardSlot EngineSlot;
 
 	private static CardSlotPrefabScene _activeDragSource;
@@ -185,7 +183,5 @@ public partial class CardSlotPrefabScene : PanelContainer
 
 		if (EngineSlot is not null)
 			_commandDispatcher.Dispatch(new TransferCardCommand(source.EngineSlot, EngineSlot, card));
-		else
-			CardReceived?.Invoke(source, card);
 	}
 }
