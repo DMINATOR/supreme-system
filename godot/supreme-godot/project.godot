@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-CardActivityEvents="*res://Managers/CardActivityEvents.cs"
-CommandDispatcher="*res://Managers/CommandDispatcher.cs"
+CardActivityEvents="*res://Events/CardActivityEvents.cs"
+CommandDispatcher="*res://Commands/CommandDispatcher.cs"
 SaveManager="*res://Managers/SaveManager.cs"
 SceneManager="*res://Managers/SceneManager.cs"
 WorldManager="*res://Managers/WorldManager.cs"

@@ -1,6 +1,6 @@
 ---
 name: new-scene
-description: 'Create a new Godot game scene in SupremeGodot. Use when adding a new scene, screen, or UI view that is navigated to via SceneManager. Covers all required coordinated changes: .cs script, .tscn file, SceneManager path constant and GoTo method, and DebugScene button wiring. Do NOT use for renaming or removing scenes. Do NOT use for prefab scenes (Scenes/Prefabs/) — those are instantiated programmatically via Util/ helpers, not navigated to.'
+description: 'Create a new Godot game scene in SupremeGodot. Use when adding a new scene, screen, or UI view that is navigated to via SceneManager. Covers all required coordinated changes: .cs script, .tscn file, SceneManager GameScene enum entry and GoTo method, and DebugScene button wiring. Do NOT use for renaming or removing scenes. Do NOT use for prefab scenes (Scenes/Prefabs/) — those are instantiated programmatically via Util/ helpers, not navigated to.'
 argument-hint: 'SceneName and folder (e.g. "CombatScene in Scenes/World")'
 ---
 
@@ -42,24 +42,20 @@ Rules:
 - Use `type="{BaseType}"` on the root node
 - Add child nodes to match the scene's layout; keep it minimal for now
 
-### Step 3 — Update SceneManager and GameScene
-Edit `godot/supreme-godot/Managers/SceneManager.cs` and `godot/supreme-godot/Managers/GameScene.cs`:
+### Step 3 — Update SceneManager
+Edit `godot/supreme-godot/Managers/SceneManager.cs`:
 
-1. Add a value to the `GameScene` enum (in `GameScene.cs`) at the end — note its integer index:
+1. Add a value to the `GameScene` enum at the end with a `[ScenePath]` attribute — note its 0-based integer index (position in the enum):
    ```csharp
+   [ScenePath("res://{Folder}/{SceneName}.tscn")]
    {SceneName},  // index N
    ```
-2. Add a `public const string` path constant to `SceneManager` — alphabetical order:
+2. Add a `GoTo{SceneName}()` convenience method alongside the other `GoTo` methods:
    ```csharp
-   public const string {SceneName} = "res://{Folder}/{SceneName}.tscn";
+   public void GoTo{SceneName}() => GoTo(GameScene.{SceneName});
    ```
-3. Add a case to `SceneManager.GoTo(GameScene)` and a `GoTo{SceneName}()` convenience method:
-   ```csharp
-   GameScene.{SceneName} => {SceneName},
-   ```
-   ```csharp
-   public void GoTo{SceneName}() => GetTree().ChangeSceneToFile({SceneName});
-   ```
+
+> `GoTo(GameScene)` uses reflection to resolve the `[ScenePath]` attribute at runtime — no switch/case or `public const string` path constant is needed for navigable scenes. Path constants are only used for prefab scenes.
 
 ### Step 4 — Update DebugScene.tscn
 Edit `godot/supreme-godot/Scenes/Debug/DebugScene.tscn`.
@@ -76,15 +72,13 @@ TargetScene = N
 - Do NOT add a `unique_id`
 
 ### Step 5 — No DebugScene.cs changes needed
-Navigation is handled entirely by `SceneButtonPrefabScene` via the `TargetScenePath` export. Do not add fields, `GetNode` calls, or signal wiring to `DebugScene.cs`.
+Navigation is handled entirely by `SceneButtonPrefabScene` via the `TargetScene` export. Do not add fields, `GetNode` calls, or signal wiring to `DebugScene.cs`.
 
 ## Checklist
 - [ ] `{SceneName}.cs` created (partial class, LoadNodes/PrepareNodes)
 - [ ] `{SceneName}.tscn` created (no UIDs)
 - [ ] No `.cs.uid` created manually
-- [ ] `GameScene.cs` — new enum value added
-- [ ] `SceneManager.cs` — path constant added
-- [ ] `SceneManager.cs` — `GoTo{SceneName}()` method added
-- [ ] `SceneManager.cs` — case added to `GoTo(GameScene)`
+- [ ] `SceneManager.cs` — `GameScene` enum value added with `[ScenePath]` attribute
+- [ ] `SceneManager.cs` — `GoTo{SceneName}()` method added (calls `GoTo(GameScene.{SceneName})`)
 - [ ] `DebugScene.tscn` — `SceneButtonPrefabScene` instance node added under `VBoxContainer/TabContainer/Scenes` with `TargetScene` bound
 - [ ] `DebugScene.cs` — no changes needed

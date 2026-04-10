@@ -38,20 +38,11 @@ Area-specific rules are in `.github/instructions/`:
 ### Scene Registration
 Whenever a Godot scene is **created, renamed, or removed**, automatically apply all relevant changes below without being asked:
 
-**Creating a scene:**
-1. Add a path constant and `GoTo<SceneName>()` method to `godot/supreme-godot/Managers/SceneManager.cs`
-2. Add a `SceneButtonPrefabScene` instance node inside `VBoxContainer/TabContainer/Scenes` in `DebugScene.tscn` with `text` and `TargetScene` set inline — no C# changes needed in `DebugScene.cs`
-3. Create the `.cs`, `.cs.uid`, and `.tscn` files for the scene
+**Creating a scene:** Use the [new-scene skill](.github/skills/new-scene/SKILL.md) — read it before starting.
 
-**Renaming a scene:**
-1. Rename the `.cs`, `.cs.uid`, and `.tscn` files
-2. Update the path constant and `GoTo` method name in `SceneManager.cs`
-3. Update the `SceneButtonPrefabScene` instance node name and `TargetScene` reference in `DebugScene.tscn` — no C# changes needed in `DebugScene.cs`
+**Renaming a scene:** Use the [rename-scene skill](.github/skills/rename-scene/SKILL.md) — read it before starting.
 
-**Removing a scene:**
-1. Delete the `.cs`, `.cs.uid`, and `.tscn` files
-2. Remove the path constant and `GoTo` method from `SceneManager.cs`
-3. Remove the `SceneButtonPrefabScene` instance node from `DebugScene.tscn` — no C# changes needed in `DebugScene.cs`
+**Removing a scene:** Use the [remove-scene skill](.github/skills/remove-scene/SKILL.md) — read it before starting.
 
 ### Glossary as Primary Reference
 - `docs/glossary.md` is the **single source of truth** for all game design terms
