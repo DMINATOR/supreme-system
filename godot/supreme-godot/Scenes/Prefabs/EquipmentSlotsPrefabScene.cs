@@ -1,14 +1,8 @@
 using Godot;
 using SupremeEngine;
-using System.Linq;
 
-public enum EquipmentSource { Player, Companion }
-
-public partial class EquipmentSlotsPrefabScene : Control
+public abstract partial class EquipmentSlotsPrefabScene : Control
 {
-	[Export] public EquipmentSource Source { get; set; }
-	[Export] public string CompanionId { get; set; } = "";
-
 	private WorldManager _worldManager;
 	private Label _titleLabel;
 	private CardSlotPrefabScene _headSlot;
@@ -29,6 +23,8 @@ public partial class EquipmentSlotsPrefabScene : Control
 		PrepareNodes();
 	}
 
+	protected abstract EquipmentSlots ResolveSlots(WorldManager worldManager);
+
 	private void LoadNodes()
 	{
 		_worldManager = GetNode<WorldManager>(AutoloadPath.WorldManager);
@@ -46,17 +42,13 @@ public partial class EquipmentSlotsPrefabScene : Control
 
 	private void PrepareNodes()
 	{
-		var inventory = _worldManager.State.Inventory;
-
-		_equipmentSlots = Source switch
-		{
-			EquipmentSource.Player => inventory.Player.Equipment,
-			EquipmentSource.Companion => inventory.Companions.First(c => c.CompanionId == CompanionId).Equipment,
-			_ => null
-		};
+		_equipmentSlots = ResolveSlots(_worldManager);
 
 		if (_equipmentSlots is null)
+		{
+			GD.PushError($"{GetType().Name}: ResolveSlots returned null.");
 			return;
+		}
 
 		_titleLabel.Text = "Equipment";
 

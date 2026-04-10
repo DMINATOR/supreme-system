@@ -1,14 +1,12 @@
-[gd_scene format=3 uid="uid://dnf8o1cp8uisl"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://3kyp7nadjx2g" path="res://Scenes/Prefabs/EquipmentSlotsPrefabScene.cs" id="1_eqslots"]
-[ext_resource type="PackedScene" path="res://Scenes/Prefabs/CardManagement/CardSlotPrefabScene.tscn" id="2_cardslot"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/CardManagement/CardSlotPrefabScene.tscn" id="1_cardslot"]
 
-[node name="EquipmentSlotsPrefabScene" type="VBoxContainer" unique_id=1951941562]
+[node name="EquipmentSlotsPrefabScene" type="VBoxContainer"]
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource("1_eqslots")
 
-[node name="TitleLabel" type="Label" parent="." unique_id=1950131830]
+[node name="TitleLabel" type="Label" parent="."]
 layout_mode = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
@@ -16,41 +14,41 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="SlotsContainer" type="VBoxContainer" parent="CenterContainer" unique_id=2028009815]
+[node name="SlotsContainer" type="VBoxContainer" parent="CenterContainer"]
 layout_mode = 2
 
-[node name="Row1" type="HBoxContainer" parent="CenterContainer/SlotsContainer" unique_id=762625720]
+[node name="Row1" type="HBoxContainer" parent="CenterContainer/SlotsContainer"]
 layout_mode = 2
 
-[node name="WeaponSlot" parent="CenterContainer/SlotsContainer/Row1" unique_id=1528114050 instance=ExtResource("2_cardslot")]
+[node name="WeaponSlot" parent="CenterContainer/SlotsContainer/Row1" instance=ExtResource("1_cardslot")]
 layout_mode = 2
 
-[node name="HeadSlot" parent="CenterContainer/SlotsContainer/Row1" unique_id=1908702996 instance=ExtResource("2_cardslot")]
+[node name="HeadSlot" parent="CenterContainer/SlotsContainer/Row1" instance=ExtResource("1_cardslot")]
 layout_mode = 2
 
-[node name="OffHandSlot" parent="CenterContainer/SlotsContainer/Row1" unique_id=1182736790 instance=ExtResource("2_cardslot")]
+[node name="OffHandSlot" parent="CenterContainer/SlotsContainer/Row1" instance=ExtResource("1_cardslot")]
 layout_mode = 2
 
-[node name="Row2" type="HBoxContainer" parent="CenterContainer/SlotsContainer" unique_id=781034203]
+[node name="Row2" type="HBoxContainer" parent="CenterContainer/SlotsContainer"]
 layout_mode = 2
 
-[node name="HandsSlot" parent="CenterContainer/SlotsContainer/Row2" unique_id=18185918 instance=ExtResource("2_cardslot")]
+[node name="HandsSlot" parent="CenterContainer/SlotsContainer/Row2" instance=ExtResource("1_cardslot")]
 layout_mode = 2
 
-[node name="ChestSlot" parent="CenterContainer/SlotsContainer/Row2" unique_id=747730349 instance=ExtResource("2_cardslot")]
+[node name="ChestSlot" parent="CenterContainer/SlotsContainer/Row2" instance=ExtResource("1_cardslot")]
 layout_mode = 2
 
-[node name="AmuletSlot" parent="CenterContainer/SlotsContainer/Row2" unique_id=709740516 instance=ExtResource("2_cardslot")]
+[node name="AmuletSlot" parent="CenterContainer/SlotsContainer/Row2" instance=ExtResource("1_cardslot")]
 layout_mode = 2
 
-[node name="Row3" type="HBoxContainer" parent="CenterContainer/SlotsContainer" unique_id=1885228141]
+[node name="Row3" type="HBoxContainer" parent="CenterContainer/SlotsContainer"]
 layout_mode = 2
 
-[node name="FeetSlot" parent="CenterContainer/SlotsContainer/Row3" unique_id=45905603 instance=ExtResource("2_cardslot")]
+[node name="FeetSlot" parent="CenterContainer/SlotsContainer/Row3" instance=ExtResource("1_cardslot")]
 layout_mode = 2
 
-[node name="Ring1Slot" parent="CenterContainer/SlotsContainer/Row3" unique_id=965726342 instance=ExtResource("2_cardslot")]
+[node name="Ring1Slot" parent="CenterContainer/SlotsContainer/Row3" instance=ExtResource("1_cardslot")]
 layout_mode = 2
 
-[node name="Ring2Slot" parent="CenterContainer/SlotsContainer/Row3" unique_id=581366746 instance=ExtResource("2_cardslot")]
+[node name="Ring2Slot" parent="CenterContainer/SlotsContainer/Row3" instance=ExtResource("1_cardslot")]
 layout_mode = 2

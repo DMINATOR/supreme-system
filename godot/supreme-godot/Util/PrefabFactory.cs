@@ -31,11 +31,18 @@ public static class PrefabFactory
         return scene;
     }
 
-    public static EquipmentSlotsPrefabScene CreateCompanionEquipmentScene(Node parent, string companionId)
+    public static PlayerEquipmentSlotsPrefabScene CreatePlayerEquipmentScene(Node parent)
     {
-        var prefab = GD.Load<PackedScene>(SceneManager.EquipmentSlotsPrefabScene);
-        var scene = prefab.Instantiate<EquipmentSlotsPrefabScene>();
-        scene.Source = EquipmentSource.Companion;
+        var prefab = GD.Load<PackedScene>(SceneManager.PlayerEquipmentSlotsPrefabScene);
+        var scene = prefab.Instantiate<PlayerEquipmentSlotsPrefabScene>();
+        parent.AddChild(scene);
+        return scene;
+    }
+
+    public static CompanionEquipmentSlotsPrefabScene CreateCompanionEquipmentScene(Node parent, string companionId)
+    {
+        var prefab = GD.Load<PackedScene>(SceneManager.CompanionEquipmentSlotsPrefabScene);
+        var scene = prefab.Instantiate<CompanionEquipmentSlotsPrefabScene>();
         scene.CompanionId = companionId;
         parent.AddChild(scene);
         return scene;
