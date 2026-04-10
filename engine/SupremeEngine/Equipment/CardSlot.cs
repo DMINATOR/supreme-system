@@ -7,6 +7,9 @@ public class CardSlot
 
     public void Equip(Card card)
     {
+        if (Card is not null)
+            throw new InvalidOperationException("Slot is already occupied. Unequip the current card before equipping a new one.");
+
         Card = card;
     }
 

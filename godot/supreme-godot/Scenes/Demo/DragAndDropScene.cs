@@ -14,17 +14,6 @@ public partial class DragAndDropScene : Control
 		PrepareNodes();
 	}
 
-	public override void _Notification(int what)
-	{
-		base._Notification(what);
-
-		if (what == NotificationDragEnd)
-			SetAllHighlighted(false);
-
-		if (what == NotificationPredelete)
-			CardSlotPrefabScene.AnyCardDragStarted -= OnCardDragStarted;
-	}
-
 	private void LoadNodes()
 	{
 		_slot1 = GetNode<CardSlotPrefabScene>("VBoxContainer/SlotsContainer/Slot1");
@@ -45,19 +34,6 @@ public partial class DragAndDropScene : Control
 
 		foreach (var slot in GetAllSlots())
 			slot.EnableDragAndDrop();
-
-		CardSlotPrefabScene.AnyCardDragStarted += OnCardDragStarted;
-	}
-
-	private void OnCardDragStarted()
-	{
-		SetAllHighlighted(true);
-	}
-
-	private void SetAllHighlighted(bool highlighted)
-	{
-		foreach (var slot in GetAllSlots())
-			slot.SetHighlight(highlighted);
 	}
 
 	private CardSlotPrefabScene[] GetAllSlots() => new[] { _slot1, _slot2, _slot3, _slot4 };

@@ -40,7 +40,7 @@ public class EquipmentSlotsTest
     }
 
     [Fact]
-    public void Equip_OverwritesExistingCard()
+    public void Equip_ThrowsIfSlotIsOccupied()
     {
         // Arrange
         var slots = new EquipmentSlots();
@@ -48,11 +48,8 @@ public class EquipmentSlotsTest
         var second = MakeCard("second");
         slots.Chest.Equip(first);
 
-        // Act
-        slots.Chest.Equip(second);
-
-        // Assert
-        Assert.Same(second, slots.Chest.Card);
+        // Act / Assert
+        Assert.Throws<InvalidOperationException>(() => slots.Chest.Equip(second));
     }
 
     [Fact]

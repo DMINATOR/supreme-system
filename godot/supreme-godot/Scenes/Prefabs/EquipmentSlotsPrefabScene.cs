@@ -11,6 +11,7 @@ public partial class EquipmentSlotsPrefabScene : Control
 	[Export] public string CompanionId { get; set; } = "";
 
 	private WorldManager _worldManager;
+	private CommandDispatcher _commandDispatcher;
 	private Label _titleLabel;
 	private CardSlotPrefabScene _headSlot;
 	private CardSlotPrefabScene _weaponSlot;
@@ -31,23 +32,10 @@ public partial class EquipmentSlotsPrefabScene : Control
 		PrepareNodes();
 	}
 
-	public override void _Notification(int what)
-	{
-		base._Notification(what);
-
-		if (what == NotificationDragEnd)
-			SetAllHighlighted(false);
-
-		if (what == NotificationPredelete)
-		{
-			CardSlotPrefabScene.AnyCardDragStarted -= OnCardDragStarted;
-			CardSlotPrefabScene.CardMoved -= OnCardMoved;
-		}
-	}
-
 	private void LoadNodes()
 	{
 		_worldManager = GetNode<WorldManager>(AutoloadPath.WorldManager);
+		_commandDispatcher = GetNode<CommandDispatcher>(AutoloadPath.CommandDispatcher);
 		_titleLabel = GetNode<Label>("TitleLabel");
 		_weaponSlot = GetNode<CardSlotPrefabScene>("CenterContainer/SlotsContainer/Row1/WeaponSlot");
 		_headSlot = GetNode<CardSlotPrefabScene>("CenterContainer/SlotsContainer/Row1/HeadSlot");
@@ -99,39 +87,15 @@ public partial class EquipmentSlotsPrefabScene : Control
 			{ _ring2Slot,   _equipmentSlots.Ring2 },
 		};
 
-		foreach (var slot in GetAllSlots())
-			slot.EnableDragAndDrop();
-
-		CardSlotPrefabScene.AnyCardDragStarted += OnCardDragStarted;
-		CardSlotPrefabScene.CardMoved += OnCardMoved;
-	}
-
-	private void OnCardMoved(CardSlotPrefabScene source, CardSlotPrefabScene target, Card card)
-	{
-		if (_slotMap.TryGetValue(source, out var sourceSlot))
-			sourceSlot.Unequip();
-
-		if (_slotMap.TryGetValue(target, out var targetSlot))
-			targetSlot.Equip(card);
-	}
-
-	private void OnCardDragStarted()
-	{
-		SetAllHighlighted(true);
-	}
-
-	private void SetAllHighlighted(bool highlighted)
-	{
-		foreach (var slot in GetAllSlots())
-			slot.SetHighlight(highlighted);
-	}
-
-	private CardSlotPrefabScene[] GetAllSlots()
-	{
-		return new[]
+		foreach (var (uiSlot, engineSlot) in _slotMap)
 		{
-			_headSlot, _weaponSlot, _offHandSlot, _chestSlot,
-			_handsSlot, _feetSlot, _amuletSlot, _ring1Slot, _ring2Slot
-		};
+			var capturedEngineSlot = engineSlot;
+			uiSlot.EnableDragAndDrop();
+			uiSlot.CardReceived = (src, card) =>
+			{
+				_slotMap.TryGetValue(src, out var sourceEngineSlot);
+				_commandDispatcher.Dispatch(new TransferCardCommand(sourceEngineSlot, capturedEngineSlot, card));
+			};
+		}
 	}
 }

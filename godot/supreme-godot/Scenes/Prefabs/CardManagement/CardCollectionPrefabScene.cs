@@ -22,21 +22,6 @@ public partial class CardCollectionPrefabScene : Control
 		PrepareNodes();
 	}
 
-	public override void _Notification(int what)
-	{
-		base._Notification(what);
-
-		if (what == NotificationDragEnd)
-			foreach (var slot in _slots)
-				slot.SetHighlight(false);
-
-		if (what == NotificationPredelete)
-		{
-			CardSlotPrefabScene.AnyCardDragStarted -= OnCardDragStarted;
-			CardSlotPrefabScene.CardMoved -= OnCardMoved;
-		}
-	}
-
 	private void LoadNodes()
 	{
 		_worldManager = GetNode<WorldManager>(AutoloadPath.WorldManager);
@@ -71,22 +56,12 @@ public partial class CardCollectionPrefabScene : Control
 			_slots.Add(slot);
 		}
 
-		CardSlotPrefabScene.AnyCardDragStarted += OnCardDragStarted;
-		CardSlotPrefabScene.CardMoved += OnCardMoved;
-	}
-
-	private void OnCardMoved(CardSlotPrefabScene source, CardSlotPrefabScene target, Card card)
-	{
-		if (_slots.Contains(source))
-			_collection.RemoveCard(card);
-
-		if (_slots.Contains(target))
-			_collection.AddCard(card);
-	}
-
-	private void OnCardDragStarted()
-	{
 		foreach (var slot in _slots)
-			slot.SetHighlight(true);
+			slot.CardReceived = (src, card) =>
+			{
+				if (_slots.Contains(src))
+					_collection.RemoveCard(card);
+				_collection.AddCard(card);
+			};
 	}
 }

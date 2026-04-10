@@ -4,12 +4,12 @@ using System;
 
 public partial class CardSlotPrefabScene : PanelContainer
 {
-	public static event Action AnyCardDragStarted;
-	public static event Action<CardSlotPrefabScene, CardSlotPrefabScene, Card> CardMoved;
+	public Action<CardSlotPrefabScene, Card> CardReceived;
 
 	private static CardSlotPrefabScene _activeDragSource;
 	private static Card _activeDragCard;
 
+	private CardActivityEvents _cardActivityEvents;
 	private Label _indexLabel;
 	private Control _cardContainer;
 	private Label _emptyLabel;
@@ -47,6 +47,7 @@ public partial class CardSlotPrefabScene : PanelContainer
 	public override void _Ready()
 	{
 		LoadNodes();
+		PrepareNodes();
 	}
 
 	public override Variant _GetDragData(Vector2 atPosition)
@@ -58,7 +59,7 @@ public partial class CardSlotPrefabScene : PanelContainer
 		_activeDragCard = _card;
 		SetCard(null);
 		SetDragPreview(CreateDragPreview(_activeDragCard));
-		AnyCardDragStarted?.Invoke();
+		_cardActivityEvents.RaiseCardDragStarted(this);
 
 		return Variant.From("card_drag");
 	}
@@ -79,7 +80,7 @@ public partial class CardSlotPrefabScene : PanelContainer
 		_activeDragCard = null;
 		_activeDragSource = null;
 		SetCard(card);
-		CardMoved?.Invoke(source, this, card);
+		_cardActivityEvents.RaiseCardDragEnded(source, this, card);
 	}
 
 	public override void _Notification(int what)
@@ -92,6 +93,15 @@ public partial class CardSlotPrefabScene : PanelContainer
 			_activeDragCard = null;
 			_activeDragSource = null;
 			SetCard(card);
+			_cardActivityEvents.RaiseCardDragCancelled(this);
+		}
+
+		if (what == NotificationPredelete)
+		{
+			// Called when the node is about to be freed
+			_cardActivityEvents.CardDragStarted -= OnCardDragStarted;
+			_cardActivityEvents.CardDragCancelled -= OnCardDragCancelled;
+			_cardActivityEvents.CardDragEnded -= OnCardDragEnded;
 		}
 	}
 
@@ -140,8 +150,33 @@ public partial class CardSlotPrefabScene : PanelContainer
 
 	private void LoadNodes()
 	{
+		_cardActivityEvents = GetNode<CardActivityEvents>(AutoloadPath.CardActivityEvents);
 		_indexLabel = GetNode<Label>("VBoxContainer/IndexLabel");
 		_cardContainer = GetNode<Control>("VBoxContainer/CardContainer");
 		_emptyLabel = GetNode<Label>("VBoxContainer/EmptyLabel");
+	}
+
+	private void PrepareNodes()
+	{
+		_cardActivityEvents.CardDragStarted += OnCardDragStarted;
+		_cardActivityEvents.CardDragCancelled += OnCardDragCancelled;
+		_cardActivityEvents.CardDragEnded += OnCardDragEnded;
+	}
+
+	private void OnCardDragStarted(CardSlotPrefabScene source)
+	{
+		SetHighlight(true);
+	}
+
+	private void OnCardDragCancelled(CardSlotPrefabScene source)
+	{
+		SetHighlight(false);
+	}
+
+	private void OnCardDragEnded(CardSlotPrefabScene source, CardSlotPrefabScene target, Card card)
+	{
+		SetHighlight(false);
+		if (this == target)
+			CardReceived?.Invoke(source, card);
 	}
 }
