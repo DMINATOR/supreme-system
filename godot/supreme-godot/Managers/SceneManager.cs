@@ -21,14 +21,14 @@ public partial class SceneManager : Node
 		DragAndDropScene,
 	}
 
-	public const string CardCollectionPrefabScene = "res://Scenes/Prefabs/CardManagement/CardCollectionPrefabScene.tscn";
-	public const string CardOfferPrefabScene = "res://Scenes/Prefabs/CardManagement/CardOfferPrefabScene.tscn";
-	public const string CardPrefabScene = "res://Scenes/Prefabs/CardManagement/CardPrefabScene.tscn";
-	public const string CardDragPrefabScene = "res://Scenes/Prefabs/CardManagement/CardDragPrefabScene.tscn";
-	public const string CardSlotPrefabScene = "res://Scenes/Prefabs/CardManagement/CardSlotPrefabScene.tscn";
-	public const string CompanionEquipmentSlotsPrefabScene = "res://Scenes/Prefabs/CompanionEquipmentSlotsPrefabScene.tscn";
-	public const string InventoryPrefabScene = "res://Scenes/Prefabs/InventoryPrefabScene.tscn";
-	public const string PlayerEquipmentSlotsPrefabScene = "res://Scenes/Prefabs/PlayerEquipmentSlotsPrefabScene.tscn";
+	public const string CardCollectionPrefabScene = "res://Scenes/Prefabs/CardManagement/Collection/CardCollectionPrefabScene.tscn";
+	public const string CardOfferPrefabScene = "res://Scenes/Prefabs/CardManagement/Collection/CardOfferPrefabScene.tscn";
+	public const string CardPrefabScene = "res://Scenes/Prefabs/CardManagement/Card/CardPrefabScene.tscn";
+	public const string CardDragPrefabScene = "res://Scenes/Prefabs/CardManagement/Card/CardDragPrefabScene.tscn";
+	public const string CardSlotPrefabScene = "res://Scenes/Prefabs/CardManagement/Slot/CardSlotPrefabScene.tscn";
+	public const string CompanionEquipmentSlotsPrefabScene = "res://Scenes/Prefabs/Inventory/CompanionEquipmentSlotsPrefabScene.tscn";
+	public const string InventoryPrefabScene = "res://Scenes/Prefabs/Inventory/InventoryPrefabScene.tscn";
+	public const string PlayerEquipmentSlotsPrefabScene = "res://Scenes/Prefabs/Inventory/PlayerEquipmentSlotsPrefabScene.tscn";
 	public const string SceneButtonPrefabScene = "res://Scenes/Prefabs/Control/SceneButtonPrefabScene.tscn";
 
 	public void GoToMainMenu() => GoTo(GameScene.MainMenu);

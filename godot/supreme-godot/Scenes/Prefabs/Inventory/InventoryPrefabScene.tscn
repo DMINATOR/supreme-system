@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://sso4cisgfwr7"]
 
-[ext_resource type="Script" uid="uid://00p2qjlvxllt" path="res://Scenes/Prefabs/InventoryPrefabScene.cs" id="1_inv"]
-[ext_resource type="PackedScene" path="res://Scenes/Prefabs/CardManagement/CardCollectionPrefabScene.tscn" id="2_ccp"]
-[ext_resource type="PackedScene" path="res://Scenes/Prefabs/PlayerEquipmentSlotsPrefabScene.tscn" id="3_eqp"]
+[ext_resource type="Script" uid="uid://00p2qjlvxllt" path="res://Scenes/Prefabs/Inventory/InventoryPrefabScene.cs" id="1_inv"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/CardManagement/Collection/CardCollectionPrefabScene.tscn" id="2_ccp"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/Inventory/PlayerEquipmentSlotsPrefabScene.tscn" id="3_eqp"]
 
 [node name="InventoryPrefabScene" type="VBoxContainer" unique_id=349339869]
 offset_right = 538.0

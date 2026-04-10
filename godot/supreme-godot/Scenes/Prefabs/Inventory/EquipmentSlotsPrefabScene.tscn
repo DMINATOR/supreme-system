@@ -1,6 +1,6 @@
 [gd_scene format=3]
 
-[ext_resource type="PackedScene" path="res://Scenes/Prefabs/CardManagement/CardSlotPrefabScene.tscn" id="1_cardslot"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/CardManagement/Slot/CardSlotPrefabScene.tscn" id="1_cardslot"]
 
 [node name="EquipmentSlotsPrefabScene" type="VBoxContainer"]
 size_flags_horizontal = 3
