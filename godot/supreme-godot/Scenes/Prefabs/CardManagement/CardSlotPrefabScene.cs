@@ -5,11 +5,13 @@ using System;
 public partial class CardSlotPrefabScene : PanelContainer
 {
 	public Action<CardSlotPrefabScene, Card> CardReceived;
+	public CardSlot EngineSlot;
 
 	private static CardSlotPrefabScene _activeDragSource;
 	private static Card _activeDragCard;
 
 	private CardActivityEvents _cardActivityEvents;
+	private CommandDispatcher _commandDispatcher;
 	private Label _indexLabel;
 	private Control _cardContainer;
 	private Label _emptyLabel;
@@ -151,6 +153,7 @@ public partial class CardSlotPrefabScene : PanelContainer
 	private void LoadNodes()
 	{
 		_cardActivityEvents = GetNode<CardActivityEvents>(AutoloadPath.CardActivityEvents);
+		_commandDispatcher = GetNode<CommandDispatcher>(AutoloadPath.CommandDispatcher);
 		_indexLabel = GetNode<Label>("VBoxContainer/IndexLabel");
 		_cardContainer = GetNode<Control>("VBoxContainer/CardContainer");
 		_emptyLabel = GetNode<Label>("VBoxContainer/EmptyLabel");
@@ -176,7 +179,13 @@ public partial class CardSlotPrefabScene : PanelContainer
 	private void OnCardDragEnded(CardSlotPrefabScene source, CardSlotPrefabScene target, Card card)
 	{
 		SetHighlight(false);
-		if (this == target)
+
+		if (this != target)
+			return;
+
+		if (EngineSlot is not null)
+			_commandDispatcher.Dispatch(new TransferCardCommand(source.EngineSlot, EngineSlot, card));
+		else
 			CardReceived?.Invoke(source, card);
 	}
 }

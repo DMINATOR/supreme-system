@@ -1,6 +1,5 @@
 using Godot;
 using SupremeEngine;
-using System.Collections.Generic;
 using System.Linq;
 
 public enum EquipmentSource { Player, Companion }
@@ -11,7 +10,6 @@ public partial class EquipmentSlotsPrefabScene : Control
 	[Export] public string CompanionId { get; set; } = "";
 
 	private WorldManager _worldManager;
-	private CommandDispatcher _commandDispatcher;
 	private Label _titleLabel;
 	private CardSlotPrefabScene _headSlot;
 	private CardSlotPrefabScene _weaponSlot;
@@ -24,7 +22,6 @@ public partial class EquipmentSlotsPrefabScene : Control
 	private CardSlotPrefabScene _ring2Slot;
 
 	private EquipmentSlots _equipmentSlots;
-	private Dictionary<CardSlotPrefabScene, CardSlot> _slotMap;
 
 	public override void _Ready()
 	{
@@ -35,7 +32,6 @@ public partial class EquipmentSlotsPrefabScene : Control
 	private void LoadNodes()
 	{
 		_worldManager = GetNode<WorldManager>(AutoloadPath.WorldManager);
-		_commandDispatcher = GetNode<CommandDispatcher>(AutoloadPath.CommandDispatcher);
 		_titleLabel = GetNode<Label>("TitleLabel");
 		_weaponSlot = GetNode<CardSlotPrefabScene>("CenterContainer/SlotsContainer/Row1/WeaponSlot");
 		_headSlot = GetNode<CardSlotPrefabScene>("CenterContainer/SlotsContainer/Row1/HeadSlot");
@@ -74,28 +70,26 @@ public partial class EquipmentSlotsPrefabScene : Control
 		_ring1Slot.Setup("Ring 1", _equipmentSlots.Ring1.Card);
 		_ring2Slot.Setup("Ring 2", _equipmentSlots.Ring2.Card);
 
-		_slotMap = new Dictionary<CardSlotPrefabScene, CardSlot>
-		{
-			{ _headSlot,    _equipmentSlots.Head },
-			{ _weaponSlot,  _equipmentSlots.Weapon },
-			{ _offHandSlot, _equipmentSlots.OffHand },
-			{ _chestSlot,   _equipmentSlots.Chest },
-			{ _handsSlot,   _equipmentSlots.Hands },
-			{ _feetSlot,    _equipmentSlots.Feet },
-			{ _amuletSlot,  _equipmentSlots.Amulet },
-			{ _ring1Slot,   _equipmentSlots.Ring1 },
-			{ _ring2Slot,   _equipmentSlots.Ring2 },
-		};
+		_headSlot.EngineSlot    = _equipmentSlots.Head;
+		_weaponSlot.EngineSlot  = _equipmentSlots.Weapon;
+		_offHandSlot.EngineSlot = _equipmentSlots.OffHand;
+		_chestSlot.EngineSlot   = _equipmentSlots.Chest;
+		_handsSlot.EngineSlot   = _equipmentSlots.Hands;
+		_feetSlot.EngineSlot    = _equipmentSlots.Feet;
+		_amuletSlot.EngineSlot  = _equipmentSlots.Amulet;
+		_ring1Slot.EngineSlot   = _equipmentSlots.Ring1;
+		_ring2Slot.EngineSlot   = _equipmentSlots.Ring2;
 
-		foreach (var (uiSlot, engineSlot) in _slotMap)
+		foreach (var slot in GetAllSlots())
+			slot.EnableDragAndDrop();
+	}
+
+	private CardSlotPrefabScene[] GetAllSlots()
+	{
+		return new[]
 		{
-			var capturedEngineSlot = engineSlot;
-			uiSlot.EnableDragAndDrop();
-			uiSlot.CardReceived = (src, card) =>
-			{
-				_slotMap.TryGetValue(src, out var sourceEngineSlot);
-				_commandDispatcher.Dispatch(new TransferCardCommand(sourceEngineSlot, capturedEngineSlot, card));
-			};
-		}
+			_headSlot, _weaponSlot, _offHandSlot, _chestSlot,
+			_handsSlot, _feetSlot, _amuletSlot, _ring1Slot, _ring2Slot
+		};
 	}
 }
