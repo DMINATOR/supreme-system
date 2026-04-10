@@ -12,6 +12,15 @@ public static class PrefabFactory
         return scene;
     }
 
+    public static CardCollectionPrefabScene CreateBagScene(Node parent)
+    {
+        var prefab = GD.Load<PackedScene>(SceneManager.CardCollectionPrefabScene);
+        var scene = prefab.Instantiate<CardCollectionPrefabScene>();
+        scene.Source = CollectionSource.Bag;
+        parent.AddChild(scene);
+        return scene;
+    }
+
     public static CardCollectionPrefabScene CreateCompanionDeckScene(Node parent, string companionId)
     {
         var prefab = GD.Load<PackedScene>(SceneManager.CardCollectionPrefabScene);

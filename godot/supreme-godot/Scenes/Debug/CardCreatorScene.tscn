@@ -26,13 +26,23 @@ layout_mode = 2
 text = "Back"
 TargetScene = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer" unique_id=401847294]
+[node name="ContentContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=501847291]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="TemplatesContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer" unique_id=401847295]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/ContentContainer" unique_id=401847294]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TemplatesContainer" type="VBoxContainer" parent="VBoxContainer/ContentContainer/ScrollContainer" unique_id=401847295]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BagContainer" type="VBoxContainer" parent="VBoxContainer/ContentContainer" unique_id=501847292]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="OfferContainer" type="Control" parent="VBoxContainer" unique_id=401847296]
 custom_minimum_size = Vector2(0, 220)

@@ -8,6 +8,7 @@ public partial class CardCreatorScene : Control
 	private WorldManager _worldManager;
 	private VBoxContainer _templatesContainer;
 	private Control _offerContainer;
+	private VBoxContainer _bagContainer;
 
 	public override void _Ready()
 	{
@@ -18,13 +19,15 @@ public partial class CardCreatorScene : Control
 	private void LoadNodes()
 	{
 		_worldManager = GetNode<WorldManager>(AutoloadPath.WorldManager);
-		_templatesContainer = GetNode<VBoxContainer>("VBoxContainer/ScrollContainer/TemplatesContainer");
+		_templatesContainer = GetNode<VBoxContainer>("VBoxContainer/ContentContainer/ScrollContainer/TemplatesContainer");
 		_offerContainer = GetNode<Control>("VBoxContainer/OfferContainer");
+		_bagContainer = GetNode<VBoxContainer>("VBoxContainer/ContentContainer/BagContainer");
 	}
 
 	private void PrepareNodes()
 	{
 		PopulateTemplates();
+		RefreshBag();
 	}
 
 	private void PopulateTemplates()
@@ -74,6 +77,14 @@ public partial class CardCreatorScene : Control
 
 		var factory = new CardFactory(_worldManager.State.Random);
 		slot.Equip(factory.Create(resource.ToCardTemplate()));
+		RefreshBag();
+	}
+
+	private void RefreshBag()
+	{
+		foreach (Node child in _bagContainer.GetChildren())
+			child.QueueFree();
+		PrefabFactory.CreateBagScene(_bagContainer);
 	}
 
 	private void ClearOffer()
