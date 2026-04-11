@@ -62,15 +62,15 @@ public abstract partial class EquipmentSlotsPrefabScene : Control
 		_ring1Slot.Setup("Ring 1", _equipmentSlots.Ring1.Card);
 		_ring2Slot.Setup("Ring 2", _equipmentSlots.Ring2.Card);
 
-		_headSlot.EngineSlot    = _equipmentSlots.Head;
-		_weaponSlot.EngineSlot  = _equipmentSlots.Weapon;
-		_offHandSlot.EngineSlot = _equipmentSlots.OffHand;
-		_chestSlot.EngineSlot   = _equipmentSlots.Chest;
-		_handsSlot.EngineSlot   = _equipmentSlots.Hands;
-		_feetSlot.EngineSlot    = _equipmentSlots.Feet;
-		_amuletSlot.EngineSlot  = _equipmentSlots.Amulet;
-		_ring1Slot.EngineSlot   = _equipmentSlots.Ring1;
-		_ring2Slot.EngineSlot   = _equipmentSlots.Ring2;
+		_headSlot.CardSlot    = _equipmentSlots.Head;
+		_weaponSlot.CardSlot  = _equipmentSlots.Weapon;
+		_offHandSlot.CardSlot = _equipmentSlots.OffHand;
+		_chestSlot.CardSlot   = _equipmentSlots.Chest;
+		_handsSlot.CardSlot   = _equipmentSlots.Hands;
+		_feetSlot.CardSlot    = _equipmentSlots.Feet;
+		_amuletSlot.CardSlot  = _equipmentSlots.Amulet;
+		_ring1Slot.CardSlot   = _equipmentSlots.Ring1;
+		_ring2Slot.CardSlot   = _equipmentSlots.Ring2;
 
 		foreach (var slot in GetAllSlots())
 			slot.EnableDragAndDrop();

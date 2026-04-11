@@ -1,14 +1,10 @@
 using Godot;
 using SupremeEngine;
 
-public partial class CardSlotPrefabScene : PanelContainer
+public partial class CardSlotPrefabScene : DragDropContainer
 {
-	public CardSlot EngineSlot;
+	public CardSlot CardSlot;
 
-	private static CardSlotPrefabScene _activeDragSource;
-	private static Card _activeDragCard;
-
-	private CardActivityEvents _cardActivityEvents;
 	private CommandDispatcher _commandDispatcher;
 	private Label _indexLabel;
 	private Control _cardContainer;
@@ -16,7 +12,6 @@ public partial class CardSlotPrefabScene : PanelContainer
 	private CardPrefabScene _cardScene;
 
 	private Card _card;
-	private bool _dragAndDropEnabled;
 
 	public void Setup(string label, Card card)
 	{
@@ -26,88 +21,46 @@ public partial class CardSlotPrefabScene : PanelContainer
 
 	public void EnableDragAndDrop()
 	{
-		_dragAndDropEnabled = true;
+		IsEnabled = true;
 		UpdateCursor();
-	}
-
-	public void SetHighlight(bool highlighted)
-	{
-		if (highlighted)
-		{
-			var style = new StyleBoxFlat();
-			style.BgColor = new Color(0, 1, 0, 0.3f);
-			AddThemeStyleboxOverride("panel", style);
-		}
-		else
-		{
-			RemoveThemeStyleboxOverride("panel");
-		}
 	}
 
 	public override void _Ready()
 	{
+		base._Ready();
 		LoadNodes();
 		PrepareNodes();
 	}
 
-	public override Variant _GetDragData(Vector2 atPosition)
-	{
-		if (!_dragAndDropEnabled || _card is null)
-			return default;
+	protected override Control GetDragPreviewNode()
+		=> PrefabFactory.CreateCardDragPreviewScene(((CardDropContent)DraggedContent).Card);
 
-		_activeDragSource = this;
-		_activeDragCard = _card;
+	protected override void OnDragStarted()
+	{
 		SetCard(null);
-		SetDragPreview(PrefabFactory.CreateCardDragPreviewScene(_activeDragCard));
-		_cardActivityEvents.RaiseCardDragStarted(this);
-
-		return Variant.From("card_drag");
 	}
 
-	public override bool _CanDropData(Vector2 atPosition, Variant data)
+	protected override void OnDragCancelled()
 	{
-		return _dragAndDropEnabled
-			&& _card is null
-			&& _activeDragSource is not null
-			&& _activeDragSource != this
-			&& data.As<string>() == "card_drag";
+		SetCard(((CardDropContent)DraggedContent).Card);
 	}
 
-	public override void _DropData(Vector2 atPosition, Variant data)
+	protected override void OnDropReceived(DragDropContainer source)
 	{
-		var source = _activeDragSource;
-		var card = _activeDragCard;
-		_activeDragCard = null;
-		_activeDragSource = null;
-		SetCard(card);
-		_cardActivityEvents.RaiseCardDragEnded(source, this, card);
+		SetCard(((CardDropContent)source.DraggedContent).Card);
 	}
 
-	public override void _Notification(int what)
+	protected override void OnDropCompleted(DragDropContainer source)
 	{
-		base._Notification(what);
-
-		if (what == NotificationDragEnd && _activeDragSource == this)
-		{
-			var card = _activeDragCard;
-			_activeDragCard = null;
-			_activeDragSource = null;
-			SetCard(card);
-			_cardActivityEvents.RaiseCardDragCancelled(this);
-		}
-
-		if (what == NotificationPredelete)
-		{
-			// Called when the node is about to be freed
-			_cardActivityEvents.CardDragStarted -= OnCardDragStarted;
-			_cardActivityEvents.CardDragCancelled -= OnCardDragCancelled;
-			_cardActivityEvents.CardDragEnded -= OnCardDragEnded;
-		}
+		var cardSource = (CardSlotPrefabScene)source;
+		if (CardSlot is not null)
+			_commandDispatcher.Dispatch(new TransferCardCommand(cardSource.CardSlot, CardSlot, _card));
 	}
 
 	private void SetCard(Card card)
 	{
 		_card = card;
+		Content = card is not null ? new CardDropContent(card) : null;
 
 		if (_cardScene is not null)
 		{
@@ -128,16 +81,8 @@ public partial class CardSlotPrefabScene : PanelContainer
 		UpdateCursor();
 	}
 
-	private void UpdateCursor()
-	{
-		MouseDefaultCursorShape = _dragAndDropEnabled && _card is not null
-			? CursorShape.PointingHand
-			: CursorShape.Arrow;
-	}
-
 	private void LoadNodes()
 	{
-		_cardActivityEvents = GetNode<CardActivityEvents>(AutoloadPath.CardActivityEvents);
 		_commandDispatcher = GetNode<CommandDispatcher>(AutoloadPath.CommandDispatcher);
 		_indexLabel = GetNode<Label>("VBoxContainer/IndexLabel");
 		_cardContainer = GetNode<Control>("VBoxContainer/CardContainer");
@@ -146,29 +91,6 @@ public partial class CardSlotPrefabScene : PanelContainer
 
 	private void PrepareNodes()
 	{
-		_cardActivityEvents.CardDragStarted += OnCardDragStarted;
-		_cardActivityEvents.CardDragCancelled += OnCardDragCancelled;
-		_cardActivityEvents.CardDragEnded += OnCardDragEnded;
-	}
-
-	private void OnCardDragStarted(CardSlotPrefabScene source)
-	{
-		SetHighlight(true);
-	}
-
-	private void OnCardDragCancelled(CardSlotPrefabScene source)
-	{
-		SetHighlight(false);
-	}
-
-	private void OnCardDragEnded(CardSlotPrefabScene source, CardSlotPrefabScene target, Card card)
-	{
-		SetHighlight(false);
-
-		if (this != target)
-			return;
-
-		if (EngineSlot is not null)
-			_commandDispatcher.Dispatch(new TransferCardCommand(source.EngineSlot, EngineSlot, card));
+		DragKey = "card_drag";
 	}
 }
