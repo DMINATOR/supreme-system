@@ -35,7 +35,7 @@ public partial class CardSlotPrefabScene : DragDropContainer<CardDropContent>
 
 	protected override CardDropContent OnDragStarted()
 	{
-		var content = Content;
+		var content = new CardDropContent(Content.Card, CardSlot);
 		Content = null;
 		ShowDragging();
 		return content;
@@ -60,7 +60,7 @@ public partial class CardSlotPrefabScene : DragDropContainer<CardDropContent>
 
 	public void SetCard(Card card)
 	{
-		Content = new CardDropContent(card, CardSlot);
+		Content = new CardDropContent(card);
 		_cardView.Setup(card);
 		ShowState(_cardView);
 		UpdateCursor();

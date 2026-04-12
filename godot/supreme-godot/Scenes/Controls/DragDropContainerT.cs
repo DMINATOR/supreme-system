@@ -11,6 +11,7 @@ public abstract partial class DragDropContainer<TContent> : PanelContainer, IDra
     public TContent Content { get; set; }
     DropContent IDragContainer.DraggedContent => DraggedContent;
     public TContent DraggedContent { get; private set; }
+    public void ClearDraggedContent() => DraggedContent = null;
 
     public override void _Ready()
     {
@@ -51,7 +52,7 @@ public abstract partial class DragDropContainer<TContent> : PanelContainer, IDra
         _dragBus.ActiveSource = null;
         OnDropReceived(source, (TContent)source.DraggedContent);
         _dragBus.RaiseDragEnded(source, this);
-        ((DragDropContainer<TContent>)source).DraggedContent = null;
+        source.ClearDraggedContent();
     }
 
     public override void _Notification(int what)
@@ -62,7 +63,7 @@ public abstract partial class DragDropContainer<TContent> : PanelContainer, IDra
         {
             _dragBus.ActiveSource = null;
             OnDragCancelled(DraggedContent);
-            DraggedContent = null;
+            ClearDraggedContent();
             _dragBus.RaiseDragCancelled(this);
         }
 
