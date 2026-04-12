@@ -11,8 +11,6 @@ public partial class CardSlotPrefabScene : DragDropContainer
 	private CardPrefabScene _cardView;
 	private Control _draggingView;
 
-	private Card? _card;
-
 	public void Setup(string label, Card? card)
 	{
 		_indexLabel.Text = label;
@@ -40,6 +38,7 @@ public partial class CardSlotPrefabScene : DragDropContainer
 
 	protected override void OnDragStarted()
 	{
+		Content = null;
 		ShowDragging();
 	}
 
@@ -58,12 +57,11 @@ public partial class CardSlotPrefabScene : DragDropContainer
 		var cardSource = (CardSlotPrefabScene)source;
 		cardSource.ShowEmpty();
 		if (CardSlot is not null)
-			_commandDispatcher.Dispatch(new TransferCardCommand(cardSource.CardSlot, CardSlot, _card));
+			_commandDispatcher.Dispatch(new TransferCardCommand(cardSource.CardSlot, CardSlot, _cardView.Card));
 	}
 
 	private void SetCard(Card card)
 	{
-		_card = card;
 		Content = new CardDropContent(card);
 		_cardView.Setup(card);
 		ShowState(_cardView);
@@ -72,16 +70,12 @@ public partial class CardSlotPrefabScene : DragDropContainer
 
 	public void ShowEmpty()
 	{
-		_card = null;
-		Content = null;
 		ShowState(_emptyView);
 		UpdateCursor();
 	}
 
 	private void ShowDragging()
 	{
-		_card = null;
-		Content = null;
 		ShowState(_draggingView);
 		UpdateCursor();
 	}

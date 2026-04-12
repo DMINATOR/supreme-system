@@ -3,6 +3,8 @@ using SupremeEngine;
 
 public partial class CardPrefabScene : PanelContainer
 {
+	public Card Card { get; private set; }
+
 	private CardPrefabHeaderScene _headerImage;
 	private Label _nameLabel;
 	private Label _rarityLabel;
@@ -11,6 +13,7 @@ public partial class CardPrefabScene : PanelContainer
 
 	public void Setup(Card card)
 	{
+		Card = card;
 		_headerImage.Setup(card.Rarity);
 		_nameLabel.Text = card.Name;
 		_rarityLabel.Text = card.Rarity.ToString();
