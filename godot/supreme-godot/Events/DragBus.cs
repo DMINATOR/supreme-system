@@ -3,11 +3,13 @@ using System;
 
 public partial class DragBus : Node
 {
-    public event Action<DragDropContainer> DragStarted;
-    public event Action<DragDropContainer> DragCancelled;
-    public event Action<DragDropContainer, DragDropContainer> DragEnded;
+    public IDragContainer ActiveSource { get; set; }
 
-    public void RaiseDragStarted(DragDropContainer source) => DragStarted?.Invoke(source);
-    public void RaiseDragCancelled(DragDropContainer source) => DragCancelled?.Invoke(source);
-    public void RaiseDragEnded(DragDropContainer source, DragDropContainer target) => DragEnded?.Invoke(source, target);
+    public event Action<IDragContainer> DragStarted;
+    public event Action<IDragContainer> DragCancelled;
+    public event Action<IDragContainer, IDragContainer> DragEnded;
+
+    public void RaiseDragStarted(IDragContainer source) => DragStarted?.Invoke(source);
+    public void RaiseDragCancelled(IDragContainer source) => DragCancelled?.Invoke(source);
+    public void RaiseDragEnded(IDragContainer source, IDragContainer target) => DragEnded?.Invoke(source, target);
 }

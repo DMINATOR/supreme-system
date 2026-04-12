@@ -1,16 +1,16 @@
 using Godot;
 
-public partial class DragDropContainer : PanelContainer
+public abstract partial class DragDropContainer<TContent> : PanelContainer, IDragContainer
+    where TContent : DropContent
 {
-    private static DragDropContainer _activeDragSource;
-
-    protected DragBus _dragBus;
+    private DragBus _dragBus;
 
     public bool IsEnabled { get; set; }
     public string DragKey { get; set; } = "drag";
 
-    public DropContent Content { get; set; }
-    public DropContent DraggedContent { get; private set; }
+    public TContent Content { get; set; }
+    DropContent IDragContainer.DraggedContent => DraggedContent;
+    public TContent DraggedContent { get; private set; }
 
     public override void _Ready()
     {
@@ -23,7 +23,7 @@ public partial class DragDropContainer : PanelContainer
         if (!IsEnabled || Content is null)
             return default;
 
-        _activeDragSource = this;
+        _dragBus.ActiveSource = this;
         DraggedContent = OnDragStarted();
 
         var preview = GetDragPreviewNode();
@@ -36,30 +36,31 @@ public partial class DragDropContainer : PanelContainer
 
     public override bool _CanDropData(Vector2 atPosition, Variant data)
     {
+        var active = _dragBus.ActiveSource;
         return IsEnabled
             && Content is null
-            && _activeDragSource is not null
-            && _activeDragSource != this
+            && active is not null
+            && active != (IDragContainer)this
             && data.As<string>() == DragKey
-            && CanReceiveDrop(_activeDragSource);
+            && CanReceiveDrop(active);
     }
 
     public override void _DropData(Vector2 atPosition, Variant data)
     {
-        var source = _activeDragSource;
-        _activeDragSource = null;
-        OnDropReceived(source, source.DraggedContent);
+        var source = _dragBus.ActiveSource;
+        _dragBus.ActiveSource = null;
+        OnDropReceived(source, (TContent)source.DraggedContent);
         _dragBus.RaiseDragEnded(source, this);
-        source.DraggedContent = null;
+        ((DragDropContainer<TContent>)source).DraggedContent = null;
     }
 
     public override void _Notification(int what)
     {
         base._Notification(what);
 
-        if (what == NotificationDragEnd && _activeDragSource == this)
+        if (what == NotificationDragEnd && _dragBus.ActiveSource == (IDragContainer)this)
         {
-            _activeDragSource = null;
+            _dragBus.ActiveSource = null;
             OnDragCancelled(DraggedContent);
             DraggedContent = null;
             _dragBus.RaiseDragCancelled(this);
@@ -95,11 +96,11 @@ public partial class DragDropContainer : PanelContainer
     }
 
     protected virtual Control GetDragPreviewNode() => null;
-    protected virtual DropContent OnDragStarted() => Content;
-    protected virtual void OnDragCancelled(DropContent content) { }
-    protected virtual void OnDropReceived(DragDropContainer source, DropContent content) { }
-    protected virtual void OnDropCompleted(DragDropContainer source, DropContent content) { }
-    protected virtual bool CanReceiveDrop(DragDropContainer source) => true;
+    protected virtual TContent OnDragStarted() => Content;
+    protected virtual void OnDragCancelled(TContent content) { }
+    protected virtual void OnDropReceived(IDragContainer source, TContent content) { }
+    protected virtual void OnDropCompleted(IDragContainer source, TContent content) { }
+    protected virtual bool CanReceiveDrop(IDragContainer source) => true;
 
     private void LoadNodes()
     {
@@ -113,23 +114,23 @@ public partial class DragDropContainer : PanelContainer
         _dragBus.DragEnded += OnDragBusEnded;
     }
 
-    private void OnDragBusStarted(DragDropContainer source)
+    private void OnDragBusStarted(IDragContainer source)
     {
         if (source.DragKey == DragKey)
             SetHighlight(true);
     }
 
-    private void OnDragBusCancelled(DragDropContainer source)
+    private void OnDragBusCancelled(IDragContainer source)
     {
         if (source.DragKey == DragKey)
             SetHighlight(false);
     }
 
-    private void OnDragBusEnded(DragDropContainer source, DragDropContainer target)
+    private void OnDragBusEnded(IDragContainer source, IDragContainer target)
     {
         SetHighlight(false);
 
         if (this == target)
-            OnDropCompleted(source, source.DraggedContent);
+            OnDropCompleted(source, (TContent)source.DraggedContent);
     }
 }
