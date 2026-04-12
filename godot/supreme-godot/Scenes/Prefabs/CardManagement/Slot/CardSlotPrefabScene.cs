@@ -23,6 +23,9 @@ public partial class CardSlotPrefabScene : DragDropContainer<CardDropContent>
 		UpdateCursor();
 	}
 
+	protected override bool CanDrag() => _cardView.Visible;
+	protected override bool CanAcceptDrop() => _emptyView.Visible;
+
 	public override void _Ready()
 	{
 		base._Ready();
@@ -35,10 +38,8 @@ public partial class CardSlotPrefabScene : DragDropContainer<CardDropContent>
 
 	protected override CardDropContent OnDragStarted()
 	{
-		var content = new CardDropContent(Content.Card, CardSlot);
-		Content = null;
 		ShowDragging();
-		return content;
+		return new CardDropContent(_cardView.Card, CardSlot);
 	}
 
 	protected override void OnDragCancelled(CardDropContent content)
@@ -60,7 +61,6 @@ public partial class CardSlotPrefabScene : DragDropContainer<CardDropContent>
 
 	public void SetCard(Card card)
 	{
-		Content = new CardDropContent(card);
 		_cardView.Setup(card);
 		ShowState(_cardView);
 		UpdateCursor();

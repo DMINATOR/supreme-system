@@ -8,8 +8,9 @@ public abstract partial class DragDropContainer<TContent> : PanelContainer, IDra
     public bool IsEnabled { get; set; }
     public string DragKey { get; set; } = "drag";
 
-    public TContent Content { get; set; }
     DropContent IDragContainer.DraggedContent => DraggedContent;
+    protected virtual bool CanDrag() => false;
+    protected virtual bool CanAcceptDrop() => false;
     public TContent DraggedContent { get; private set; }
     public void ClearDraggedContent() => DraggedContent = null;
 
@@ -21,7 +22,7 @@ public abstract partial class DragDropContainer<TContent> : PanelContainer, IDra
 
     public override Variant _GetDragData(Vector2 atPosition)
     {
-        if (!IsEnabled || Content is null)
+        if (!IsEnabled || !CanDrag())
             return default;
 
         _dragBus.ActiveSource = this;
@@ -39,7 +40,7 @@ public abstract partial class DragDropContainer<TContent> : PanelContainer, IDra
     {
         var active = _dragBus.ActiveSource;
         return IsEnabled
-            && Content is null
+            && CanAcceptDrop()
             && active is not null
             && active != (IDragContainer)this
             && data.As<string>() == DragKey
@@ -91,13 +92,13 @@ public abstract partial class DragDropContainer<TContent> : PanelContainer, IDra
 
     protected void UpdateCursor()
     {
-        MouseDefaultCursorShape = IsEnabled && Content is not null
+        MouseDefaultCursorShape = IsEnabled && CanDrag()
             ? CursorShape.PointingHand
             : CursorShape.Arrow;
     }
 
     protected virtual Control GetDragPreviewNode() => null;
-    protected virtual TContent OnDragStarted() => Content;
+    protected virtual TContent OnDragStarted() => null;
     protected virtual void OnDragCancelled(TContent content) { }
     protected virtual void OnDropReceived(IDragContainer source, TContent content) { }
     protected virtual void OnDropCompleted(IDragContainer source, TContent content) { }
