@@ -1,6 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://Scenes/Prefabs/CardManagement/Slot/CardSlotPrefabScene.cs" id="1_cardslot"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/CardManagement/Card/CardPrefabScene.tscn" id="2_cardprefab"]
 
 [node name="CardSlotPrefabScene" type="PanelContainer"]
 custom_minimum_size = Vector2(120, 190)
@@ -20,14 +21,21 @@ mouse_filter = 2
 text = "1"
 horizontal_alignment = 1
 
-[node name="CardContainer" type="Control" parent="VBoxContainer"]
-layout_mode = 2
-mouse_filter = 2
-custom_minimum_size = Vector2(0, 160)
-size_flags_vertical = 3
-
-[node name="EmptyLabel" type="Label" parent="VBoxContainer"]
+[node name="EmptyView" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 mouse_filter = 2
 text = "Empty"
 horizontal_alignment = 1
+visible = false
+
+[node name="CardView" parent="VBoxContainer" instance=ExtResource("2_cardprefab")]
+layout_mode = 2
+mouse_filter = 2
+visible = false
+
+[node name="DraggingView" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+text = "..."
+horizontal_alignment = 1
+visible = false

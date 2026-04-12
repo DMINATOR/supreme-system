@@ -7,16 +7,19 @@ public partial class CardSlotPrefabScene : DragDropContainer
 
 	private CommandDispatcher _commandDispatcher;
 	private Label _indexLabel;
-	private Control _cardContainer;
-	private Label _emptyLabel;
-	private CardPrefabScene _cardScene;
+	private Control _emptyView;
+	private CardPrefabScene _cardView;
+	private Control _draggingView;
 
-	private Card _card;
+	private Card? _card;
 
-	public void Setup(string label, Card card)
+	public void Setup(string label, Card? card)
 	{
 		_indexLabel.Text = label;
-		SetCard(card);
+		if (card is not null)
+			SetCard(card);
+		else
+			ShowEmpty();
 	}
 
 	public void EnableDragAndDrop()
@@ -37,7 +40,7 @@ public partial class CardSlotPrefabScene : DragDropContainer
 
 	protected override void OnDragStarted()
 	{
-		SetCard(null);
+		ShowDragging();
 	}
 
 	protected override void OnDragCancelled()
@@ -53,6 +56,7 @@ public partial class CardSlotPrefabScene : DragDropContainer
 	protected override void OnDropCompleted(DragDropContainer source)
 	{
 		var cardSource = (CardSlotPrefabScene)source;
+		cardSource.ShowEmpty();
 		if (CardSlot is not null)
 			_commandDispatcher.Dispatch(new TransferCardCommand(cardSource.CardSlot, CardSlot, _card));
 	}
@@ -60,33 +64,42 @@ public partial class CardSlotPrefabScene : DragDropContainer
 	private void SetCard(Card card)
 	{
 		_card = card;
-		Content = card is not null ? new CardDropContent(card) : null;
-
-		if (_cardScene is not null)
-		{
-			_cardScene.QueueFree();
-			_cardScene = null;
-		}
-
-		if (card is not null)
-		{
-			_emptyLabel.Hide();
-			_cardScene = PrefabFactory.CreateCardScene(_cardContainer, card);
-		}
-		else
-		{
-			_emptyLabel.Show();
-		}
-
+		Content = new CardDropContent(card);
+		_cardView.Setup(card);
+		ShowState(_cardView);
 		UpdateCursor();
+	}
+
+	public void ShowEmpty()
+	{
+		_card = null;
+		Content = null;
+		ShowState(_emptyView);
+		UpdateCursor();
+	}
+
+	private void ShowDragging()
+	{
+		_card = null;
+		Content = null;
+		ShowState(_draggingView);
+		UpdateCursor();
+	}
+
+	private void ShowState(Control active)
+	{
+		_emptyView.Visible = _emptyView == active;
+		_cardView.Visible = _cardView == active;
+		_draggingView.Visible = _draggingView == active;
 	}
 
 	private void LoadNodes()
 	{
 		_commandDispatcher = GetNode<CommandDispatcher>(AutoloadPath.CommandDispatcher);
 		_indexLabel = GetNode<Label>("VBoxContainer/IndexLabel");
-		_cardContainer = GetNode<Control>("VBoxContainer/CardContainer");
-		_emptyLabel = GetNode<Label>("VBoxContainer/EmptyLabel");
+		_emptyView = GetNode<Control>("VBoxContainer/EmptyView");
+		_cardView = GetNode<CardPrefabScene>("VBoxContainer/CardView");
+		_draggingView = GetNode<Control>("VBoxContainer/DraggingView");
 	}
 
 	private void PrepareNodes()
