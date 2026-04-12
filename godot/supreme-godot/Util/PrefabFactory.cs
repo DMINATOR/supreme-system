@@ -65,7 +65,9 @@ public static class PrefabFactory
         var prefab = GD.Load<PackedScene>(SceneManager.CardSlotPrefabScene);
         var scene = prefab.Instantiate<CardSlotPrefabScene>();
         parent.AddChild(scene);
-        scene.Setup(slotName, card);
+        scene.Setup(slotName);
+        if (card is not null)
+            scene.SetCard(card);
         return scene;
     }
 

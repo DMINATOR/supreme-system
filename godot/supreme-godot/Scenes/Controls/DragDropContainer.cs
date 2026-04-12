@@ -24,8 +24,7 @@ public partial class DragDropContainer : PanelContainer
             return default;
 
         _activeDragSource = this;
-        DraggedContent = Content;
-        OnDragStarted();
+        DraggedContent = OnDragStarted();
 
         var preview = GetDragPreviewNode();
         if (preview is not null)
@@ -49,9 +48,9 @@ public partial class DragDropContainer : PanelContainer
     {
         var source = _activeDragSource;
         _activeDragSource = null;
-        OnDropReceived(source);
-        source.DraggedContent = null;
+        OnDropReceived(source, source.DraggedContent);
         _dragBus.RaiseDragEnded(source, this);
+        source.DraggedContent = null;
     }
 
     public override void _Notification(int what)
@@ -61,7 +60,7 @@ public partial class DragDropContainer : PanelContainer
         if (what == NotificationDragEnd && _activeDragSource == this)
         {
             _activeDragSource = null;
-            OnDragCancelled();
+            OnDragCancelled(DraggedContent);
             DraggedContent = null;
             _dragBus.RaiseDragCancelled(this);
         }
@@ -96,10 +95,10 @@ public partial class DragDropContainer : PanelContainer
     }
 
     protected virtual Control GetDragPreviewNode() => null;
-    protected virtual void OnDragStarted() { }
-    protected virtual void OnDragCancelled() { }
-    protected virtual void OnDropReceived(DragDropContainer source) { }
-    protected virtual void OnDropCompleted(DragDropContainer source) { }
+    protected virtual DropContent OnDragStarted() => Content;
+    protected virtual void OnDragCancelled(DropContent content) { }
+    protected virtual void OnDropReceived(DragDropContainer source, DropContent content) { }
+    protected virtual void OnDropCompleted(DragDropContainer source, DropContent content) { }
     protected virtual bool CanReceiveDrop(DragDropContainer source) => true;
 
     private void LoadNodes()
@@ -131,6 +130,6 @@ public partial class DragDropContainer : PanelContainer
         SetHighlight(false);
 
         if (this == target)
-            OnDropCompleted(source);
+            OnDropCompleted(source, source.DraggedContent);
     }
 }

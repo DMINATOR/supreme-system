@@ -11,13 +11,10 @@ public partial class CardSlotPrefabScene : DragDropContainer
 	private CardPrefabScene _cardView;
 	private Control _draggingView;
 
-	public void Setup(string label, Card? card)
+	public void Setup(string label)
 	{
 		_indexLabel.Text = label;
-		if (card is not null)
-			SetCard(card);
-		else
-			ShowEmpty();
+		ShowEmpty();
 	}
 
 	public void EnableDragAndDrop()
@@ -36,31 +33,33 @@ public partial class CardSlotPrefabScene : DragDropContainer
 	protected override Control GetDragPreviewNode()
 		=> PrefabFactory.CreateCardDragPreviewScene(((CardDropContent)DraggedContent).Card);
 
-	protected override void OnDragStarted()
+	protected override DropContent OnDragStarted()
 	{
+		var content = new CardDropContent(_cardView.Card, CardSlot);
 		Content = null;
 		ShowDragging();
+		return content;
 	}
 
-	protected override void OnDragCancelled()
+	protected override void OnDragCancelled(DropContent content)
 	{
-		SetCard(((CardDropContent)DraggedContent).Card);
+		SetCard(((CardDropContent)content).Card);
 	}
 
-	protected override void OnDropReceived(DragDropContainer source)
+	protected override void OnDropReceived(DragDropContainer source, DropContent content)
 	{
-		SetCard(((CardDropContent)source.DraggedContent).Card);
+		SetCard(((CardDropContent)content).Card);
 	}
 
-	protected override void OnDropCompleted(DragDropContainer source)
+	protected override void OnDropCompleted(DragDropContainer source, DropContent content)
 	{
-		var cardSource = (CardSlotPrefabScene)source;
-		cardSource.ShowEmpty();
+		var cardContent = (CardDropContent)content;
+		((CardSlotPrefabScene)source).ShowEmpty();
 		if (CardSlot is not null)
-			_commandDispatcher.Dispatch(new TransferCardCommand(cardSource.CardSlot, CardSlot, _cardView.Card));
+			_commandDispatcher.Dispatch(new TransferCardCommand(cardContent.CardSlot, CardSlot, cardContent.Card));
 	}
 
-	private void SetCard(Card card)
+	public void SetCard(Card card)
 	{
 		Content = new CardDropContent(card);
 		_cardView.Setup(card);
