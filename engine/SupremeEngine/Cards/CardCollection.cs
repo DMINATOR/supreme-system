@@ -20,17 +20,15 @@ public class CardCollection : ICardCollection
 
     public CardCollectionDto ToDto() => new()
     {
-        Cards = _slots
-            .Where(s => s.Card is not null)
-            .Select(s => s.Card!.ToDto())
-            .ToList()
+        Slots = _slots.Select(s => s.Card?.ToDto()).ToArray()
     };
 
     public static CardCollection FromDto(CardCollectionDto dto, int capacity)
     {
         var collection = new CardCollection(capacity);
-        for (var i = 0; i < dto.Cards.Count && i < capacity; i++)
-            collection._slots[i].Equip(Card.FromDto(dto.Cards[i]));
+        for (var i = 0; i < dto.Slots.Length && i < capacity; i++)
+            if (dto.Slots[i] is not null)
+                collection._slots[i].Equip(Card.FromDto(dto.Slots[i]!));
         return collection;
     }
 }

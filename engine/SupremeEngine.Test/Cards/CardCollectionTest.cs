@@ -83,4 +83,24 @@ public class CardCollectionTest
         Assert.Equal("card-001", restored.Slots[0].Card!.Id);
         Assert.Equal("card-002", restored.Slots[1].Card!.Id);
     }
+
+    [Fact]
+    public void ToDto_FromDto_PreservesSlotPositions()
+    {
+        // Arrange — cards at non-contiguous positions
+        var collection = new CardCollection(5);
+        collection.Slots[1].Equip(MakeCard("card-a"));
+        collection.Slots[3].Equip(MakeCard("card-b"));
+
+        // Act
+        var dto = collection.ToDto();
+        var restored = CardCollection.FromDto(dto, 5);
+
+        // Assert
+        Assert.Null(restored.Slots[0].Card);
+        Assert.Equal("card-a", restored.Slots[1].Card!.Id);
+        Assert.Null(restored.Slots[2].Card);
+        Assert.Equal("card-b", restored.Slots[3].Card!.Id);
+        Assert.Null(restored.Slots[4].Card);
+    }
 }
