@@ -52,35 +52,15 @@ public abstract partial class EquipmentSlotsPrefabScene : Control
 
 		_titleLabel.Text = "Equipment";
 
-		_headSlot.Setup("Head");
-		_weaponSlot.Setup("Weapon");
-		_offHandSlot.Setup("Off-Hand");
-		_chestSlot.Setup("Chest");
-		_handsSlot.Setup("Hands");
-		_feetSlot.Setup("Feet");
-		_amuletSlot.Setup("Amulet");
-		_ring1Slot.Setup("Ring 1");
-		_ring2Slot.Setup("Ring 2");
-
-		if (_equipmentSlots.Head.Card is not null) _headSlot.SetCard(_equipmentSlots.Head.Card);
-		if (_equipmentSlots.Weapon.Card is not null) _weaponSlot.SetCard(_equipmentSlots.Weapon.Card);
-		if (_equipmentSlots.OffHand.Card is not null) _offHandSlot.SetCard(_equipmentSlots.OffHand.Card);
-		if (_equipmentSlots.Chest.Card is not null) _chestSlot.SetCard(_equipmentSlots.Chest.Card);
-		if (_equipmentSlots.Hands.Card is not null) _handsSlot.SetCard(_equipmentSlots.Hands.Card);
-		if (_equipmentSlots.Feet.Card is not null) _feetSlot.SetCard(_equipmentSlots.Feet.Card);
-		if (_equipmentSlots.Amulet.Card is not null) _amuletSlot.SetCard(_equipmentSlots.Amulet.Card);
-		if (_equipmentSlots.Ring1.Card is not null) _ring1Slot.SetCard(_equipmentSlots.Ring1.Card);
-		if (_equipmentSlots.Ring2.Card is not null) _ring2Slot.SetCard(_equipmentSlots.Ring2.Card);
-
-		_headSlot.CardSlot    = _equipmentSlots.Head;
-		_weaponSlot.CardSlot  = _equipmentSlots.Weapon;
-		_offHandSlot.CardSlot = _equipmentSlots.OffHand;
-		_chestSlot.CardSlot   = _equipmentSlots.Chest;
-		_handsSlot.CardSlot   = _equipmentSlots.Hands;
-		_feetSlot.CardSlot    = _equipmentSlots.Feet;
-		_amuletSlot.CardSlot  = _equipmentSlots.Amulet;
-		_ring1Slot.CardSlot   = _equipmentSlots.Ring1;
-		_ring2Slot.CardSlot   = _equipmentSlots.Ring2;
+		_headSlot.Setup(_equipmentSlots.Head, "Head");
+		_weaponSlot.Setup(_equipmentSlots.Weapon, "Weapon");
+		_offHandSlot.Setup(_equipmentSlots.OffHand, "Off-Hand");
+		_chestSlot.Setup(_equipmentSlots.Chest, "Chest");
+		_handsSlot.Setup(_equipmentSlots.Hands, "Hands");
+		_feetSlot.Setup(_equipmentSlots.Feet, "Feet");
+		_amuletSlot.Setup(_equipmentSlots.Amulet, "Amulet");
+		_ring1Slot.Setup(_equipmentSlots.Ring1, "Ring 1");
+		_ring2Slot.Setup(_equipmentSlots.Ring2, "Ring 2");
 
 		foreach (var slot in GetAllSlots())
 			slot.EnableDragAndDrop();

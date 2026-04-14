@@ -11,9 +11,11 @@ public class TransferCardCommandTest
     public void Execute_EquipsCardInTargetSlot()
     {
         // Arrange
+        var source = new CardSlot();
         var target = new CardSlot();
         var card = MakeCard();
-        var command = new TransferCardCommand(null, target, card);
+        source.Equip(card);
+        var command = new TransferCardCommand(source, target);
 
         // Act
         command.Execute();
@@ -30,7 +32,7 @@ public class TransferCardCommandTest
         var target = new CardSlot();
         var card = MakeCard();
         source.Equip(card);
-        var command = new TransferCardCommand(source, target, card);
+        var command = new TransferCardCommand(source, target);
 
         // Act
         command.Execute();
@@ -40,18 +42,35 @@ public class TransferCardCommandTest
     }
 
     [Fact]
-    public void Execute_WithNullSource_OnlyEquipsTarget()
+    public void Constructor_ThrowsIfSourceIsNull()
     {
         // Arrange
         var target = new CardSlot();
-        var card = MakeCard();
-        var command = new TransferCardCommand(null, target, card);
 
-        // Act
-        command.Execute();
+        // Act / Assert
+        Assert.Throws<ArgumentNullException>(() => new TransferCardCommand(null!, target));
+    }
 
-        // Assert
-        Assert.Same(card, target.Card);
+    [Fact]
+    public void Constructor_ThrowsIfTargetIsNull()
+    {
+        // Arrange
+        var source = new CardSlot();
+        source.Equip(MakeCard());
+
+        // Act / Assert
+        Assert.Throws<ArgumentNullException>(() => new TransferCardCommand(source, null!));
+    }
+
+    [Fact]
+    public void Constructor_ThrowsIfSourceSlotIsEmpty()
+    {
+        // Arrange
+        var source = new CardSlot();
+        var target = new CardSlot();
+
+        // Act / Assert
+        Assert.Throws<InvalidOperationException>(() => new TransferCardCommand(source, target));
     }
 
     [Fact]
@@ -64,7 +83,7 @@ public class TransferCardCommandTest
         var incoming = MakeCard("incoming");
         source.Equip(incoming);
         target.Equip(original);
-        var command = new TransferCardCommand(source, target, incoming);
+        var command = new TransferCardCommand(source, target);
 
         // Act / Assert
         Assert.Throws<InvalidOperationException>(() => command.Execute());

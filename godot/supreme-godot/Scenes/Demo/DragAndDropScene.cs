@@ -27,12 +27,13 @@ public partial class DragAndDropScene : Control
 		var card1 = new Card("demo-001", "Iron Sword", CardRarity.Common, CardType.Equipment, 100f);
 		var card2 = new Card("demo-002", "Fire Spell", CardRarity.Rare, CardType.Spell, 75f);
 
-		_slot1.Setup("Slot 1");
-		_slot1.SetCard(card1);
-		_slot2.Setup("Slot 2");
-		_slot2.SetCard(card2);
-		_slot3.Setup("Slot 3");
-		_slot4.Setup("Slot 4");
+		var cardSlot1 = new CardSlot(); cardSlot1.Equip(card1);
+		var cardSlot2 = new CardSlot(); cardSlot2.Equip(card2);
+
+		_slot1.Setup(cardSlot1, "Slot 1");
+		_slot2.Setup(cardSlot2, "Slot 2");
+		_slot3.Setup(new CardSlot(), "Slot 3");
+		_slot4.Setup(new CardSlot(), "Slot 4");
 
 		foreach (var slot in GetAllSlots())
 			slot.EnableDragAndDrop();

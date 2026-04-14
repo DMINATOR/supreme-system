@@ -45,8 +45,7 @@ public partial class CardCollectionPrefabScene : Control
 
 		for (var i = 0; i < collection.Capacity; i++)
 		{
-			var slot = PrefabFactory.CreateCardSlotScene(_cardsContainer, i, collection.Slots[i].Card);
-			slot.CardSlot = collection.Slots[i];
+			var slot = PrefabFactory.CreateCardSlotScene(_cardsContainer, i, collection.Slots[i]);
 			slot.EnableDragAndDrop();
 		}
 	}
