@@ -76,8 +76,12 @@ applyTo: "godot/**/*.cs"
 - Current helpers:
   - `DialogHelper.ShowConfirm(Node parent, string message, Action onConfirmed)` — shows a `ConfirmationDialog`, wires confirm/cancel, and calls `QueueFree` automatically
   - `DialogHelper.ShowError(Node parent, string message)` — logs via `GD.PushError` and shows an `AcceptDialog`
-  - `PrefabFactory.CreateCardScene(Node parent, Card card)` — loads `CardPrefabScene.tscn`, adds it to `parent` (triggering `_Ready`/`LoadNodes`), calls `Setup(card)`, and returns the ready node
-  - `PrefabFactory.CreateCardOfferScene(Card card, Action<Card> onAccepted, Action onDeclined)` — instantiates `CardOfferPrefabScene.tscn`, wires `Accepted`/`Declined` signals to the provided callbacks, and returns the ready node
+  - `PrefabFactory.CreateCardSlotScene(Node parent, int slotIndex, CardSlot cardSlot)` — loads `CardSlotPrefabScene.tscn`, adds it to `parent`, calls `Setup(cardSlot, label)`, and returns the ready node; `CardSlot` is always required
+  - `PrefabFactory.CreateCardSlotScene(Node parent, string slotName, CardSlot cardSlot)` — same as above but uses a string label instead of a numeric index
+  - `PrefabFactory.CreateBagScene(Node parent)` — instantiates `CardCollectionPrefabScene.tscn` with `Source = Bag`
+  - `PrefabFactory.CreateCompanionDeckScene(Node parent, string companionId)` — instantiates `CardCollectionPrefabScene.tscn` scoped to a companion's deck
+  - `PrefabFactory.CreateCompanionEquipmentScene(Node parent, string companionId)` — instantiates `CompanionEquipmentSlotsPrefabScene.tscn` scoped to a companion
+  - `PrefabFactory.CreateCardDragPreviewScene(Card card)` — instantiates `CardDragPrefabScene.tscn` for use as a drag preview; does **not** add to a parent
   - `PrefabFactory.CreateCompanionDeckScene(Node parent, string companionId)` — instantiates `CardCollectionPrefabScene.tscn`, sets `Source = CompanionDeck` and `CompanionId` before `AddChild`, and returns the ready node
   - `PrefabFactory.CreateCompanionEquipmentScene(Node parent, string companionId)` — instantiates `EquipmentSlotsPrefabScene.tscn`, sets `Source = Companion` and `CompanionId` before `AddChild`, and returns the ready node
 - All prefab instantiation helpers live in `PrefabFactory` — do not create separate helper classes per prefab type

@@ -32,6 +32,7 @@ Area-specific rules are in `.github/instructions/`:
 | `csharp-conventions.instructions.md` | All `**/*.cs` files |
 | `godot-scripting.instructions.md` | `godot/**/*.cs` and `.tscn` work |
 | `engine-code.instructions.md` | `engine/SupremeEngine/*.cs` |
+| `commands.instructions.md` | `engine/SupremeEngine/Commands/**/*.cs` |
 | `testing.instructions.md` | `engine/SupremeEngine.Test/**/*.cs` |
 | `game-docs.instructions.md` | `docs/**/*.md` |
 
