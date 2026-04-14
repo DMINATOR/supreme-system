@@ -1,6 +1,5 @@
 using Godot;
 using SupremeEngine;
-using System;
 
 public static class PrefabFactory
 {
@@ -31,14 +30,6 @@ public static class PrefabFactory
         return scene;
     }
 
-    public static PlayerEquipmentSlotsPrefabScene CreatePlayerEquipmentScene(Node parent)
-    {
-        var prefab = GD.Load<PackedScene>(SceneManager.PlayerEquipmentSlotsPrefabScene);
-        var scene = prefab.Instantiate<PlayerEquipmentSlotsPrefabScene>();
-        parent.AddChild(scene);
-        return scene;
-    }
-
     public static CompanionEquipmentSlotsPrefabScene CreateCompanionEquipmentScene(Node parent, string companionId)
     {
         var prefab = GD.Load<PackedScene>(SceneManager.CompanionEquipmentSlotsPrefabScene);
@@ -46,15 +37,6 @@ public static class PrefabFactory
         scene.CompanionId = companionId;
         parent.AddChild(scene);
         return scene;
-    }
-
-    public static CardPrefabScene CreateCardScene(Node parent, Card card)
-    {
-        var prefab = GD.Load<PackedScene>(SceneManager.CardPrefabScene);
-        var cardScene = prefab.Instantiate<CardPrefabScene>();
-        parent.AddChild(cardScene);
-        cardScene.Setup(card);
-        return cardScene;
     }
 
     public static CardSlotPrefabScene CreateCardSlotScene(Node parent, int slotIndex, Card? card)
@@ -71,13 +53,4 @@ public static class PrefabFactory
         return scene;
     }
 
-    public static CardOfferPrefabScene CreateCardOfferScene(Card card, Action<Card> onAccepted, Action onDeclined)
-    {
-        var prefab = GD.Load<PackedScene>(SceneManager.CardOfferPrefabScene);
-        var offerScene = prefab.Instantiate<CardOfferPrefabScene>();
-        offerScene.Setup(card);
-        offerScene.Accepted += onAccepted;
-        offerScene.Declined += onDeclined;
-        return offerScene;
-    }
 }
