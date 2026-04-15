@@ -19,6 +19,8 @@ public partial class SceneManager : Node
 		CardCreatorScene,
 		[ScenePath("res://Scenes/Demo/DragAndDropScene.tscn")]
 		DragAndDropScene,
+		[ScenePath("res://Scenes/Debug/CardCatalogueScene.tscn")]
+		CardCatalogueScene,
 	}
 
 	public const string CardCollectionPrefabScene = "res://Scenes/Prefabs/CardManagement/Collection/CardCollectionPrefabScene.tscn";
@@ -44,6 +46,8 @@ public partial class SceneManager : Node
 	public void GoToCardCreator() => GoTo(GameScene.CardCreatorScene);
 
 	public void GoToDragAndDropScene() => GoTo(GameScene.DragAndDropScene);
+
+	public void GoToCardCatalogueScene() => GoTo(GameScene.CardCatalogueScene);
 
 	public void GoTo(GameScene scene)
 	{

@@ -79,12 +79,10 @@ applyTo: "godot/**/*.cs"
   - `DialogHelper.ShowError(Node parent, string message)` — logs via `GD.PushError` and shows an `AcceptDialog`
   - `PrefabFactory.CreateCardSlotScene(Node parent, int slotIndex, CardSlot cardSlot)` — loads `CardSlotPrefabScene.tscn`, adds it to `parent`, calls `Setup(cardSlot, label)`, and returns the ready node; `CardSlot` is always required
   - `PrefabFactory.CreateCardSlotScene(Node parent, string slotName, CardSlot cardSlot)` — same as above but uses a string label instead of a numeric index
-  - `PrefabFactory.CreateBagScene(Node parent)` — instantiates `CardCollectionPrefabScene.tscn` with `Source = Bag`
-  - `PrefabFactory.CreateCompanionDeckScene(Node parent, string companionId)` — instantiates `CardCollectionPrefabScene.tscn` scoped to a companion's deck
+  - `PrefabFactory.CreateBagScene(Node parent, ICardCollection bag)` — instantiates `CardCollectionPrefabScene.tscn`, adds it to `parent`, calls `Setup(bag, "Bag")`, and returns the ready node
+  - `PrefabFactory.CreateCompanionDeckScene(Node parent, ICardCollection deck)` — instantiates `CardCollectionPrefabScene.tscn`, adds it to `parent`, calls `Setup(deck, "Deck")`, and returns the ready node; the caller resolves the deck from `WorldManager`
+  - `PrefabFactory.CreateCatalogueScene(Node parent)` — instantiates `CardCollectionPrefabScene.tscn`, loads `CardTemplateLibrary`, builds a `CardCollection` from all templates, calls `Setup` with D&D disabled, and returns the ready node; exposes `CardSelected` event via `CardCollectionPrefabScene`
   - `PrefabFactory.CreateCompanionEquipmentScene(Node parent, string companionId)` — instantiates `CompanionEquipmentSlotsPrefabScene.tscn` scoped to a companion
-  - `PrefabFactory.CreateCardDragPreviewScene(Card card)` — instantiates `CardDragPrefabScene.tscn` for use as a drag preview; does **not** add to a parent
-  - `PrefabFactory.CreateCompanionDeckScene(Node parent, string companionId)` — instantiates `CardCollectionPrefabScene.tscn`, sets `Source = CompanionDeck` and `CompanionId` before `AddChild`, and returns the ready node
-  - `PrefabFactory.CreateCompanionEquipmentScene(Node parent, string companionId)` — instantiates `EquipmentSlotsPrefabScene.tscn`, sets `Source = Companion` and `CompanionId` before `AddChild`, and returns the ready node
 - All prefab instantiation helpers live in `PrefabFactory` — do not create separate helper classes per prefab type
 - Self-loading prefab scenes use `[Export]` properties to identify their data source; set these properties on the instantiated node **before** calling `AddChild` so they are available when `_Ready` fires — this is the correct pattern, not `Setup()`
 - Static prefab instances (non-companion) are embedded directly in the parent `.tscn` using `instance=ExtResource(...)` with their `[Export]` values set inline — no runtime instantiation needed for fixed slots
@@ -100,6 +98,7 @@ applyTo: "godot/**/*.cs"
   public event Action<Card> Accepted;
   public event Action Declined;
   ```
+- **Never use a plain `Action<T>` field** — always declare `public event Action<T>` so callers use `+=`/`-=` and cannot overwrite existing subscribers with `=`
 - Wire C# events in `PrepareNodes` the same way as Godot signals
 
 ### Error Handling

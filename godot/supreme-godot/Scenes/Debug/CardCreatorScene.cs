@@ -84,7 +84,7 @@ public partial class CardCreatorScene : Control
 	{
 		foreach (Node child in _bagContainer.GetChildren())
 			child.QueueFree();
-		PrefabFactory.CreateBagScene(_bagContainer);
+		PrefabFactory.CreateBagScene(_bagContainer, _worldManager.State.Inventory.Bag);
 	}
 
 	private void ClearOffer()

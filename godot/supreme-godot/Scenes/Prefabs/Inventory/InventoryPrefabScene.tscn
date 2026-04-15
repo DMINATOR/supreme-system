@@ -32,7 +32,6 @@ metadata/_tab_index = 0
 
 [node name="PlayerDeck" parent="MemberTabContainer/Player/MemberTabs/Deck" unique_id=1643078274 instance=ExtResource("2_ccp")]
 layout_mode = 2
-Source = 1
 
 [node name="Equipment" type="VBoxContainer" parent="MemberTabContainer/Player/MemberTabs"]
 layout_mode = 2

@@ -1,9 +1,12 @@
+using System;
 using Godot;
 using SupremeEngine;
 
 public partial class CardSlotPrefabScene : DragDropContainerBase
 {
 	public CardSlot CardSlot { get; private set; }
+
+	public event Action<Card> CardPressed;
 
 	private CommandDispatcher _commandDispatcher;
 	private Label _indexLabel;
@@ -100,5 +103,14 @@ public partial class CardSlotPrefabScene : DragDropContainerBase
 	private void PrepareNodes()
 	{
 		DragKey = "card_drag";
+	}
+
+	public override void _GuiInput(InputEvent @event)
+	{
+		if (@event is InputEventMouseButton { ButtonIndex: MouseButton.Left, Pressed: false } && _cardView.Visible)
+		{
+			AcceptEvent();
+			CardPressed?.Invoke(_cardView.Card);
+		}
 	}
 }

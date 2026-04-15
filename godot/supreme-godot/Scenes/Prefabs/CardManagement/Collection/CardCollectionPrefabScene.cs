@@ -1,52 +1,37 @@
 using Godot;
 using SupremeEngine;
-using System.Linq;
-
-public enum CollectionSource { Bag, PlayerDeck, CompanionDeck }
+using System;
 
 public partial class CardCollectionPrefabScene : Control
 {
-	[Export] public CollectionSource Source { get; set; }
-	[Export] public string CompanionId { get; set; } = "";
+	public event Action<Card> CardSelected;
 
-	private WorldManager _worldManager;
 	private Label _titleLabel;
 	private HFlowContainer _cardsContainer;
 
 	public override void _Ready()
 	{
 		LoadNodes();
-		PrepareNodes();
 	}
 
-	private void LoadNodes()
+	public void Setup(ICardCollection collection, string title, bool enableDragAndDrop = true)
 	{
-		_worldManager = GetNode<WorldManager>(AutoloadPath.WorldManager);
-		_titleLabel = GetNode<Label>("TitleLabel");
-		_cardsContainer = GetNode<HFlowContainer>("ScrollContainer/CardsContainer");
-	}
-
-	private void PrepareNodes()
-	{
-		var inventory = _worldManager.State.Inventory;
-
-		var (collection, label) = Source switch
-		{
-			CollectionSource.Bag => (inventory.Bag, "Bag"),
-			CollectionSource.PlayerDeck => (inventory.Player.Deck, "Deck"),
-			CollectionSource.CompanionDeck => (inventory.Companions.First(c => c.CompanionId == CompanionId).Deck, "Deck"),
-			_ => (null, string.Empty)
-		};
-
-		if (collection is null)
-			return;
-
-		_titleLabel.Text = label;
+		_titleLabel.Text = title;
 
 		for (var i = 0; i < collection.Capacity; i++)
 		{
 			var slot = PrefabFactory.CreateCardSlotScene(_cardsContainer, i, collection.Slots[i]);
-			slot.EnableDragAndDrop();
+			if (enableDragAndDrop)
+				slot.EnableDragAndDrop();
+			slot.CardPressed += c => CardSelected?.Invoke(c);
 		}
 	}
+
+	private void LoadNodes()
+	{
+		_titleLabel = GetNode<Label>("TitleLabel");
+		_cardsContainer = GetNode<HFlowContainer>("ScrollContainer/CardsContainer");
+	}
 }
+
+

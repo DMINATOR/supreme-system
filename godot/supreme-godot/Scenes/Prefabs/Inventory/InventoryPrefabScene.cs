@@ -19,6 +19,9 @@ public partial class InventoryPrefabScene : VBoxContainer
 
 	private void PrepareNodes()
 	{
+		GetNode<CardCollectionPrefabScene>("MemberTabContainer/Player/MemberTabs/Deck/PlayerDeck")
+			.Setup(_worldManager.State.Inventory.Player.Deck, "Deck");
+
 		foreach (var companion in _worldManager.State.Inventory.Companions)
 		{
 			var memberContainer = new VBoxContainer
@@ -37,7 +40,7 @@ public partial class InventoryPrefabScene : VBoxContainer
 
 			var deckTab = new VBoxContainer { Name = "Deck" };
 			memberTabs.AddChild(deckTab);
-			PrefabFactory.CreateCompanionDeckScene(deckTab, companion.CompanionId);
+			PrefabFactory.CreateCompanionDeckScene(deckTab, companion.Deck);
 
 			var equipmentTab = new VBoxContainer { Name = "Equipment" };
 			memberTabs.AddChild(equipmentTab);
