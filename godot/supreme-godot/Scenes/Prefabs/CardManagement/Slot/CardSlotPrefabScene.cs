@@ -1,7 +1,7 @@
 using Godot;
 using SupremeEngine;
 
-public partial class CardSlotPrefabScene : DragDropContainer<CardDropContent>
+public partial class CardSlotPrefabScene : DragDropContainerBase
 {
 	public CardSlot CardSlot { get; private set; }
 
@@ -38,28 +38,28 @@ public partial class CardSlotPrefabScene : DragDropContainer<CardDropContent>
 	}
 
 	protected override Control GetDragPreviewNode()
-		=> PrefabFactory.CreateCardDragPreviewScene(DraggedContent.CardSlot.Card);
+		=> PrefabFactory.CreateCardDragPreviewScene(((CardDropContent)DraggedContent).CardSlot.Card);
 
-	protected override CardDropContent OnDragStarted()
+	protected override DropContent CreateDragContent()
 	{
 		ShowDragging();
 		return new CardDropContent(CardSlot);
 	}
 
-	protected override void OnDragCancelled(CardDropContent content)
+	protected override void HandleDragCancelled(DropContent content)
 	{
-		SetCard(content.CardSlot.Card);
+		SetCard(((CardDropContent)content).CardSlot.Card);
 	}
 
-	protected override void OnDropReceived(IDragContainer source, CardDropContent content)
+	protected override void HandleDropReceived(IDragContainer source, DropContent content)
 	{
-		SetCard(content.CardSlot.Card);
+		SetCard(((CardDropContent)content).CardSlot.Card);
 	}
 
-	protected override void OnDropCompleted(IDragContainer source, CardDropContent content)
+	protected override void HandleDropCompleted(IDragContainer source, DropContent content)
 	{
 		((CardSlotPrefabScene)source).ShowEmpty();
-		_commandDispatcher.Dispatch(new TransferCardCommand(content.CardSlot, CardSlot));
+		_commandDispatcher.Dispatch(new TransferCardCommand(((CardDropContent)content).CardSlot, CardSlot));
 	}
 
 	public void SetCard(Card card)

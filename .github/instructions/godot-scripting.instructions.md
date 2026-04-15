@@ -9,6 +9,7 @@ applyTo: "godot/**/*.cs"
 - All Godot node scripts must be `partial class`
 - Do not use namespaces — the Godot autoload/scene system expects top-level types
 - Don't put game logic directly in node scripts — delegate to `SupremeEngine`
+- **Never use generic base classes for Godot node scripts** — Godot 4's C# script registry cannot handle open generic types (e.g. `class Foo<T> : Node`) and will throw a duplicate-key `ArgumentException` when reloading the assembly; if you need a typed base, use a non-generic abstract base class and cast at the call site in the concrete subclass
 
 ### Logging
 - Use `GD.Print` for logging — never `Console.WriteLine`
