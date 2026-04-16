@@ -37,10 +37,11 @@ public partial class SlotSelection : Control
 		for (int i = 0; i < SaveManager.SlotCount; i++)
 		{
 			var summary = summaries[i];
-			var row = PrefabFactory.CreateSaveSlotRowScene(_slotsContainer, summary);
-			row.NewPressed += () => OnNewPressed(summary.Index);
-			row.LoadPressed += () => OnLoadPressed(summary.Index);
-			row.DeletePressed += () => OnDeletePressed(summary.Index);
+			PrefabFactory.CreateSaveSlotRowScene(
+				_slotsContainer, summary,
+				() => OnNewPressed(summary.Index),
+				() => OnLoadPressed(summary.Index),
+				() => OnDeletePressed(summary.Index));
 		}
 	}
 

@@ -39,12 +39,10 @@ public partial class CardCreatorScene : Control
 		}
 
 		foreach (var resource in TemplateLibrary.Templates)
-		{
-			var row = PrefabFactory.CreateCardTemplateRowScene(
+			PrefabFactory.CreateCardTemplateRowScene(
 				_templatesContainer,
-				$"{resource.Name} [{resource.Rarity} / {resource.Type}]");
-			row.CreatePressed += () => OnCreatePressed(resource);
-		}
+				$"{resource.Name} [{resource.Rarity} / {resource.Type}]",
+				() => OnCreatePressed(resource));
 	}
 
 	private void OnCreatePressed(CardTemplateResource resource)

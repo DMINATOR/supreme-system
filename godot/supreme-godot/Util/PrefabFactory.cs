@@ -81,12 +81,28 @@ public static class PrefabFactory
         return scene;
     }
 
+    public static CardTemplateRowPrefabScene CreateCardTemplateRowScene(Node parent, string displayText, Action onCreate)
+    {
+        var scene = CreateCardTemplateRowScene(parent, displayText);
+        scene.CreatePressed += onCreate;
+        return scene;
+    }
+
     public static SaveSlotRowPrefabScene CreateSaveSlotRowScene(Node parent, SlotSummary summary)
     {
         var prefab = GD.Load<PackedScene>(SceneManager.SaveSlotRowPrefabScene);
         var scene = prefab.Instantiate<SaveSlotRowPrefabScene>();
         parent.AddChild(scene);
         scene.Setup(summary);
+        return scene;
+    }
+
+    public static SaveSlotRowPrefabScene CreateSaveSlotRowScene(Node parent, SlotSummary summary, Action onNew, Action onLoad, Action onDelete)
+    {
+        var scene = CreateSaveSlotRowScene(parent, summary);
+        scene.NewPressed += onNew;
+        scene.LoadPressed += onLoad;
+        scene.DeletePressed += onDelete;
         return scene;
     }
 
