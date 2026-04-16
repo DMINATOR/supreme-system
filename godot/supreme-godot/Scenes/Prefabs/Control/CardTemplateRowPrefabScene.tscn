@@ -1,0 +1,12 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scenes/Prefabs/Control/CardTemplateRowPrefabScene.cs" id="1_ctr"]
+
+[node name="CardTemplateRowPrefabScene" type="HBoxContainer"]
+script = ExtResource("1_ctr")
+
+[node name="NameLabel" type="Label" parent="."]
+size_flags_horizontal = 3
+
+[node name="CreateButton" type="Button" parent="."]
+text = "Create"

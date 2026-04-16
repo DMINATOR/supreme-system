@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scenes/Prefabs/Control/SaveSlotRowPrefabScene.cs" id="1_ssr"]
+
+[node name="SaveSlotRowPrefabScene" type="HBoxContainer"]
+script = ExtResource("1_ssr")
+
+[node name="SlotLabel" type="Label" parent="."]
+size_flags_horizontal = 3
+
+[node name="NewButton" type="Button" parent="."]
+text = "New"
+visible = false
+
+[node name="LoadButton" type="Button" parent="."]
+text = "Load"
+visible = false
+
+[node name="DeleteButton" type="Button" parent="."]
+text = "Delete"
+visible = false

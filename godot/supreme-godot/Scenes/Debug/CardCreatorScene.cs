@@ -3,7 +3,7 @@ using SupremeEngine;
 
 public partial class CardCreatorScene : Control
 {
-	private const string LibraryPath = "res://Data/Cards/CardTemplateLibrary.tres";
+	[Export] public CardTemplateLibrary TemplateLibrary { get; set; }
 
 	private WorldManager _worldManager;
 	private VBoxContainer _templatesContainer;
@@ -32,34 +32,19 @@ public partial class CardCreatorScene : Control
 
 	private void PopulateTemplates()
 	{
-		var library = GD.Load<CardTemplateLibrary>(LibraryPath);
-		if (library == null)
+		if (TemplateLibrary is null)
 		{
-			DialogHelper.ShowError(this, "Failed to load card template library.");
+			GD.PushError("CardCreatorScene: TemplateLibrary not set.");
 			return;
 		}
 
-		foreach (var resource in library.Templates)
+		foreach (var resource in TemplateLibrary.Templates)
 		{
-			var row = BuildTemplateRow(resource);
-			_templatesContainer.AddChild(row);
+			var row = PrefabFactory.CreateCardTemplateRowScene(
+				_templatesContainer,
+				$"{resource.Name} [{resource.Rarity} / {resource.Type}]");
+			row.CreatePressed += () => OnCreatePressed(resource);
 		}
-	}
-
-	private HBoxContainer BuildTemplateRow(CardTemplateResource resource)
-	{
-		var row = new HBoxContainer();
-
-		var label = new Label();
-		label.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
-		label.Text = $"{resource.Name} [{resource.Rarity} / {resource.Type}]";
-
-		var createButton = new Button { Text = "Create" };
-		createButton.Pressed += () => OnCreatePressed(resource);
-
-		row.AddChild(label);
-		row.AddChild(createButton);
-		return row;
 	}
 
 	private void OnCreatePressed(CardTemplateResource resource)

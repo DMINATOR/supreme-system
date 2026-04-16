@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d0w5r3jroavd5" path="res://Scenes/Debug/CardCreatorScene.cs" id="1_cc0"]
 [ext_resource type="PackedScene" path="res://Scenes/Prefabs/Control/SceneButtonPrefabScene.tscn" id="2_scenebutton"]
+[ext_resource type="Resource" path="res://Data/Cards/CardTemplateLibrary.tres" id="3_lib"]
 
 [node name="CardCreatorScene" type="Control" unique_id=301847291]
 layout_mode = 3
@@ -11,6 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_cc0")
+TemplateLibrary = ExtResource("3_lib")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=401847291]
 layout_mode = 0

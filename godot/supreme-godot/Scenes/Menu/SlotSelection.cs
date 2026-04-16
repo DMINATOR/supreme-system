@@ -36,43 +36,12 @@ public partial class SlotSelection : Control
 		var summaries = _saveManager.GetAllSummaries();
 		for (int i = 0; i < SaveManager.SlotCount; i++)
 		{
-			var row = BuildSlotRow(summaries[i]);
-			_slotsContainer.CallDeferred(Node.MethodName.AddChild, row);
+			var summary = summaries[i];
+			var row = PrefabFactory.CreateSaveSlotRowScene(_slotsContainer, summary);
+			row.NewPressed += () => OnNewPressed(summary.Index);
+			row.LoadPressed += () => OnLoadPressed(summary.Index);
+			row.DeletePressed += () => OnDeletePressed(summary.Index);
 		}
-	}
-
-	private HBoxContainer BuildSlotRow(SlotSummary summary)
-	{
-		var row = new HBoxContainer();
-
-		var label = new Label();
-		label.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
-
-		if (summary.State == SlotState.Empty)
-		{
-			label.Text = summary.ToString();
-
-			var newBtn = new Button { Text = "New" };
-			newBtn.Pressed += () => OnNewPressed(summary.Index);
-			row.AddChild(label);
-			row.AddChild(newBtn);
-		}
-		else
-		{
-			label.Text = summary.ToString();
-
-			var loadBtn = new Button { Text = "Load" };
-			loadBtn.Pressed += () => OnLoadPressed(summary.Index);
-
-			var deleteBtn = new Button { Text = "Delete" };
-			deleteBtn.Pressed += () => OnDeletePressed(summary.Index);
-
-			row.AddChild(label);
-			row.AddChild(loadBtn);
-			row.AddChild(deleteBtn);
-		}
-
-		return row;
 	}
 
 	private void OnNewPressed(int index)

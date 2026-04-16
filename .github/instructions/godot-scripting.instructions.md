@@ -56,6 +56,13 @@ applyTo: "godot/**/*.cs"
 - They are always instantiated via a `PrefabFactory`-style helper in `Util/`, never directly from a scene script
 - **Never call `Setup` before `AddChild`** on a prefab scene — `_Ready` (and therefore `LoadNodes`) must fire first; the helper is responsible for the correct order
 
+### Scene Structure — Static vs Dynamic
+- **All static controls a scene needs must be declared in its `.tscn` file** with sensible default values set inline — never construct them in C#
+- **Never call `new Label()`, `new Button()`, `new HBoxContainer()`, or any other bare Godot control constructor in a scene script** — these nodes have no `.tscn` backing, cannot be themed, inspected, or resized in the editor
+- **Every element that must be added dynamically at runtime must be a prefab scene**, instantiated through `PrefabFactory` — if no matching factory method exists, add one
+- This rule applies to structural layout containers too — a `VBoxContainer` wrapping companion tabs is not exempt; it must also be a prefab, not `new VBoxContainer()`
+- The one-sentence test: if a control cannot be pointed to in a `.tscn` file or its prefab's `.tscn`, it should not exist
+
 ### Asset Binding — Prefer Exported Fields Over Hardcoded Paths
 - **Never hardcode `res://` resource paths inside C# scripts** — use `[Export]` fields and bind the resources in the `.tscn` file instead
 - This keeps resource references deterministic and editor-visible: the scene file is the single source of truth for which assets are used
@@ -82,6 +89,9 @@ applyTo: "godot/**/*.cs"
   - `PrefabFactory.CreateBagScene(Node parent, ICardCollection bag)` — instantiates `CardCollectionPrefabScene.tscn`, adds it to `parent`, calls `Setup(bag, "Bag")`, and returns the ready node
   - `PrefabFactory.CreateCompanionDeckScene(Node parent, ICardCollection deck)` — instantiates `CardCollectionPrefabScene.tscn`, adds it to `parent`, calls `Setup(deck, "Deck")`, and returns the ready node; the caller resolves the deck from `WorldManager`
   - `PrefabFactory.CreateCatalogueScene(Node parent)` — instantiates `CardCollectionPrefabScene.tscn`, loads `CardTemplateLibrary`, builds a `CardCollection` from all templates, calls `Setup` with D&D disabled, and returns the ready node; exposes `CardSelected` event via `CardCollectionPrefabScene`
+  - `PrefabFactory.CreateCardTemplateRowScene(Node parent, string displayText)` — instantiates `CardTemplateRowPrefabScene.tscn`, adds it to `parent`, calls `Setup(displayText)`, and returns the ready node; exposes `CreatePressed` event for the caller to subscribe to
+  - `PrefabFactory.CreateSaveSlotRowScene(Node parent, SlotSummary summary)` — instantiates `SaveSlotRowPrefabScene.tscn`, adds it to `parent`, calls `Setup(summary)`, and returns the ready node; exposes `NewPressed`, `LoadPressed`, and `DeletePressed` events
+  - `PrefabFactory.CreateCompanionMemberTabScene(Node parent, string companionId)` — instantiates `CompanionMemberTabPrefabScene.tscn`, sets `CompanionId` before `AddChild`, adds it to `parent`, and returns the ready node; the scene self-loads its deck and equipment from `WorldManager` in `_Ready`
   - `PrefabFactory.CreateCompanionEquipmentScene(Node parent, string companionId)` — instantiates `CompanionEquipmentSlotsPrefabScene.tscn` scoped to a companion
 - All prefab instantiation helpers live in `PrefabFactory` — do not create separate helper classes per prefab type
 - Self-loading prefab scenes use `[Export]` properties to identify their data source; set these properties on the instantiated node **before** calling `AddChild` so they are available when `_Ready` fires — this is the correct pattern, not `Setup()`

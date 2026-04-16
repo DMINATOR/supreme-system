@@ -23,28 +23,6 @@ public partial class InventoryPrefabScene : VBoxContainer
 			.Setup(_worldManager.State.Inventory.Player.Deck, "Deck");
 
 		foreach (var companion in _worldManager.State.Inventory.Companions)
-		{
-			var memberContainer = new VBoxContainer
-			{
-				Name = $"Companion: {companion.CompanionId}",
-				SizeFlagsVertical = SizeFlags.ExpandFill
-			};
-			_memberTabContainer.AddChild(memberContainer);
-
-			var memberTabs = new TabContainer
-			{
-				Name = "MemberTabs",
-				SizeFlagsVertical = SizeFlags.ExpandFill
-			};
-			memberContainer.AddChild(memberTabs);
-
-			var deckTab = new VBoxContainer { Name = "Deck" };
-			memberTabs.AddChild(deckTab);
-			PrefabFactory.CreateCompanionDeckScene(deckTab, companion.Deck);
-
-			var equipmentTab = new VBoxContainer { Name = "Equipment" };
-			memberTabs.AddChild(equipmentTab);
-			PrefabFactory.CreateCompanionEquipmentScene(equipmentTab, companion.CompanionId);
-		}
+			PrefabFactory.CreateCompanionMemberTabScene(_memberTabContainer, companion.CompanionId);
 	}
 }

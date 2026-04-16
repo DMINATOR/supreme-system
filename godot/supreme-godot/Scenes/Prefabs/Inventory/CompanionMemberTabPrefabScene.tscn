@@ -1,0 +1,14 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scenes/Prefabs/Inventory/CompanionMemberTabPrefabScene.cs" id="1_cmt"]
+
+[node name="CompanionMemberTabPrefabScene" type="VBoxContainer"]
+size_flags_vertical = 3
+script = ExtResource("1_cmt")
+
+[node name="MemberTabs" type="TabContainer" parent="."]
+size_flags_vertical = 3
+
+[node name="Deck" type="VBoxContainer" parent="MemberTabs"]
+
+[node name="Equipment" type="VBoxContainer" parent="MemberTabs"]

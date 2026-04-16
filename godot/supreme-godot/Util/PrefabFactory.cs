@@ -63,6 +63,33 @@ public static class PrefabFactory
         return scene;
     }
 
+    public static CompanionMemberTabPrefabScene CreateCompanionMemberTabScene(Node parent, string companionId)
+    {
+        var prefab = GD.Load<PackedScene>(SceneManager.CompanionMemberTabPrefabScene);
+        var scene = prefab.Instantiate<CompanionMemberTabPrefabScene>();
+        scene.CompanionId = companionId;
+        parent.AddChild(scene);
+        return scene;
+    }
+
+    public static CardTemplateRowPrefabScene CreateCardTemplateRowScene(Node parent, string displayText)
+    {
+        var prefab = GD.Load<PackedScene>(SceneManager.CardTemplateRowPrefabScene);
+        var scene = prefab.Instantiate<CardTemplateRowPrefabScene>();
+        parent.AddChild(scene);
+        scene.Setup(displayText);
+        return scene;
+    }
+
+    public static SaveSlotRowPrefabScene CreateSaveSlotRowScene(Node parent, SlotSummary summary)
+    {
+        var prefab = GD.Load<PackedScene>(SceneManager.SaveSlotRowPrefabScene);
+        var scene = prefab.Instantiate<SaveSlotRowPrefabScene>();
+        parent.AddChild(scene);
+        scene.Setup(summary);
+        return scene;
+    }
+
     public static CardSlotPrefabScene CreateCardSlotScene(Node parent, int slotIndex, CardSlot cardSlot)
         => CreateCardSlotScene(parent, (slotIndex + 1).ToString(), cardSlot);
 
