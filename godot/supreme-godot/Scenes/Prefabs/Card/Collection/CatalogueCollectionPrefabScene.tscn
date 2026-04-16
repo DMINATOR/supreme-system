@@ -1,8 +1,8 @@
 [gd_scene format=3]
 
 [ext_resource type="Resource" uid="uid://cardtmpllib2" path="res://Data/Cards/CardTemplateLibrary.tres" id="1_lib"]
-[ext_resource type="Script" path="res://Scenes/Prefabs/CardManagement/Collection/CatalogueCollectionPrefabScene.cs" id="2_catcol"]
-[ext_resource type="PackedScene" path="res://Scenes/Prefabs/CardManagement/Collection/CardCollectionPrefabScene.tscn" id="3_cardcol"]
+[ext_resource type="Script" path="res://Scenes/Prefabs/Card/Collection/CatalogueCollectionPrefabScene.cs" id="2_catcol"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/Card/Collection/CardCollectionPrefabScene.tscn" id="3_cardcol"]
 
 [node name="CatalogueCollectionPrefabScene" type="VBoxContainer"]
 size_flags_horizontal = 3

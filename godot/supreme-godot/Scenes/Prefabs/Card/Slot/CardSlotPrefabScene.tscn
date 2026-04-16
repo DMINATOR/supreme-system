@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://Scenes/Prefabs/CardManagement/Slot/CardSlotPrefabScene.cs" id="1_cardslot"]
-[ext_resource type="PackedScene" path="res://Scenes/Prefabs/CardManagement/Card/CardPrefabScene.tscn" id="2_cardprefab"]
+[ext_resource type="Script" path="res://Scenes/Prefabs/Card/Slot/CardSlotPrefabScene.cs" id="1_cardslot"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/Card/Prefab/CardPrefabScene.tscn" id="2_cardprefab"]
 
 [node name="CardSlotPrefabScene" type="PanelContainer"]
 custom_minimum_size = Vector2(120, 190)

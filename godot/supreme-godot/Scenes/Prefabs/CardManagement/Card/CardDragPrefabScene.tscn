@@ -1,6 +1,0 @@
-[gd_scene format=3]
-
-[ext_resource type="Script" path="res://Scenes/Prefabs/CardManagement/Card/CardDragPrefabScene.cs" id="1_drag"]
-
-[node name="CardDragPrefabScene" type="PanelContainer"]
-script = ExtResource("1_drag")

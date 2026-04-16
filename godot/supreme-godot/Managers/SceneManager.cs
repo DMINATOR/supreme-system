@@ -23,11 +23,11 @@ public partial class SceneManager : Node
 		CardCatalogueScene,
 	}
 
-	public const string CardCollectionPrefabScene = "res://Scenes/Prefabs/CardManagement/Collection/CardCollectionPrefabScene.tscn";
-	public const string CardOfferPrefabScene = "res://Scenes/Prefabs/CardManagement/Collection/CardOfferPrefabScene.tscn";
-	public const string CardPrefabScene = "res://Scenes/Prefabs/CardManagement/Card/CardPrefabScene.tscn";
-	public const string CardDragPrefabScene = "res://Scenes/Prefabs/CardManagement/Card/CardDragPrefabScene.tscn";
-	public const string CardSlotPrefabScene = "res://Scenes/Prefabs/CardManagement/Slot/CardSlotPrefabScene.tscn";
+	public const string CardCollectionPrefabScene = "res://Scenes/Prefabs/Card/Collection/CardCollectionPrefabScene.tscn";
+	public const string CardOfferPrefabScene = "res://Scenes/Prefabs/Card/Collection/CardOfferPrefabScene.tscn";
+	public const string CardPrefabScene = "res://Scenes/Prefabs/Card/Prefab/CardPrefabScene.tscn";
+	public const string CardDragPrefabScene = "res://Scenes/Prefabs/Card/DragAndDrop/CardDragPrefabScene.tscn";
+	public const string CardSlotPrefabScene = "res://Scenes/Prefabs/Card/Slot/CardSlotPrefabScene.tscn";
 	public const string CompanionEquipmentSlotsPrefabScene = "res://Scenes/Prefabs/Inventory/CompanionEquipmentSlotsPrefabScene.tscn";
 	public const string InventoryPrefabScene = "res://Scenes/Prefabs/Inventory/InventoryPrefabScene.tscn";
 	public const string PlayerEquipmentSlotsPrefabScene = "res://Scenes/Prefabs/Inventory/PlayerEquipmentSlotsPrefabScene.tscn";
