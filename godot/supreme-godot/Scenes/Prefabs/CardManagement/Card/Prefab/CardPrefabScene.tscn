@@ -1,0 +1,46 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scenes/Prefabs/CardManagement/Card/Prefab/CardPrefabScene.cs" id="1_card"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/CardManagement/Card/Prefab/CardPrefabHeaderScene.tscn" id="2_header"]
+
+[node name="CardPrefabScene" type="PanelContainer"]
+custom_minimum_size = Vector2(120, 160)
+mouse_filter = 2
+script = ExtResource("1_card")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+
+[node name="HeaderImage" parent="VBoxContainer" instance=ExtResource("2_header")]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="NameLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+text = "Name"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="RarityLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+text = "Rarity"
+horizontal_alignment = 1
+
+[node name="TypeLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+text = "Type"
+horizontal_alignment = 1
+
+[node name="DurabilityLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+text = "Durability"
+horizontal_alignment = 1
