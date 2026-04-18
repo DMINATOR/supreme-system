@@ -5,7 +5,7 @@ using SupremeEngine;
 public class PlayerStateTest
 {
     private static Card MakeCard(string id = "card-001") =>
-        new Card(id, "Test Card", CardRarity.Common, CardType.Attack, 1.0f);
+        new Card(id, "Test Card", CardRarity.Common, CardType.Attack, 1.0f, level: 1);
 
     [Fact]
     public void PlayerState_StartsWithEmptyDeckAndEquipment()

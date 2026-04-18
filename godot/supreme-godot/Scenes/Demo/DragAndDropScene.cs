@@ -24,8 +24,8 @@ public partial class DragAndDropScene : Control
 
 	private void PrepareNodes()
 	{
-		var card1 = new Card("demo-001", "Iron Sword", CardRarity.Common, CardType.Equipment, 100f);
-		var card2 = new Card("demo-002", "Fire Spell", CardRarity.Rare, CardType.Spell, 75f);
+		var card1 = new Card("demo-001", "Iron Sword", CardRarity.Common, CardType.Equipment, 100f, level: 1);
+		var card2 = new Card("demo-002", "Fire Spell", CardRarity.Rare, CardType.Spell, 75f, level: 1);
 
 		var cardSlot1 = new CardSlot(); cardSlot1.Equip(card1);
 		var cardSlot2 = new CardSlot(); cardSlot2.Equip(card2);

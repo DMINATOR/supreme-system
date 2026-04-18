@@ -10,9 +10,12 @@ public class CardFactory
         _random = random;
     }
 
-    public Card Create(CardTemplate template)
+    public Card Create(CardTemplate template, int level = 1)
     {
+        if (level < 1)
+            throw new ArgumentOutOfRangeException(nameof(level), "Area level must be at least 1.");
+
         var id = $"{template.TemplateId}-{Guid.NewGuid():N}";
-        return new Card(id, template.Name, template.Rarity, template.Type, template.DurabilityOnUse);
+        return new Card(id, template.Name, template.Rarity, template.Type, template.DurabilityOnUse, level);
     }
 }

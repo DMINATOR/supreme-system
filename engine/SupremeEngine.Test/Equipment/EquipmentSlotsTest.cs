@@ -5,7 +5,7 @@ using SupremeEngine;
 public class EquipmentSlotsTest
 {
     private static Card MakeCard(string id = "equip-001") =>
-        new Card(id, "Test Equipment", CardRarity.Common, CardType.Equipment, 1.0f);
+        new Card(id, "Test Equipment", CardRarity.Common, CardType.Equipment, 1.0f, level: 1);
 
     [Fact]
     public void EquipmentSlots_StartsWithAllSlotsEmpty()

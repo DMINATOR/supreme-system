@@ -5,7 +5,7 @@ using SupremeEngine;
 public class TransferCardCommandTest
 {
     private static Card MakeCard(string id = "card-001") =>
-        new Card(id, "Test Card", CardRarity.Common, CardType.Equipment, 1.0f);
+        new Card(id, "Test Card", CardRarity.Common, CardType.Equipment, 1.0f, level: 1);
 
     [Fact]
     public void Execute_EquipsCardInTargetSlot()

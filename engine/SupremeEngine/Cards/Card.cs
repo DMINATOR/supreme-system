@@ -7,16 +7,21 @@ public class Card
     public string Name { get; }
     public CardRarity Rarity { get; }
     public CardType Type { get; }
+    public int Level { get; }
     public float Durability { get; set; }
     public bool IsUsable => Durability > 0;
 
-    public Card(string id, string name, CardRarity rarity, CardType type, float durability)
+    public Card(string id, string name, CardRarity rarity, CardType type, float durability, int level)
     {
+        if (level < 1)
+            throw new ArgumentOutOfRangeException(nameof(level), "Card level must be at least 1.");
+
         Id = id;
         Name = name;
         Rarity = rarity;
         Type = type;
         Durability = durability;
+        Level = level;
     }
 
     public CardDto ToDto() => new()
@@ -25,9 +30,10 @@ public class Card
         Name = Name,
         Rarity = Rarity,
         Type = Type,
-        Durability = Durability
+        Durability = Durability,
+        Level = Level
     };
 
     public static Card FromDto(CardDto dto) =>
-        new(dto.Id, dto.Name, dto.Rarity, dto.Type, dto.Durability);
+        new(dto.Id, dto.Name, dto.Rarity, dto.Type, dto.Durability, dto.Level);
 }

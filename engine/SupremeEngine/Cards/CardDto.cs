@@ -8,4 +8,5 @@ public record CardDto
     public CardRarity Rarity { get; init; }
     public CardType Type { get; init; }
     public float Durability { get; init; }
+    public int Level { get; init; }
 }

@@ -62,4 +62,43 @@ public class CardFactoryTest
         // Assert
         Assert.Equal(0.25f, card.Durability);
     }
+
+    [Fact]
+    public void CardFactory_Create_SetsLevelFromAreaLevel()
+    {
+        // Arrange
+        var template = new CardTemplate("iron-sword", "Iron Sword", CardRarity.Common, CardType.Equipment, 0.5f);
+        var factory = new CardFactory(new Random(0));
+
+        // Act
+        var card = factory.Create(template, level: 5);
+
+        // Assert
+        Assert.Equal(5, card.Level);
+    }
+
+    [Fact]
+    public void CardFactory_Create_DefaultsLevelToOne()
+    {
+        // Arrange
+        var template = new CardTemplate("iron-sword", "Iron Sword", CardRarity.Common, CardType.Equipment, 0.5f);
+        var factory = new CardFactory(new Random(0));
+
+        // Act
+        var card = factory.Create(template);
+
+        // Assert
+        Assert.Equal(1, card.Level);
+    }
+
+    [Fact]
+    public void CardFactory_Create_ThrowsWhenAreaLevelIsZero()
+    {
+        // Arrange
+        var template = new CardTemplate("iron-sword", "Iron Sword", CardRarity.Common, CardType.Equipment, 0.5f);
+        var factory = new CardFactory(new Random(0));
+
+        // Act / Assert
+        Assert.Throws<ArgumentOutOfRangeException>(() => factory.Create(template, level: 0));
+    }
 }
