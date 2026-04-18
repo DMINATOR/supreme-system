@@ -7,7 +7,7 @@
 - Open world 2D map — player roams freely between [encounters](../glossary.md#encounter)
 - Enemies are present in the world (visible or random [encounters](../glossary.md#encounter) — TBD)
 - World is split into [zones/regions](../glossary.md#zone--region) (TBD) or a single seamless map (TBD)
-- Progression is infinite — [monster scaling](../glossary.md#monster-scaling) over time (scaling trigger: distance, time, or other — TBD)
+- Progression is infinite — enemies and card drops grow stronger as the player moves into higher [area level](../glossary.md#area-level) zones ([monster scaling](../glossary.md#monster-scaling))
 - No fixed end goal; the [run](../glossary.md#run) is a "how far can you go" challenge (final boss option — TBD)
 
 ## Combat
@@ -23,5 +23,6 @@
 
 ## Save & Death
 
-- [Rest sites](../glossary.md#rest-site) are the save checkpoint — fixed locations or anywhere (TBD)
-- On [party wipe](../glossary.md#party-wipe) the run ends; what is lost vs kept across runs — TBD (see [Progression & Meta](progression-and-meta.md))
+- The game can only be saved at [rest sites](../glossary.md#rest-site) — fixed locations or anywhere (TBD)
+- On [party wipe](../glossary.md#party-wipe), the party reverts to the last rest site save — all progress since that save is lost
+- Cards, loot, and map progress acquired since the last rest site do not persist through death

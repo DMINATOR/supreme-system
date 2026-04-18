@@ -5,10 +5,10 @@ Reference for terms used across all design documents.
 ---
 
 ## Run
-A single playthrough from start to death or victory. The player builds their deck and progresses through the world during a run.
+A single playthrough. The player builds their deck and progresses through the world. A run ends when the player reaches a final goal or victory condition — TBD.
 
 ## Rest Site
-A safe location in the world where progress is saved. Acts as a checkpoint boundary between death consequences.
+A safe location in the world where progress is saved. The only place the game can be saved. On [party wipe](glossary.md#party-wipe), the party reverts to the last rest site save — all progress since then is lost.
 
 ## Encounter
 A combat event triggered by interacting with or being found by an enemy on the world map.
@@ -34,17 +34,23 @@ A value carried by cards that determines turn order in combat. Participants act 
 ## Energy
 (TBD) The resource spent to play cards each turn.
 
+## Card Level
+The level of a card, fixed at the moment it drops, equal to the [area level](glossary.md#area-level) of the zone where it was found. Determines the card's raw stat values — higher level means more powerful stats. A card's level cannot change after it drops.
+
+## Area Level
+The difficulty level of a zone or region in the world. Determines the level at which enemies and cards appear in that area. Exploring higher-level areas is the primary source of more powerful card drops and therefore the primary in-run progression mechanism.
+
 ## Monster Scaling
-The mechanic by which enemy stats and difficulty increase over the course of a run. Scaling trigger (distance, time, etc.) is TBD.
+The mechanic by which enemy stats and difficulty increase as the player moves into higher [area level](glossary.md#area-level) zones. The specific formula is TBD.
 
 ## Meta Progression
 Persistent unlocks or rewards that carry over between runs, surviving death.
 
 ## Zone / Region
-(TBD) A distinct area of the open world map, potentially themed or difficulty-tiered.
+(TBD) A distinct area of the open world map, potentially themed or difficulty-tiered. Each zone has an associated [area level](glossary.md#area-level).
 
 ## Party
-The group consisting of the player and up to 2 [companions](glossary.md#companion) — 3 members total. They travel and fight together. The run ends when all party members are dead.
+The group consisting of the player and up to 2 [companions](glossary.md#companion) — 3 members total. They travel and fight together.
 
 ## Companion
 An NPC recruited during a run who follows the player on the map, has their own deck and HP, and takes their own turn in combat. Companions can be acquired or dismissed over the course of a run.
@@ -71,7 +77,7 @@ A combat card that performs an offensive or utility action without requiring an 
 A single-use combat card (e.g. potions). Behaviour after use — TBD.
 
 ## Party Wipe
-The condition where all party members have been killed, ending the current run.
+The condition where all party members have been killed. The party reverts to the last [rest site](glossary.md#rest-site) save, losing all progress since then.
 
 ## The Ruin
 The catastrophic event that collapsed civilization roughly 100 years before the game takes place. The exact cause is — TBD. See [The Ruin](world/the-ruin.md) for full detail.

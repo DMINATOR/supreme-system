@@ -37,3 +37,11 @@ Cards have five rarity tiers: **Common**, **Uncommon**, **Rare**, **Legendary**,
 ## Durability
 
 Every card has a [durability](../glossary.md#durability) value. When a card is played or damaged, its durability decreases by the card's **durability on use** amount (defined in the card template). A card whose durability reaches 0 is **broken** — it loses all its properties and cannot be played.
+
+## Card Level
+
+Every card has a [card level](../glossary.md#card-level) that is fixed the moment it drops. The level is inherited from the [area level](../glossary.md#area-level) of the zone where the card was found — a card dropped in a level 5 area is a level 5 card.
+
+Card level scales the card's raw stat values (damage, healing, shield, etc.). There is no maximum level. Card levels are not persistent — they reset when the run ends.
+
+This is the game's primary in-run progression mechanism: the player must push into higher-level areas to find higher-level cards and grow the deck's power. There is no experience gain, grinding, or crafting — the world itself is the upgrade system.
