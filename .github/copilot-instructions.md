@@ -45,6 +45,8 @@ Whenever a Godot scene is **created, renamed, or removed**, automatically apply 
 
 **Removing a scene:** Use the [remove-scene skill](.github/skills/remove-scene/SKILL.md) — read it before starting.
 
+**Validating scenes:** Use the [validate-scenes skill](.github/skills/validate-scenes/SKILL.md) — read it before starting.
+
 ### Glossary as Primary Reference
 - `docs/glossary.md` is the **single source of truth** for all game design terms
 - Every term that has a glossary entry must be linked to it when referenced in any doc page
