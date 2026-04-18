@@ -84,8 +84,7 @@ applyTo: "godot/**/*.cs"
 - Current helpers:
   - `DialogHelper.ShowConfirm(Node parent, string message, Action onConfirmed)` — shows a `ConfirmationDialog`, wires confirm/cancel, and calls `QueueFree` automatically
   - `DialogHelper.ShowError(Node parent, string message)` — logs via `GD.PushError` and shows an `AcceptDialog`
-  - `PrefabFactory.CreateCardSlotScene(Node parent, int slotIndex, CardSlot cardSlot)` — loads `CardSlotPrefabScene.tscn`, adds it to `parent`, calls `Setup(cardSlot, label)`, and returns the ready node; `CardSlot` is always required
-  - `PrefabFactory.CreateCardSlotScene(Node parent, string slotName, CardSlot cardSlot)` — same as above but uses a string label instead of a numeric index
+  - `PrefabFactory.CreateCardSlotScenes(Node parent, ICardCollection collection, bool enableDragAndDrop, Action<Card> onCardPressed)` — creates all card slot scenes for every slot in `collection`, enables drag-and-drop if requested, and wires `CardPressed` to `onCardPressed` on each; use this instead of a manual loop
   - `PrefabFactory.CreateBagScene(Node parent, ICardCollection bag)` — instantiates `CardCollectionPrefabScene.tscn`, adds it to `parent`, calls `Setup(bag, "Bag")`, and returns the ready node
   - `PrefabFactory.CreateCompanionDeckScene(Node parent, ICardCollection deck)` — instantiates `CardCollectionPrefabScene.tscn`, adds it to `parent`, calls `Setup(deck, "Deck")`, and returns the ready node; the caller resolves the deck from `WorldManager`
   - `PrefabFactory.CreateCatalogueScene(Node parent)` — instantiates `CardCollectionPrefabScene.tscn`, loads `CardTemplateLibrary`, builds a `CardCollection` from all templates, calls `Setup` with D&D disabled, and returns the ready node; exposes `CardSelected` event via `CardCollectionPrefabScene`

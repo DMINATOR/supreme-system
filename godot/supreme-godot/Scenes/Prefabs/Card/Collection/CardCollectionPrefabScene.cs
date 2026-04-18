@@ -17,14 +17,7 @@ public partial class CardCollectionPrefabScene : Control
 	public void Setup(ICardCollection collection, string title, bool enableDragAndDrop = true)
 	{
 		_titleLabel.Text = title;
-
-		for (var i = 0; i < collection.Capacity; i++)
-		{
-			var slot = PrefabFactory.CreateCardSlotScene(_cardsContainer, i, collection.Slots[i]);
-			if (enableDragAndDrop)
-				slot.EnableDragAndDrop();
-			slot.CardPressed += c => CardSelected?.Invoke(c);
-		}
+		PrefabFactory.CreateCardSlotScenes(_cardsContainer, collection, enableDragAndDrop, c => CardSelected?.Invoke(c));
 	}
 
 	private void LoadNodes()
