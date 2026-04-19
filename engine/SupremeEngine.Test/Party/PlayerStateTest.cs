@@ -19,6 +19,30 @@ public class PlayerStateTest
     }
 
     [Fact]
+    public void PlayerState_StartsAtLevelOne()
+    {
+        // Arrange / Act
+        var player = new PlayerState();
+
+        // Assert
+        Assert.Equal(1, player.Level);
+    }
+
+    [Fact]
+    public void ToSaveData_From_RoundTrip_IncludesLevel()
+    {
+        // Arrange
+        var player = new PlayerState();
+        var saveData = player.ToSaveData() with { Level = 5 };
+
+        // Act
+        var restored = PlayerState.From(saveData);
+
+        // Assert
+        Assert.Equal(5, restored.Level);
+    }
+
+    [Fact]
     public void ToSaveData_From_RoundTrip()
     {
         // Arrange

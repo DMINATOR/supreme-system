@@ -3,11 +3,13 @@ namespace SupremeEngine;
 /// <see href="../../../../docs/characters/player-character_spec.md"/>
 public class PlayerState
 {
+    public int Level { get; private set; } = 1;
     public CardCollection Deck { get; private set; } = new(InventoryManager.PlayerDeckCapacity);
     public EquipmentSlots Equipment { get; private set; } = new();
 
     public PlayerSaveData ToSaveData() => new()
     {
+        Level = Level,
         Deck = Deck.ToDto(),
         Equipment = Equipment.ToDto()
     };
@@ -15,6 +17,7 @@ public class PlayerState
     public static PlayerState From(PlayerSaveData data)
     {
         var state = new PlayerState();
+        state.Level = data.Level;
         state.Deck = CardCollection.FromDto(data.Deck, InventoryManager.PlayerDeckCapacity);
         state.Equipment = EquipmentSlots.FromDto(data.Equipment);
         return state;
