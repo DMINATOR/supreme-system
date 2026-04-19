@@ -8,6 +8,8 @@
 - Starting equipment: one inherited weapon (mentor's)
 - Starting items: journal (lore mechanic — [TBD](player-character_tbd.md))
 - Starting knowledge of the world: partial — revealed over runs via journal
+- Starting player level: 1
+- Player level increases only by visiting a master in a city
 
 ## Rules
 
@@ -18,6 +20,7 @@
 ## Behaviors
 
 - Take combat turn (same as any party member)
+- Level up by visiting a master in a city
 - Unlock journal entries as the run progresses (mechanic [TBD](player-character_tbd.md))
 
 ## Relationships

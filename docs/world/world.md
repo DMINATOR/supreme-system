@@ -2,7 +2,7 @@
 
 The current state of the world, roughly 100 years after [The Ruin](the-ruin.md). Civilization as it existed is gone. What remains is a patchwork of survivor settlements, contested territories, and vast stretches of dangerous, largely uninhabited land.
 
-## Zones
+## Terrain Types
 
 The landscape is shaped by the physical scars left behind by [The Ruin](the-ruin.md):
 
@@ -12,7 +12,7 @@ The landscape is shaped by the physical scars left behind by [The Ruin](the-ruin
 - **Underground Networks** — bunkers, tunnels, and subway systems that became refuges and now serve as settlements or lairs
 - **Remnant Machine Zones** — areas still patrolled or controlled by automated pre-Ruin defense and infrastructure systems with no one left to shut them down
 
-Zone specifics and gameplay integration are — TBD. See [Map & Structure](../systems/map-and-structure.md) for how zones are represented in the game world.
+How terrain types map to gameplay locations is — TBD. See [Map & Structure](../systems/map-and-structure.md).
 
 ## Settlements
 

@@ -4,10 +4,10 @@
 
 ## Run Structure
 
-- Open world 2D map — player roams freely between [encounters](../glossary.md#encounter)
-- Enemies are present in the world (visible or random [encounters](../glossary.md#encounter) — TBD)
-- World is split into [zones/regions](../glossary.md#zone--region) (TBD) or a single seamless map (TBD)
-- Progression is infinite — enemies and card drops grow stronger as the player moves into higher [area level](../glossary.md#area-level) zones ([monster scaling](../glossary.md#monster-scaling))
+- Single open 2D [world map](../glossary.md#world-map) — player roams freely between [encounters](../glossary.md#encounter), [dungeons](../glossary.md#dungeon), and [cities](../glossary.md#city)
+- Enemy placement on the world map (visible patrols vs. random triggers) — TBD
+- [World map](../glossary.md#world-map) is divided into [regions](../glossary.md#region) — structural subdivisions used to track movement progress
+- Progression is open-ended — enemies and card drops grow stronger as the player moves into higher [area level](../glossary.md#area-level) regions ([monster scaling](../glossary.md#monster-scaling))
 - No fixed end goal; the [run](../glossary.md#run) is a "how far can you go" challenge (final boss option — TBD)
 
 ## Combat
