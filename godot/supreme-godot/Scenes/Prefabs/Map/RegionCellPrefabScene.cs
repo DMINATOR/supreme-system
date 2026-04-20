@@ -10,7 +10,6 @@ public partial class RegionCellPrefabScene : Button
 
 	public override void _Ready()
 	{
-		LoadNodes();
 		PrepareNodes();
 	}
 
@@ -19,8 +18,6 @@ public partial class RegionCellPrefabScene : Button
 		_region = region;
 		Text = $"({region.X}, {region.Y})  —  Level {region.AreaLevel}  —  {region.Locations.Count} locations";
 	}
-
-	private void LoadNodes() { }
 
 	private void PrepareNodes()
 	{

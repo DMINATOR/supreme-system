@@ -39,6 +39,7 @@ public partial class SceneManager : Node
 	public const string SceneButtonPrefabScene = "res://Scenes/Prefabs/Control/SceneButtonPrefabScene.tscn";
 	public const string RegionCellPrefabScene = "res://Scenes/Prefabs/Map/RegionCellPrefabScene.tscn";
 	public const string LocationRowPrefabScene = "res://Scenes/Prefabs/Map/LocationRowPrefabScene.tscn";
+	public const string RegionDetailPrefabScene = "res://Scenes/Prefabs/Map/RegionDetailPrefabScene.tscn";
 
 	public void GoToMainMenu() => GoTo(GameScene.MainMenu);
 
