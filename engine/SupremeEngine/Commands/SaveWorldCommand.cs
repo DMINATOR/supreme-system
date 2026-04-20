@@ -18,7 +18,7 @@ public class SaveWorldCommand : CallbackCommand
     private readonly IWorldPersistence _persistence;
     private readonly int _slotIndex;
 
-    public SaveWorldCommand(IWorldStateHolder stateHolder, IWorldPersistence persistence, int slotIndex, Action onSuccess = null, Action<Exception> onFailure = null)
+    public SaveWorldCommand(IWorldStateHolder stateHolder, IWorldPersistence persistence, int slotIndex, Action? onSuccess = null, Action<Exception>? onFailure = null)
         : base(onSuccess, onFailure)
     {
         ArgumentNullException.ThrowIfNull(stateHolder);

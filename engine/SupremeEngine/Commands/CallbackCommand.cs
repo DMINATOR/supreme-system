@@ -8,10 +8,10 @@ using System;
 /// </summary>
 public abstract class CallbackCommand : ICommand
 {
-    private readonly Action _onSuccess;
-    private readonly Action<Exception> _onFailure;
+    private readonly Action? _onSuccess;
+    private readonly Action<Exception>? _onFailure;
 
-    protected CallbackCommand(Action onSuccess, Action<Exception> onFailure)
+    protected CallbackCommand(Action? onSuccess, Action<Exception>? onFailure)
     {
         _onSuccess = onSuccess;
         _onFailure = onFailure;

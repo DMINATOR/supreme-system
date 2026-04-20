@@ -32,12 +32,12 @@ public partial class WorldManager : Node, IWorldStateHolder
         State = state;
     }
 
-    public void DispatchSave(SaveManager saveManager, int slotIndex, Action onSuccess = null, Action<Exception> onFailure = null)
+    public void DispatchSave(SaveManager saveManager, int slotIndex, Action? onSuccess = null, Action<Exception>? onFailure = null)
     {
         _commandDispatcher.Dispatch(new SaveWorldCommand(this, saveManager, slotIndex, onSuccess, onFailure));
     }
 
-    public void DispatchLoad(int slotIndex, SaveManager saveManager, Action onSuccess = null, Action<Exception> onFailure = null)
+    public void DispatchLoad(int slotIndex, SaveManager saveManager, Action? onSuccess = null, Action<Exception>? onFailure = null)
     {
         _commandDispatcher.Dispatch(new LoadWorldCommand(this, saveManager, slotIndex, onSuccess, onFailure));
     }

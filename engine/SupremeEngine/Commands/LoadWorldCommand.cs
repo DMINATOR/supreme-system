@@ -18,7 +18,7 @@ public class LoadWorldCommand : CallbackCommand
     private readonly IWorldPersistence _persistence;
     private readonly int _slotIndex;
 
-    public LoadWorldCommand(IWorldStateHolder stateHolder, IWorldPersistence persistence, int slotIndex, Action onSuccess = null, Action<Exception> onFailure = null)
+    public LoadWorldCommand(IWorldStateHolder stateHolder, IWorldPersistence persistence, int slotIndex, Action? onSuccess = null, Action<Exception>? onFailure = null)
         : base(onSuccess, onFailure)
     {
         ArgumentNullException.ThrowIfNull(stateHolder);
