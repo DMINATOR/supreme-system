@@ -22,8 +22,14 @@ applyTo: "engine/SupremeEngine/Commands/**/*.cs"
 - List all preconditions as `<list type="bullet">` items inside the summary
 - Include a `<see href="..."/>` spec reference (same convention as other engine classes)
 
+### Godot-Layer Commands
+Commands that need no Godot API can live in `engine/SupremeEngine/Commands/` even if they orchestrate persistence — use `IWorldPersistence` and `IWorldStateHolder` interfaces so the engine layer stays Godot-free. Only add a command to `godot/supreme-godot/Commands/` if it genuinely requires a Godot API (e.g. scene navigation, node signals).
+
 ### Existing Commands
 
-| Command | Description |
-|---------|-------------|
-| `TransferCardCommand(CardSlot source, CardSlot target)` | Moves a card from `source` to `target`. Source must be non-null and occupied; target must be non-null and empty. |
+| Command | Location | Description |
+|---------|----------|-------------|
+| `TransferCardCommand(CardSlot source, CardSlot target)` | engine | Moves a card from `source` to `target`. Source must be non-null and occupied; target must be non-null and empty. |
+| `GenerateInitialMapCommand(WorldState state, WorldMapGenerator generator)` | engine | Generates the initial 3×3 region neighborhood around the world origin. |
+| `SaveWorldCommand(IWorldStateHolder, IWorldPersistence, int slotIndex, Action? onSuccess, Action<Exception>? onFailure)` | engine | Sets the active slot and saves current world state to it; invokes `onSuccess` on success, `onFailure(ex)` on write failure (exception is not re-thrown). |
+| `LoadWorldCommand(IWorldStateHolder, IWorldPersistence, int slotIndex, Action? onSuccess, Action<Exception>? onFailure)` | engine | Loads a slot and applies state to the holder; invokes `onSuccess` on success, `onFailure(ex)` if slot is empty (`InvalidOperationException`) or corrupt (exception is not re-thrown). |

@@ -2,7 +2,7 @@ using Godot;
 using System.Text.Json;
 using SupremeEngine;
 
-public partial class SaveManager : Node
+public partial class SaveManager : Node, IWorldPersistence
 {
 	public const int SlotCount = 3;
 
@@ -85,6 +85,11 @@ public partial class SaveManager : Node
 	{
 		ActiveSlotIndex = index;
 	}
+
+	// IWorldPersistence
+	WorldSaveData IWorldPersistence.Load(int slotIndex) => LoadSaveData(slotIndex);
+	void IWorldPersistence.Save(int slotIndex, WorldSaveData data) => SaveWorld(slotIndex, data);
+	void IWorldPersistence.SetActiveSlot(int slotIndex) => SetActiveSlot(slotIndex);
 
 	private static string SlotPath(int index) => $"{SaveDir}/slot_{index}.json";
 }

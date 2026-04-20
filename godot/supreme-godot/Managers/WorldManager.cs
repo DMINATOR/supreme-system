@@ -2,31 +2,48 @@ using System;
 using Godot;
 using SupremeEngine;
 
-public partial class WorldManager : Node
+public partial class WorldManager : Node, IWorldStateHolder
 {
+    private readonly WorldMapGenerator _mapGenerator = new WorldMapGenerator(
+        new RegionGenerator(
+            new LocationGenerator(
+                new RandomScatterPositionStrategy())));
+
+    private CommandDispatcher _commandDispatcher;
+
     public WorldState State { get; private set; } = new(Random.Shared.Next());
 
-    public void StartNewGame(SaveManager saveManager, int slotIndex)
+    public WorldMapGenerator MapGenerator => _mapGenerator;
+
+    public override void _Ready()
+    {
+        LoadNodes();
+    }
+
+    public void StartNewGame(int slotIndex)
     {
         State = new WorldState(Random.Shared.Next());
-        saveManager.SetActiveSlot(slotIndex);
+        new GenerateInitialMapCommand(State, _mapGenerator).Execute();
     }
 
-    public bool LoadFromSlot(Node parent, SaveManager saveManager, int slotIndex)
+    public void SetState(WorldState state)
     {
-        var data = saveManager.LoadSaveData(slotIndex);
-        if (data == null)
-        {
-            DialogHelper.ShowError(parent, $"Failed to load save data for slot {slotIndex}.");
-            return false;
-        }
-        State = WorldState.From(data);
-        saveManager.SetActiveSlot(slotIndex);
-        return true;
+        ArgumentNullException.ThrowIfNull(state);
+        State = state;
     }
 
-    public void SaveToActiveSlot(SaveManager saveManager)
+    public void DispatchSave(SaveManager saveManager, int slotIndex, Action onSuccess = null, Action<Exception> onFailure = null)
     {
-        saveManager.SaveWorld(saveManager.ActiveSlotIndex, State.ToSaveData());
+        _commandDispatcher.Dispatch(new SaveWorldCommand(this, saveManager, slotIndex, onSuccess, onFailure));
+    }
+
+    public void DispatchLoad(int slotIndex, SaveManager saveManager, Action onSuccess = null, Action<Exception> onFailure = null)
+    {
+        _commandDispatcher.Dispatch(new LoadWorldCommand(this, saveManager, slotIndex, onSuccess, onFailure));
+    }
+
+    private void LoadNodes()
+    {
+        _commandDispatcher = GetNode<CommandDispatcher>(AutoloadPath.CommandDispatcher);
     }
 }

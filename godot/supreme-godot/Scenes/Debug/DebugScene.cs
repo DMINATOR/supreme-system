@@ -55,14 +55,28 @@ public partial class DebugScene : Control
 	private void OnLoadFromSlotPressed()
 	{
 		if (_saveManager.ActiveSlotIndex >= 0)
-			_worldManager.LoadFromSlot(this, _saveManager, _saveManager.ActiveSlotIndex);
-		RefreshWorldTab();
+			_worldManager.DispatchLoad(_saveManager.ActiveSlotIndex, _saveManager,
+				onSuccess: RefreshWorldTab,
+				onFailure: ex =>
+				{
+					DialogHelper.ShowError(this, $"Failed to load slot {_saveManager.ActiveSlotIndex}: {ex.Message}");
+					RefreshWorldTab();
+				});
+		else
+			RefreshWorldTab();
 	}
 
 	private void OnSaveToActiveSlotPressed()
 	{
 		if (_saveManager.ActiveSlotIndex >= 0)
-			_worldManager.SaveToActiveSlot(_saveManager);
-		RefreshWorldTab();
+			_worldManager.DispatchSave(_saveManager, _saveManager.ActiveSlotIndex,
+				onSuccess: RefreshWorldTab,
+				onFailure: ex =>
+				{
+					DialogHelper.ShowError(this, $"Failed to save slot {_saveManager.ActiveSlotIndex}: {ex.Message}");
+					RefreshWorldTab();
+				});
+		else
+			RefreshWorldTab();
 	}
 }

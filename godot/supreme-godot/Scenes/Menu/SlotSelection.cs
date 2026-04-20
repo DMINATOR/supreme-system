@@ -47,15 +47,17 @@ public partial class SlotSelection : Control
 
 	private void OnNewPressed(int index)
 	{
-		_worldManager.StartNewGame(_saveManager, index);
-		_worldManager.SaveToActiveSlot(_saveManager);
-		_sceneManager.GoToWorld();
+		_worldManager.StartNewGame(index);
+		_worldManager.DispatchSave(_saveManager, index,
+			onSuccess: () => _sceneManager.GoToWorld(),
+			onFailure: ex => DialogHelper.ShowError(this, $"Failed to save slot {index + 1}: {ex.Message}"));
 	}
 
 	private void OnLoadPressed(int index)
 	{
-		if (_worldManager.LoadFromSlot(this, _saveManager, index))
-			_sceneManager.GoToWorld();
+		_worldManager.DispatchLoad(index, _saveManager,
+			onSuccess: () => _sceneManager.GoToWorld(),
+			onFailure: ex => DialogHelper.ShowError(this, $"Failed to load slot {index + 1}: {ex.Message}"));
 	}
 
 	private void OnDeletePressed(int index)
