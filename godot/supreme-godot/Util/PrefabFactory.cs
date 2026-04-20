@@ -120,4 +120,23 @@ public static class PrefabFactory
         }
     }
 
+    public static RegionCellPrefabScene CreateRegionCellScene(Node parent, SupremeEngine.Region region, Action<SupremeEngine.Region> onSelected)
+    {
+        var prefab = GD.Load<PackedScene>(SceneManager.RegionCellPrefabScene);
+        var scene = prefab.Instantiate<RegionCellPrefabScene>();
+        parent.AddChild(scene);
+        scene.Setup(region);
+        scene.RegionSelected += onSelected;
+        return scene;
+    }
+
+    public static LocationRowPrefabScene CreateLocationRowScene(Node parent, SupremeEngine.RegionLocation location)
+    {
+        var prefab = GD.Load<PackedScene>(SceneManager.LocationRowPrefabScene);
+        var scene = prefab.Instantiate<LocationRowPrefabScene>();
+        parent.AddChild(scene);
+        scene.Setup(location);
+        return scene;
+    }
+
 }

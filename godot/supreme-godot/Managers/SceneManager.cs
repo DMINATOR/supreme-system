@@ -21,6 +21,8 @@ public partial class SceneManager : Node
 		DragAndDropScene,
 		[ScenePath("res://Scenes/Debug/CardCatalogueScene.tscn")]
 		CardCatalogueScene,
+		[ScenePath("res://Scenes/World/WorldMapScene.tscn")]
+		WorldMapScene,
 	}
 
 	public const string CardCollectionPrefabScene = "res://Scenes/Prefabs/Card/Collection/CardCollectionPrefabScene.tscn";
@@ -35,6 +37,8 @@ public partial class SceneManager : Node
 	public const string PlayerEquipmentSlotsPrefabScene = "res://Scenes/Prefabs/Inventory/PlayerEquipmentSlotsPrefabScene.tscn";
 	public const string SaveSlotRowPrefabScene = "res://Scenes/Prefabs/Control/SaveSlotRowPrefabScene.tscn";
 	public const string SceneButtonPrefabScene = "res://Scenes/Prefabs/Control/SceneButtonPrefabScene.tscn";
+	public const string RegionCellPrefabScene = "res://Scenes/Prefabs/Map/RegionCellPrefabScene.tscn";
+	public const string LocationRowPrefabScene = "res://Scenes/Prefabs/Map/LocationRowPrefabScene.tscn";
 
 	public void GoToMainMenu() => GoTo(GameScene.MainMenu);
 
@@ -51,6 +55,8 @@ public partial class SceneManager : Node
 	public void GoToDragAndDropScene() => GoTo(GameScene.DragAndDropScene);
 
 	public void GoToCardCatalogueScene() => GoTo(GameScene.CardCatalogueScene);
+
+	public void GoToWorldMapScene() => GoTo(GameScene.WorldMapScene);
 
 	public void GoTo(GameScene scene)
 	{

@@ -1,0 +1,20 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scenes/Prefabs/Map/LocationRowPrefabScene.cs" id="1_script"]
+
+[node name="LocationRowPrefabScene" type="HBoxContainer"]
+layout_mode = 2
+script = ExtResource("1_script")
+
+[node name="TypeLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Type"
+
+[node name="AreaLevelLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Level 0"
+
+[node name="PositionLabel" type="Label" parent="."]
+layout_mode = 2
+text = "(0.00, 0.00)"
