@@ -33,3 +33,5 @@
 - Initiative modifications are properties of cards (equipment cards before combat, combat cards during)
 - Initiative feeds into the combat turn order
 - Encounter type can apply modifiers to initiative at combat start
+
+## Rationale

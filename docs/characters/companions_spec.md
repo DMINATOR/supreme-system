@@ -30,4 +30,6 @@
 - Companion belongs to one party
 - Companion owns one deck
 - Companion has one quest line
+
+## Rationale
 - Companion has a set of exclusive cards tied to their quest line

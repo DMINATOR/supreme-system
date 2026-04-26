@@ -23,3 +23,5 @@
 
 - Hand is drawn from a party member's deck
 - Hand exists only during combat
+
+## Rationale

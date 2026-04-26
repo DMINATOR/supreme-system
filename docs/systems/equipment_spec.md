@@ -6,6 +6,7 @@
 
 - Slots per party member: Weapon, Off-hand, Head, Chest, Hands, Feet, Amulet, Ring, Ring — 9 slots total
 - Slot count and types: [TBD](equipment_tbd.md) — subject to revision as combat mechanics evolve
+- Off-hand can hold a shield (defence) or a second weapon (dual-wield)
 
 ## Rules
 
@@ -13,7 +14,6 @@
 - Equipment is assigned before combat and cannot normally be changed mid-combat
 - Equipment is per party member — slots are not shared
 - A weapon must be equipped to play attack cards
-- Off-hand can hold a shield (defence) or a second weapon (dual-wield)
 
 ## Behaviors
 
@@ -24,3 +24,5 @@
 
 - Each party member has their own full set of equipment slots
 - Equipment cards come from the member's individual deck
+
+## Rationale

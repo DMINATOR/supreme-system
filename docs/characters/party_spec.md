@@ -29,3 +29,5 @@
 - Party shares one bag
 - Each party member owns one individual deck
 - Each party member has their own HP pool
+
+## Rationale

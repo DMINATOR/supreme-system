@@ -35,3 +35,5 @@
 - Rest sites are the save and checkpoint boundary
 - Meta progression persists across runs; everything else resets
 - Area level drives card level and enemy difficulty — see [progression-and-meta_spec.md](progression-and-meta_spec.md)
+
+## Rationale

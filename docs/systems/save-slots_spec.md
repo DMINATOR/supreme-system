@@ -32,3 +32,5 @@
 
 - A save slot contains one world state: map progress, party composition, individual decks, bag contents, and meta progression
 - Save slots are accessed from outside gameplay (main menu / slot selection screen)
+
+## Rationale

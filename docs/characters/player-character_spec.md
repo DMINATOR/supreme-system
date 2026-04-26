@@ -29,3 +29,5 @@
 - Player owns one deck
 - Player owns the journal
 - Player starts with the inherited weapon in their deck/equipment
+
+## Rationale

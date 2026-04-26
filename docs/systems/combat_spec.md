@@ -37,3 +37,5 @@
 - Encounter type applies initiative modifiers at combat start
 - Party wipe ends the run
 - Victory feeds loot into the bag
+
+## Rationale

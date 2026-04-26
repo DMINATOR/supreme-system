@@ -26,3 +26,5 @@
 - Card level depends on area level — see [cards_spec.md](cards_spec.md)
 - Area level is a property of zone/region — see [core-loop_spec.md](core-loop_spec.md)
 - Cards flow from encounter loot → bag → deck — see [core-loop_spec.md](core-loop_spec.md)
+
+## Rationale

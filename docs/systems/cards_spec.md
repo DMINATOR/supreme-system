@@ -48,3 +48,5 @@
 - Attack cards depend on a weapon being present in the weapon slot
 - Unique cards are tied to a specific companion and their quest line
 - Card level is derived from area level — see [Progression & Meta](progression-and-meta.md)
+
+## Rationale

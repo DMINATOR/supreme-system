@@ -64,3 +64,5 @@
 - Cities are rest sites and have an area level equal to the current world level.
 - Encounters yield Loot on completion.
 - Dungeons yield Loot per room (small) and on full completion (large).
+
+## Rationale

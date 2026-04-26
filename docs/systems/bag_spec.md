@@ -24,3 +24,5 @@
 
 - One bag belongs to the whole party
 - Bag is the source pool for all individual decks
+
+## Rationale

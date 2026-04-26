@@ -46,6 +46,9 @@ Things the element can do or have done to it. Written as plain action phrases.
 
 ## Relationships
 How this element connects to other elements. Written as plain ownership/association statements.
+
+## Rationale
+Why specific values, rules, or constraints were chosen. Records alternatives considered and the reasoning that settled each decision.
 ```
 
 - No code syntax, types, or programming language constructs

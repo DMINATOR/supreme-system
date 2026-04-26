@@ -26,3 +26,5 @@
 - Each party member owns one deck
 - Deck cards are sourced from the shared bag
 - Deck feeds the hand during combat
+
+## Rationale
