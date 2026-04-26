@@ -3,13 +3,15 @@ namespace SupremeEngine;
 /// <see href="../../../../docs/systems/cards_spec.md"/>
 public class Card
 {
+    public const float BrokenThreshold = 0.2f;
+
     public string Id { get; }
     public string Name { get; }
     public CardRarity Rarity { get; }
     public CardType Type { get; }
     public int Level { get; }
     public float Durability { get; set; }
-    public bool IsUsable => Durability > 0;
+    public bool IsBroken => Durability < BrokenThreshold;
 
     public Card(string id, string name, CardRarity rarity, CardType type, float durability, int level)
     {

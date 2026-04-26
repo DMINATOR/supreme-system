@@ -113,4 +113,4 @@ The screen shown on game launch and accessible from the main menu where the play
 One of several organized groups competing for resources and territory across the [wasteland](glossary.md#wasteland). Factions may influence available [encounters](glossary.md#encounter), companions, and [loot](glossary.md#loot). See [Factions](world/factions.md).
 
 ## Durability
-A float value (0.0–1.0) carried by every card representing how much use it has left. All cards start at 1.0. Each time the card is played or damaged, durability decreases by the card template's **durability on use** fraction. For example, a durability on use of 0.1 means the card lasts 10 uses before breaking. When durability reaches 0 the card is broken and cannot be used.
+A float value (0.0–1.0) carried by every card representing how much use it has left. All cards start at 1.0. Each time the card is played or damaged, durability decreases by the card template's **durability on use** fraction. Two thresholds govern card state: below 0.2 the card is [broken](glossary.md#broken-card) (stats halved, still playable); at or below 0.0 the card is permanently destroyed and removed.

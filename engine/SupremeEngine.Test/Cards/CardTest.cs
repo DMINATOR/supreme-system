@@ -45,26 +45,39 @@ public class CardTest
     }
 
     [Fact]
-    public void Card_IsUsable_WhenDurabilityAboveZero()
+    public void Card_IsBroken_WhenDurabilityBelowThreshold()
     {
-        // Arrange / Act
-        var card = new Card("sword-001", "Iron Sword", CardRarity.Common, CardType.Equipment, 0.5f, level: 1);
+        // Arrange
+        var card = new Card("sword-001", "Iron Sword", CardRarity.Common, CardType.Equipment, 1.0f, level: 1);
+
+        // Act
+        card.Durability = 0.1f;
 
         // Assert
-        Assert.True(card.IsUsable);
+        Assert.True(card.IsBroken);
     }
 
     [Fact]
-    public void Card_IsNotUsable_WhenDurabilityIsZero()
+    public void Card_IsNotBroken_WhenDurabilityAtThreshold()
     {
         // Arrange
-        var card = new Card("sword-001", "Iron Sword", CardRarity.Common, CardType.Equipment, 0.5f, level: 1);
+        var card = new Card("sword-001", "Iron Sword", CardRarity.Common, CardType.Equipment, 1.0f, level: 1);
 
         // Act
-        card.Durability = 0f;
+        card.Durability = Card.BrokenThreshold;
 
         // Assert
-        Assert.False(card.IsUsable);
+        Assert.False(card.IsBroken);
+    }
+
+    [Fact]
+    public void Card_IsNotBroken_WhenDurabilityAboveThreshold()
+    {
+        // Arrange / Act
+        var card = new Card("sword-001", "Iron Sword", CardRarity.Common, CardType.Equipment, 1.0f, level: 1);
+
+        // Assert
+        Assert.False(card.IsBroken);
     }
 
     [Fact]

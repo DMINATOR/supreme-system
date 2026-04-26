@@ -36,7 +36,14 @@ Cards have five rarity tiers: **Common**, **Uncommon**, **Rare**, **Legendary**,
 
 ## Durability
 
-Every card starts with a [durability](../glossary.md#durability) of 1.0. When a card is played or damaged, its durability decreases by its **durability on use** fraction (defined in the card template). For example, a card with a durability on use of 0.1 lasts 10 uses before breaking. A card whose durability reaches 0 is **broken** — it loses all its properties and cannot be played.
+Every card starts with a [durability](../glossary.md#durability) of 1.0. When a card is played or damaged, its durability decreases by its **durability on use** fraction (defined in the card template). For example, a card with a durability on use of 0.1 lasts 10 uses before reaching 0.
+
+Durability has two critical thresholds:
+
+- **Broken (below 0.2)** — the card is still playable but all its raw stats are halved. The player can choose to keep using it and accept the penalty.
+- **Destroyed (reaches 0.0)** — the card is permanently removed from wherever it is held — bag, deck, or equipment slot. It cannot be recovered.
+
+This creates meaningful decisions: a player can push a worn card through one final fight at reduced power, but ignoring durability entirely carries the permanent cost of losing the card.
 
 ## Card Level
 
