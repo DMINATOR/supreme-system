@@ -50,7 +50,7 @@ public class CardFactoryTest
     }
 
     [Fact]
-    public void CardFactory_Create_SetsDurabilityFromTemplate()
+    public void CardFactory_Create_SetsDurabilityToFull()
     {
         // Arrange
         var template = new CardTemplate("iron-sword", "Iron Sword", CardRarity.Common, CardType.Equipment, 0.25f);
@@ -60,7 +60,7 @@ public class CardFactoryTest
         var card = factory.Create(template);
 
         // Assert
-        Assert.Equal(0.25f, card.Durability);
+        Assert.Equal(1.0f, card.Durability);
     }
 
     [Fact]
