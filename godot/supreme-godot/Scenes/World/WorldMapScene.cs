@@ -5,8 +5,8 @@ public partial class WorldMapScene : Control
 {
 	private WorldManager _worldManager;
 	private GridContainer _mapArea;
-	private WorldMapXHeader _xHeader;
-	private WorldMapYHeader _yHeader;
+	private WorldMapHeader _xHeader;
+	private WorldMapHeader _yHeader;
 	private WorldMapGrid _grid;
 	private RegionDetailPrefabScene _regionDetailPanel;
 
@@ -22,8 +22,8 @@ public partial class WorldMapScene : Control
 	{
 		_worldManager = GetNode<WorldManager>(AutoloadPath.WorldManager);
 		_mapArea = GetNode<GridContainer>("VBoxContainer/MapArea");
-		_xHeader = GetNode<WorldMapXHeader>("VBoxContainer/MapArea/XHeader");
-		_yHeader = GetNode<WorldMapYHeader>("VBoxContainer/MapArea/YHeader");
+		_xHeader = GetNode<WorldMapHeader>("VBoxContainer/MapArea/XHeader");
+		_yHeader = GetNode<WorldMapHeader>("VBoxContainer/MapArea/YHeader");
 		_grid = GetNode<WorldMapGrid>("VBoxContainer/MapArea/Grid");
 		_regionDetailPanel = GetNode<RegionDetailPrefabScene>("VBoxContainer/RegionDetailPanel");
 	}
@@ -31,8 +31,8 @@ public partial class WorldMapScene : Control
 	private void PrepareNodes()
 	{
 		_regionDetailPanel.ClosePressed += OnCloseDetailPressed;
-		_xHeader.Setup(_viewState);
-		_yHeader.Setup(_viewState);
+		_xHeader.Setup(_viewState, WorldMapHeader.Orientation.Horizontal);
+		_yHeader.Setup(_viewState, WorldMapHeader.Orientation.Vertical);
 		_grid.Setup(_viewState, _worldManager.State.Regions);
 	}
 

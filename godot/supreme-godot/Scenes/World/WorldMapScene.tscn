@@ -3,8 +3,7 @@
 [ext_resource type="Script" uid="uid://dncaw3dkfhvv3" path="res://Scenes/World/WorldMapScene.cs" id="1_script"]
 [ext_resource type="PackedScene" path="res://Scenes/Prefabs/Control/SceneButtonPrefabScene.tscn" id="2_scenebutton"]
 [ext_resource type="PackedScene" path="res://Scenes/Prefabs/Map/RegionDetailPrefabScene.tscn" id="3_detail"]
-[ext_resource type="Script" uid="uid://b1flkpnq2uacc" path="res://Scenes/World/WorldMapXHeader.cs" id="4_xheader"]
-[ext_resource type="Script" uid="uid://cr2let17m2msk" path="res://Scenes/World/WorldMapYHeader.cs" id="5_yheader"]
+[ext_resource type="Script" path="res://Scenes/World/WorldMapHeader.cs" id="4_header"]
 [ext_resource type="Script" uid="uid://fqi8ajmrblr4" path="res://Scenes/World/WorldMapGrid.cs" id="6_grid"]
 
 [node name="WorldMapScene" type="Control" unique_id=1893699157]
@@ -40,14 +39,14 @@ clip_contents = true
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
-script = ExtResource("4_xheader")
+script = ExtResource("4_header")
 
 [node name="YHeader" type="Control" parent="VBoxContainer/MapArea" unique_id=-2071635074]
 clip_contents = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_vertical = 3
-script = ExtResource("5_yheader")
+script = ExtResource("4_header")
 
 [node name="Grid" type="Control" parent="VBoxContainer/MapArea" unique_id=-960523963]
 clip_contents = true
