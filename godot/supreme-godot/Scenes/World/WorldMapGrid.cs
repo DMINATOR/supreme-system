@@ -1,5 +1,6 @@
 using Godot;
 using SupremeEngine;
+using System;
 using System.Collections.Generic;
 
 public partial class WorldMapGrid : Control
@@ -8,15 +9,22 @@ public partial class WorldMapGrid : Control
     private const float MaxZoom = 5.0f;
     private const float ZoomStep = 0.15f;
 
+    public event Action<Region> RegionSelected;
+
     private WorldMapViewState _state;
+    private Dictionary<(int X, int Y), Region> _regions;
 
     private bool _isDragging;
+    private bool _didDrag;
     private Vector2 _dragStartMouse;
     private Vector2 _dragStartPan;
+
+    private Vector2I _hoveredCell = new Vector2I(int.MinValue, int.MinValue);
 
     public void Setup(WorldMapViewState state, Dictionary<(int X, int Y), Region> regions)
     {
         _state = state;
+        _regions = regions;
 
         if (regions.Count == 0)
             return;
@@ -33,6 +41,7 @@ public partial class WorldMapGrid : Control
         }
 
         _state.SetBounds(minX, maxX, minY, maxY);
+        _state.ViewChanged += QueueRedraw;
     }
 
     public override void _GuiInput(InputEvent @event)
@@ -44,12 +53,15 @@ public partial class WorldMapGrid : Control
                 if (mb.Pressed)
                 {
                     _isDragging = true;
+                    _didDrag = false;
                     _dragStartMouse = mb.Position;
                     _dragStartPan = _state.PanOffset;
                 }
                 else
                 {
                     _isDragging = false;
+                    if (!_didDrag)
+                        TrySelectCell(mb.Position);
                 }
             }
             else if (mb.Pressed && mb.ButtonIndex == MouseButton.WheelUp)
@@ -57,11 +69,53 @@ public partial class WorldMapGrid : Control
             else if (mb.Pressed && mb.ButtonIndex == MouseButton.WheelDown)
                 ApplyZoom(-ZoomStep, mb.Position);
         }
-        else if (@event is InputEventMouseMotion mm && _isDragging)
+        else if (@event is InputEventMouseMotion mm)
         {
-            var newPan = _dragStartPan + (mm.Position - _dragStartMouse);
-            _state.SetZoomAndPan(_state.Zoom, newPan);
+            UpdateHover(mm.Position);
+            if (_isDragging)
+            {
+                if ((mm.Position - _dragStartMouse).Length() > 4f)
+                    _didDrag = true;
+                _state.SetZoomAndPan(_state.Zoom, _dragStartPan + (mm.Position - _dragStartMouse));
+            }
         }
+    }
+
+    public override void _Notification(int what)
+    {
+        if (what == NotificationMouseExit)
+        {
+            _hoveredCell = new Vector2I(int.MinValue, int.MinValue);
+            QueueRedraw();
+        }
+    }
+
+    private void UpdateHover(Vector2 mousePos)
+    {
+        var cell = ScreenToCell(mousePos);
+        if (cell != _hoveredCell)
+        {
+            _hoveredCell = cell;
+            QueueRedraw();
+        }
+    }
+
+    private void TrySelectCell(Vector2 mousePos)
+    {
+        var cell = ScreenToCell(mousePos);
+        int wx = _state.MinX + cell.X;
+        int wy = _state.MaxY - cell.Y;
+        if (_regions.TryGetValue((wx, wy), out var region))
+            RegionSelected?.Invoke(region);
+    }
+
+    private Vector2I ScreenToCell(Vector2 pos)
+    {
+        float cellSize = _state.CellSize;
+        return new Vector2I(
+            (int)Mathf.Floor((pos.X - _state.PanOffset.X) / cellSize),
+            (int)Mathf.Floor((pos.Y - _state.PanOffset.Y) / cellSize)
+        );
     }
 
     private void ApplyZoom(float delta, Vector2 pivot)
@@ -75,6 +129,53 @@ public partial class WorldMapGrid : Control
 
     public override void _Draw()
     {
+        DrawRect(new Rect2(Vector2.Zero, Size), WorldMapViewState.ColorGridBackground);
+
+        float cellSize = _state.CellSize;
+        int firstCol = (int)Mathf.Floor(-_state.PanOffset.X / cellSize);
+        int lastCol  = (int)Mathf.Ceil((Size.X - _state.PanOffset.X) / cellSize);
+        int firstRow = (int)Mathf.Floor(-_state.PanOffset.Y / cellSize);
+        int lastRow  = (int)Mathf.Ceil((Size.Y - _state.PanOffset.Y) / cellSize);
+
+        DrawCells(cellSize, firstCol, lastCol, firstRow, lastRow);
+        DrawGridLines(cellSize, firstCol, lastCol, firstRow, lastRow);
+    }
+
+    private void DrawCells(float cellSize, int firstCol, int lastCol, int firstRow, int lastRow)
+    {
+        for (int col = firstCol; col <= lastCol; col++)
+        {
+            for (int row = firstRow; row <= lastRow; row++)
+                DrawCell(col, row, cellSize);
+        }
+    }
+
+    private void DrawCell(int col, int row, float cellSize)
+    {
+        int wx = _state.MinX + col;
+        int wy = _state.MaxY - row;
+        bool discovered = _regions.ContainsKey((wx, wy));
+
+        var rect = new Rect2(_state.ColX(col), _state.RowY(row), cellSize, cellSize);
+        DrawRect(rect, discovered ? WorldMapViewState.ColorCellDiscovered : WorldMapViewState.ColorCellUndiscovered);
+
+        if (discovered && _hoveredCell.X == col && _hoveredCell.Y == row)
+            DrawRect(rect, WorldMapViewState.ColorCellHover, filled: false, width: 2f);
+    }
+
+    private void DrawGridLines(float cellSize, int firstCol, int lastCol, int firstRow, int lastRow)
+    {
+        for (int col = firstCol; col <= lastCol + 1; col++)
+        {
+            float x = _state.ColX(col);
+            DrawLine(new Vector2(x, 0), new Vector2(x, Size.Y), WorldMapViewState.ColorGridLine);
+        }
+
+        for (int row = firstRow; row <= lastRow + 1; row++)
+        {
+            float y = _state.RowY(row);
+            DrawLine(new Vector2(0, y), new Vector2(Size.X, y), WorldMapViewState.ColorGridLine);
+        }
     }
 }
 

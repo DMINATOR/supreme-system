@@ -34,6 +34,7 @@ public partial class WorldMapScene : Control
 		_xHeader.Setup(_viewState, WorldMapHeader.Orientation.Horizontal);
 		_yHeader.Setup(_viewState, WorldMapHeader.Orientation.Vertical);
 		_grid.Setup(_viewState, _worldManager.State.Regions);
+		_grid.RegionSelected += OnRegionSelected;
 	}
 
 	private void OnRegionSelected(Region region)
