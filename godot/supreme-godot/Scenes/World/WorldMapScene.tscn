@@ -1,31 +1,57 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dnxwdhv3r5ljp"]
 
-[ext_resource type="Script" path="res://Scenes/World/WorldMapScene.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://dncaw3dkfhvv3" path="res://Scenes/World/WorldMapScene.cs" id="1_script"]
 [ext_resource type="PackedScene" path="res://Scenes/Prefabs/Control/SceneButtonPrefabScene.tscn" id="2_scenebutton"]
 [ext_resource type="PackedScene" path="res://Scenes/Prefabs/Map/RegionDetailPrefabScene.tscn" id="3_detail"]
-[ext_resource type="Script" path="res://Scenes/World/WorldMapControl.cs" id="4_mapcontrol"]
+[ext_resource type="Script" uid="uid://b1flkpnq2uacc" path="res://Scenes/World/WorldMapXHeader.cs" id="4_xheader"]
+[ext_resource type="Script" uid="uid://cr2let17m2msk" path="res://Scenes/World/WorldMapYHeader.cs" id="5_yheader"]
+[ext_resource type="Script" uid="uid://fqi8ajmrblr4" path="res://Scenes/World/WorldMapGrid.cs" id="6_grid"]
 
-[node name="WorldMapScene" type="Control"]
+[node name="WorldMapScene" type="Control" unique_id=1893699157]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_script")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=70118134]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="BackButton" parent="VBoxContainer" instance=ExtResource("2_scenebutton")]
+[node name="BackButton" parent="VBoxContainer" unique_id=2001057043 instance=ExtResource("2_scenebutton")]
 layout_mode = 2
 text = "← Back"
-TargetScene = 3
+TargetScene = 8
 
-[node name="WorldMapControl" type="Control" parent="VBoxContainer"]
+[node name="MapArea" type="GridContainer" parent="VBoxContainer" unique_id=1866202988]
 layout_mode = 2
 size_flags_vertical = 3
-script = ExtResource("4_mapcontrol")
+columns = 2
 
-[node name="RegionDetailPanel" parent="VBoxContainer" instance=ExtResource("3_detail")]
+[node name="Corner" type="Control" parent="VBoxContainer/MapArea" unique_id=1001001001]
+layout_mode = 2
+custom_minimum_size = Vector2(40, 40)
+
+[node name="XHeader" type="Control" parent="VBoxContainer/MapArea" unique_id=1112221111]
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 40)
+script = ExtResource("4_xheader")
+
+[node name="YHeader" type="Control" parent="VBoxContainer/MapArea" unique_id=-2071635074]
 layout_mode = 2
 size_flags_vertical = 3
+custom_minimum_size = Vector2(40, 0)
+script = ExtResource("5_yheader")
+
+[node name="Grid" type="Control" parent="VBoxContainer/MapArea" unique_id=-960523963]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("6_grid")
+
+[node name="RegionDetailPanel" parent="VBoxContainer" unique_id=824810108 instance=ExtResource("3_detail")]
 visible = false
