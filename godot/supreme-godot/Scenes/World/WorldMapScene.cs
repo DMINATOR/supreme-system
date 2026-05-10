@@ -10,6 +10,8 @@ public partial class WorldMapScene : Control
 	private WorldMapGrid _grid;
 	private RegionDetailPrefabScene _regionDetailPanel;
 
+	private WorldMapViewState _viewState = new WorldMapViewState();
+
 	public override void _Ready()
 	{
 		LoadNodes();
@@ -29,6 +31,9 @@ public partial class WorldMapScene : Control
 	private void PrepareNodes()
 	{
 		_regionDetailPanel.ClosePressed += OnCloseDetailPressed;
+		_xHeader.Setup(_viewState);
+		_yHeader.Setup(_viewState);
+		_grid.Setup(_viewState, _worldManager.State.Regions);
 	}
 
 	private void OnRegionSelected(Region region)
