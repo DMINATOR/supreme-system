@@ -5,6 +5,9 @@ public class WorldMapViewState
 {
     public const float BaseCellSize = 80f;
 
+    public Font Font { get; } = ThemeDB.Singleton.FallbackFont;
+    public int FontSize { get; } = ThemeDB.Singleton.FallbackFontSize;
+
     public static readonly Color ColorHeaderBackground = new Color(0.10f, 0.10f, 0.14f);
     public static readonly Color ColorHeaderText       = new Color(0.70f, 0.78f, 1.00f);
     public static readonly Color ColorGridBackground   = new Color(0.08f, 0.08f, 0.10f);
