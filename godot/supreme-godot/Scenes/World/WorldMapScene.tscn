@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/World/WorldMapScene.cs" id="1_script"]
 [ext_resource type="PackedScene" path="res://Scenes/Prefabs/Control/SceneButtonPrefabScene.tscn" id="2_scenebutton"]
 [ext_resource type="PackedScene" path="res://Scenes/Prefabs/Map/RegionDetailPrefabScene.tscn" id="3_detail"]
+[ext_resource type="Script" path="res://Scenes/World/WorldMapControl.cs" id="4_mapcontrol"]
 
 [node name="WorldMapScene" type="Control"]
 anchor_right = 1.0
@@ -19,13 +20,10 @@ layout_mode = 2
 text = "← Back"
 TargetScene = 3
 
-[node name="WorldView" type="ScrollContainer" parent="VBoxContainer"]
+[node name="WorldMapControl" type="Control" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-
-[node name="RegionList" type="VBoxContainer" parent="VBoxContainer/WorldView"]
-layout_mode = 2
-size_flags_horizontal = 3
+script = ExtResource("4_mapcontrol")
 
 [node name="RegionDetailPanel" parent="VBoxContainer" instance=ExtResource("3_detail")]
 layout_mode = 2
