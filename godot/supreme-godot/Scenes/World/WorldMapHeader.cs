@@ -17,7 +17,7 @@ public partial class WorldMapHeader : Control
 
     public override void _Draw()
     {
-        DrawRect(new Rect2(Vector2.Zero, Size), WorldMapViewState.ColorHeaderBackground);
+        DrawRect(new Rect2(Vector2.Zero, Size), WorldMapConstants.HeaderBackground);
 
         if (_orientation == Orientation.Horizontal)
             DrawColumns();
@@ -50,6 +50,6 @@ public partial class WorldMapHeader : Control
         var sz = _state.Font.GetStringSize(text, HorizontalAlignment.Left, -1, _state.FontSize);
         float cx = x + (w - sz.X) / 2f;
         float cy = y + (h + sz.Y) / 2f;
-        DrawString(_state.Font, new Vector2(cx, cy), text, HorizontalAlignment.Left, -1, _state.FontSize, WorldMapViewState.ColorHeaderText);
+        DrawString(_state.Font, new Vector2(cx, cy), text, HorizontalAlignment.Left, -1, _state.FontSize, WorldMapConstants.HeaderText);
     }
 }

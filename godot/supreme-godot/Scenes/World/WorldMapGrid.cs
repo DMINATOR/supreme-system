@@ -102,10 +102,9 @@ public partial class WorldMapGrid : Control
 
     private void TrySelectCell(Vector2 mousePos)
     {
-        var cell = ScreenToCell(mousePos);
-        int wx = _state.MinX + cell.X;
-        int wy = _state.MaxY - cell.Y;
-        if (_regions.TryGetValue((wx, wy), out var region))
+        var cellPos = ScreenToCell(mousePos);
+        var cell = new WorldMapCell(cellPos.X, cellPos.Y, _state.MinX, _state.MaxY);
+        if (_regions.TryGetValue((cell.WorldX, cell.WorldY), out var region))
             RegionSelected?.Invoke(region);
     }
 
@@ -129,7 +128,7 @@ public partial class WorldMapGrid : Control
 
     public override void _Draw()
     {
-        DrawRect(new Rect2(Vector2.Zero, Size), WorldMapViewState.ColorGridBackground);
+        DrawRect(new Rect2(Vector2.Zero, Size), WorldMapConstants.GridBackground);
 
         float cellSize = _state.CellSize;
         int firstCol = (int)Mathf.Floor(-_state.PanOffset.X / cellSize);
@@ -137,44 +136,39 @@ public partial class WorldMapGrid : Control
         int firstRow = (int)Mathf.Floor(-_state.PanOffset.Y / cellSize);
         int lastRow  = (int)Mathf.Ceil((Size.Y - _state.PanOffset.Y) / cellSize);
 
-        DrawCells(cellSize, firstCol, lastCol, firstRow, lastRow);
-        DrawGridLines(cellSize, firstCol, lastCol, firstRow, lastRow);
+        DrawCells(firstCol, lastCol, firstRow, lastRow);
+        DrawGridLines(firstCol, lastCol, firstRow, lastRow);
     }
 
-    private void DrawCells(float cellSize, int firstCol, int lastCol, int firstRow, int lastRow)
+    private void DrawCells(int firstCol, int lastCol, int firstRow, int lastRow)
     {
         for (int col = firstCol; col <= lastCol; col++)
         {
             for (int row = firstRow; row <= lastRow; row++)
-                DrawCell(col, row, cellSize);
+                DrawCell(col, row);
         }
     }
 
-    private void DrawCell(int col, int row, float cellSize)
+    private void DrawCell(int col, int row)
     {
-        int wx = _state.MinX + col;
-        int wy = _state.MaxY - row;
-        bool discovered = _regions.ContainsKey((wx, wy));
-
-        var rect = new Rect2(_state.ColX(col), _state.RowY(row), cellSize, cellSize);
-        DrawRect(rect, discovered ? WorldMapViewState.ColorCellDiscovered : WorldMapViewState.ColorCellUndiscovered);
-
-        if (discovered && _hoveredCell.X == col && _hoveredCell.Y == row)
-            DrawRect(rect, WorldMapViewState.ColorCellHover, filled: false, width: 2f);
+        var cell = new WorldMapCell(col, row, _state.MinX, _state.MaxY);
+        bool isDiscovered = _regions.ContainsKey((cell.WorldX, cell.WorldY));
+        bool isHovered = _hoveredCell.X == col && _hoveredCell.Y == row;
+        cell.Draw(this, _state, isDiscovered, isHovered);
     }
 
-    private void DrawGridLines(float cellSize, int firstCol, int lastCol, int firstRow, int lastRow)
+    private void DrawGridLines(int firstCol, int lastCol, int firstRow, int lastRow)
     {
         for (int col = firstCol; col <= lastCol + 1; col++)
         {
             float x = _state.ColX(col);
-            DrawLine(new Vector2(x, 0), new Vector2(x, Size.Y), WorldMapViewState.ColorGridLine);
+            DrawLine(new Vector2(x, 0), new Vector2(x, Size.Y), WorldMapConstants.GridLine);
         }
 
         for (int row = firstRow; row <= lastRow + 1; row++)
         {
             float y = _state.RowY(row);
-            DrawLine(new Vector2(0, y), new Vector2(Size.X, y), WorldMapViewState.ColorGridLine);
+            DrawLine(new Vector2(0, y), new Vector2(Size.X, y), WorldMapConstants.GridLine);
         }
     }
 }
