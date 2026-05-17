@@ -23,6 +23,8 @@ public partial class SceneManager : Node
 		CardCatalogueScene,
 		[ScenePath("res://Scenes/World/WorldMapScene.tscn")]
 		WorldMapScene,
+		[ScenePath("res://Scenes/World/RegionMapScene.tscn")]
+		RegionMapScene,
 	}
 
 	public const string CardCollectionPrefabScene = "res://Scenes/Prefabs/Card/Collection/CardCollectionPrefabScene.tscn";
@@ -58,6 +60,8 @@ public partial class SceneManager : Node
 	public void GoToCardCatalogueScene() => GoTo(GameScene.CardCatalogueScene);
 
 	public void GoToWorldMapScene() => GoTo(GameScene.WorldMapScene);
+
+	public void GoToRegionMapScene() => GoTo(GameScene.RegionMapScene);
 
 	public void GoTo(GameScene scene)
 	{

@@ -25,35 +25,40 @@ layout_mode = 2
 text = "← Back"
 TargetScene = 3
 
-[node name="MapArea" type="GridContainer" parent="VBoxContainer" unique_id=1866202988]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MapArea" type="GridContainer" parent="VBoxContainer/HBoxContainer" unique_id=1866202988]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 2
 
-[node name="Corner" type="Control" parent="VBoxContainer/MapArea" unique_id=1001001001]
+[node name="Corner" type="Control" parent="VBoxContainer/HBoxContainer/MapArea" unique_id=1001001001]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 
-[node name="XHeader" type="Control" parent="VBoxContainer/MapArea" unique_id=1112221111]
+[node name="XHeader" type="Control" parent="VBoxContainer/HBoxContainer/MapArea" unique_id=1112221111]
 clip_contents = true
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("4_header")
 
-[node name="YHeader" type="Control" parent="VBoxContainer/MapArea" unique_id=-2071635074]
+[node name="YHeader" type="Control" parent="VBoxContainer/HBoxContainer/MapArea" unique_id=-2071635074]
 clip_contents = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("4_header")
 
-[node name="Grid" type="Control" parent="VBoxContainer/MapArea" unique_id=-960523963]
+[node name="Grid" type="Control" parent="VBoxContainer/HBoxContainer/MapArea" unique_id=-960523963]
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("6_grid")
 
-[node name="RegionDetailPanel" parent="VBoxContainer" unique_id=824810108 instance=ExtResource("3_detail")]
-visible = false
+[node name="RegionDetailPanel" parent="VBoxContainer/HBoxContainer" unique_id=824810108 instance=ExtResource("3_detail")]
+custom_minimum_size = Vector2(280, 0)

@@ -10,6 +10,8 @@ public partial class WorldMapGrid : Control
     private const float ZoomStep = 0.15f;
 
     public event Action<Region> RegionSelected;
+    public event Action<Region> RegionHovered;
+    public event Action RegionUnhovered;
 
     private WorldMapViewState _state;
     private Dictionary<(int X, int Y), Region> _regions;
@@ -104,6 +106,7 @@ public partial class WorldMapGrid : Control
         {
             _hoveredCell = new Vector2I(int.MinValue, int.MinValue);
             QueueRedraw();
+            RegionUnhovered?.Invoke();
         }
         else if (what == NotificationResized)
         {
@@ -119,16 +122,25 @@ public partial class WorldMapGrid : Control
         {
             _hoveredCell = cell;
             QueueRedraw();
+            if (TryGetRegionAtCell(cell, out var region))
+                RegionHovered?.Invoke(region);
+            else
+                RegionUnhovered?.Invoke();
         }
     }
 
     private void TrySelectCell(Vector2 mousePos)
     {
-        var cellPos = ScreenToCell(mousePos);
-        int wx = _state.MinX + cellPos.X;
-        int wy = _state.MaxY - cellPos.Y;
-        if (_regions.TryGetValue((wx, wy), out var region))
+        var cell = ScreenToCell(mousePos);
+        if (TryGetRegionAtCell(cell, out var region))
             RegionSelected?.Invoke(region);
+    }
+
+    private bool TryGetRegionAtCell(Vector2I cell, out Region region)
+    {
+        int wx = _state.MinX + cell.X;
+        int wy = _state.MaxY - cell.Y;
+        return _regions.TryGetValue((wx, wy), out region);
     }
 
     private Vector2I ScreenToCell(Vector2 pos)

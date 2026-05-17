@@ -1,29 +1,26 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://i2s74a5eljio"]
 
-[ext_resource type="Script" path="res://Scenes/Prefabs/Map/RegionDetailPrefabScene.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://dkpw8qu5aygmv" path="res://Scenes/Prefabs/Map/RegionDetailPrefabScene.cs" id="1_script"]
 
-[node name="RegionDetailPrefabScene" type="Control"]
-layout_mode = 2
+[node name="RegionDetailPrefabScene" type="Control" unique_id=1768574163]
+layout_mode = 3
+anchors_preset = 0
 size_flags_vertical = 3
 script = ExtResource("1_script")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=701535808]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="CloseDetailButton" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "← Map"
-
-[node name="DetailTitleLabel" type="Label" parent="VBoxContainer"]
+[node name="DetailTitleLabel" type="Label" parent="VBoxContainer" unique_id=1480679670]
 layout_mode = 2
 text = "Region (0, 0)"
 
-[node name="AreaLevelLabel" type="Label" parent="VBoxContainer"]
+[node name="AreaLevelLabel" type="Label" parent="VBoxContainer" unique_id=986898626]
 layout_mode = 2
 text = "Area Level: 0"
 
-[node name="LocationsList" type="VBoxContainer" parent="VBoxContainer"]
+[node name="LocationsList" type="VBoxContainer" parent="VBoxContainer" unique_id=2073412700]
 layout_mode = 2
 size_flags_vertical = 3
