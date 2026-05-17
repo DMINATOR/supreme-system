@@ -21,6 +21,8 @@ public partial class WorldMapGrid : Control
 
     private Vector2I _hoveredCell = new Vector2I(int.MinValue, int.MinValue);
 
+    private readonly WorldMapGridCache _cache = new();
+
     public void Setup(WorldMapViewState state, Dictionary<(int X, int Y), Region> regions)
     {
         _state = state;
@@ -41,43 +43,58 @@ public partial class WorldMapGrid : Control
         }
 
         _state.SetBounds(minX, maxX, minY, maxY);
-        _state.ViewChanged += QueueRedraw;
+        _state.ViewChanged += OnViewStateChanged;
     }
 
     public override void _GuiInput(InputEvent @event)
     {
         if (@event is InputEventMouseButton mb)
-        {
-            if (mb.ButtonIndex == MouseButton.Left)
-            {
-                if (mb.Pressed)
-                {
-                    _isDragging = true;
-                    _didDrag = false;
-                    _dragStartMouse = mb.Position;
-                    _dragStartPan = _state.PanOffset;
-                }
-                else
-                {
-                    _isDragging = false;
-                    if (!_didDrag)
-                        TrySelectCell(mb.Position);
-                }
-            }
-            else if (mb.Pressed && mb.ButtonIndex == MouseButton.WheelUp)
-                ApplyZoom(ZoomStep, mb.Position);
-            else if (mb.Pressed && mb.ButtonIndex == MouseButton.WheelDown)
-                ApplyZoom(-ZoomStep, mb.Position);
-        }
+            OnMouseButton(mb);
         else if (@event is InputEventMouseMotion mm)
+            OnMouseMotion(mm);
+    }
+
+    private void OnMouseButton(InputEventMouseButton mb)
+    {
+        if (mb.ButtonIndex == MouseButton.Left)
+            OnMouseLeft(mb);
+        else if (mb.Pressed && mb.ButtonIndex == MouseButton.WheelUp)
+            ApplyZoom(ZoomStep, mb.Position);
+        else if (mb.Pressed && mb.ButtonIndex == MouseButton.WheelDown)
+            ApplyZoom(-ZoomStep, mb.Position);
+    }
+
+    private void OnMouseLeft(InputEventMouseButton mb)
+    {
+        if (mb.Pressed)
+            OnMousePressed(mb.Position);
+        else
+            OnMouseReleased(mb.Position);
+    }
+
+    private void OnMousePressed(Vector2 position)
+    {
+        _isDragging = true;
+        _didDrag = false;
+        _dragStartMouse = position;
+        _dragStartPan = _state.PanOffset;
+    }
+
+    private void OnMouseReleased(Vector2 position)
+    {
+        _isDragging = false;
+        if (!_didDrag)
+            TrySelectCell(position);
+    }
+
+    private void OnMouseMotion(InputEventMouseMotion mm)
+    {
+        UpdateHover(mm.Position);
+        if (_isDragging)
         {
-            UpdateHover(mm.Position);
-            if (_isDragging)
-            {
-                if ((mm.Position - _dragStartMouse).Length() > 4f)
-                    _didDrag = true;
-                _state.SetZoomAndPan(_state.Zoom, _dragStartPan + (mm.Position - _dragStartMouse));
-            }
+            if ((mm.Position - _dragStartMouse).Length() > 4f)
+                _didDrag = true;
+            _state.SetZoomAndPan(_state.Zoom, _dragStartPan + (mm.Position - _dragStartMouse));
         }
     }
 
@@ -86,6 +103,11 @@ public partial class WorldMapGrid : Control
         if (what == NotificationMouseExit)
         {
             _hoveredCell = new Vector2I(int.MinValue, int.MinValue);
+            QueueRedraw();
+        }
+        else if (what == NotificationResized)
+        {
+            _cache.Invalidate();
             QueueRedraw();
         }
     }
@@ -103,8 +125,9 @@ public partial class WorldMapGrid : Control
     private void TrySelectCell(Vector2 mousePos)
     {
         var cellPos = ScreenToCell(mousePos);
-        var cell = new WorldMapCell(cellPos.X, cellPos.Y, _state.MinX, _state.MaxY);
-        if (_regions.TryGetValue((cell.WorldX, cell.WorldY), out var region))
+        int wx = _state.MinX + cellPos.X;
+        int wy = _state.MaxY - cellPos.Y;
+        if (_regions.TryGetValue((wx, wy), out var region))
             RegionSelected?.Invoke(region);
     }
 
@@ -128,48 +151,38 @@ public partial class WorldMapGrid : Control
 
     public override void _Draw()
     {
+        if (_cache.IsDirty)
+            _cache.Rebuild(_state, _regions, Size);
+
+        DrawBackground();
+        DrawCells();
+        DrawGridLines();
+    }
+
+    private void DrawBackground()
+    {
         DrawRect(new Rect2(Vector2.Zero, Size), WorldMapConstants.GridBackground);
-
-        float cellSize = _state.CellSize;
-        int firstCol = (int)Mathf.Floor(-_state.PanOffset.X / cellSize);
-        int lastCol  = (int)Mathf.Ceil((Size.X - _state.PanOffset.X) / cellSize);
-        int firstRow = (int)Mathf.Floor(-_state.PanOffset.Y / cellSize);
-        int lastRow  = (int)Mathf.Ceil((Size.Y - _state.PanOffset.Y) / cellSize);
-
-        DrawCells(firstCol, lastCol, firstRow, lastRow);
-        DrawGridLines(firstCol, lastCol, firstRow, lastRow);
     }
 
-    private void DrawCells(int firstCol, int lastCol, int firstRow, int lastRow)
+    private void DrawCells()
     {
-        for (int col = firstCol; col <= lastCol; col++)
+        foreach (var cell in _cache.Cells)
         {
-            for (int row = firstRow; row <= lastRow; row++)
-                DrawCell(col, row);
+            bool isHovered = _hoveredCell.X == cell.Col && _hoveredCell.Y == cell.Row;
+            cell.Draw(this, isHovered);
         }
     }
 
-    private void DrawCell(int col, int row)
+    private void DrawGridLines()
     {
-        var cell = new WorldMapCell(col, row, _state.MinX, _state.MaxY);
-        bool isDiscovered = _regions.ContainsKey((cell.WorldX, cell.WorldY));
-        bool isHovered = _hoveredCell.X == col && _hoveredCell.Y == row;
-        cell.Draw(this, _state, isDiscovered, isHovered);
+        foreach (var (from, to) in _cache.Lines)
+            DrawLine(from, to, WorldMapConstants.GridLine);
     }
 
-    private void DrawGridLines(int firstCol, int lastCol, int firstRow, int lastRow)
+    private void OnViewStateChanged()
     {
-        for (int col = firstCol; col <= lastCol + 1; col++)
-        {
-            float x = _state.ColX(col);
-            DrawLine(new Vector2(x, 0), new Vector2(x, Size.Y), WorldMapConstants.GridLine);
-        }
-
-        for (int row = firstRow; row <= lastRow + 1; row++)
-        {
-            float y = _state.RowY(row);
-            DrawLine(new Vector2(0, y), new Vector2(Size.X, y), WorldMapConstants.GridLine);
-        }
+        _cache.Invalidate();
+        QueueRedraw();
     }
 }
 
