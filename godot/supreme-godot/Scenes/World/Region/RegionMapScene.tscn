@@ -1,6 +1,7 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://Scenes/World/Region/RegionMapScene.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://bv80cgjd0tym5" path="res://Scenes/World/Region/RegionMapScene.cs" id="1_script"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/Control/SceneButtonPrefabScene.tscn" id="2_scenebutton"]
 
 [node name="RegionMapScene" type="Control"]
 anchor_right = 1.0
@@ -12,6 +13,20 @@ layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Title" type="Label" parent="VBoxContainer"]
+[node name="HeaderBar" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
-text = "RegionMapScene"
+
+[node name="BackButton" parent="VBoxContainer/HeaderBar" instance=ExtResource("2_scenebutton")]
+layout_mode = 2
+text = "← Back"
+TargetScene = 8
+
+[node name="RegionTitleLabel" type="Label" parent="VBoxContainer/HeaderBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Region"
+
+[node name="MapCanvas" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

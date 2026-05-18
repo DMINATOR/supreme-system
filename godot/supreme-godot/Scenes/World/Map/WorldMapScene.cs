@@ -53,6 +53,6 @@ public partial class WorldMapScene : Control
 
 	private void OnRegionSelected(Region region)
 	{
-		_sceneManager.GoToRegionMapScene();
+		((RegionMapScene)_sceneManager.GoTo(SceneManager.GameScene.RegionMapScene)).Setup(region);
 	}
 }

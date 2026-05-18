@@ -61,21 +61,26 @@ public partial class SceneManager : Node
 
 	public void GoToWorldMapScene() => GoTo(GameScene.WorldMapScene);
 
-	public void GoToRegionMapScene() => GoTo(GameScene.RegionMapScene);
-
-	public void GoTo(GameScene scene)
+	public Node GoTo(GameScene scene)
 	{
-		var path = typeof(GameScene)
-			.GetField(scene.ToString())
-			?.GetCustomAttribute<ScenePathAttribute>()
-			?.Path;
+		var path = GetScenePath(scene);
 
 		if (path == null)
 		{
 			GD.PushError($"SceneManager.GoTo: no ScenePath attribute for '{scene}'.");
-			return;
+			return null;
 		}
 
-		GetTree().ChangeSceneToFile(path);
+		var instance = GD.Load<PackedScene>(path).Instantiate();
+		GetTree().Root.AddChild(instance);
+		GetTree().CurrentScene.QueueFree();
+		GetTree().CurrentScene = instance;
+		return instance;
 	}
+
+	private string GetScenePath(GameScene scene) =>
+		typeof(GameScene)
+			.GetField(scene.ToString())
+			?.GetCustomAttribute<ScenePathAttribute>()
+			?.Path;
 }
