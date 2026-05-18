@@ -21,9 +21,9 @@ public partial class SceneManager : Node
 		DragAndDropScene,
 		[ScenePath("res://Scenes/Debug/CardCatalogueScene.tscn")]
 		CardCatalogueScene,
-		[ScenePath("res://Scenes/World/WorldMapScene.tscn")]
+		[ScenePath("res://Scenes/World/Map/WorldMapScene.tscn")]
 		WorldMapScene,
-		[ScenePath("res://Scenes/World/RegionMapScene.tscn")]
+		[ScenePath("res://Scenes/World/Region/RegionMapScene.tscn")]
 		RegionMapScene,
 	}
 

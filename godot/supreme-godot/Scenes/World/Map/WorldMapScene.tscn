@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://dnxwdhv3r5ljp"]
 
-[ext_resource type="Script" uid="uid://dncaw3dkfhvv3" path="res://Scenes/World/WorldMapScene.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://dncaw3dkfhvv3" path="res://Scenes/World/Map/WorldMapScene.cs" id="1_script"]
 [ext_resource type="PackedScene" path="res://Scenes/Prefabs/Control/SceneButtonPrefabScene.tscn" id="2_scenebutton"]
 [ext_resource type="PackedScene" path="res://Scenes/Prefabs/Map/RegionDetailPrefabScene.tscn" id="3_detail"]
-[ext_resource type="Script" path="res://Scenes/World/WorldMapHeader.cs" id="4_header"]
-[ext_resource type="Script" uid="uid://fqi8ajmrblr4" path="res://Scenes/World/WorldMapGrid.cs" id="6_grid"]
+[ext_resource type="Script" path="res://Scenes/World/Map/WorldMapHeader.cs" id="4_header"]
+[ext_resource type="Script" uid="uid://fqi8ajmrblr4" path="res://Scenes/World/Map/WorldMapGrid.cs" id="6_grid"]
 
 [node name="WorldMapScene" type="Control" unique_id=1893699157]
 layout_mode = 3
