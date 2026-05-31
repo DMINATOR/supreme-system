@@ -69,4 +69,48 @@ public class WorldMapGeneratorTest
         // Assert
         Assert.Same(first, second);
     }
+
+    [Fact]
+    public void WorldToRegionCoords_Origin_Returns_0_0()
+    {
+        // Arrange / Act
+        var (rx, ry) = WorldMapGenerator.WorldToRegionCoords(0f, 0f);
+
+        // Assert
+        Assert.Equal(0, rx);
+        Assert.Equal(0, ry);
+    }
+
+    [Fact]
+    public void WorldToRegionCoords_PositiveWithinBounds_CorrectRegion()
+    {
+        // Arrange / Act
+        var (rx, ry) = WorldMapGenerator.WorldToRegionCoords(500f, 750f);
+
+        // Assert
+        Assert.Equal(0, rx);
+        Assert.Equal(0, ry);
+    }
+
+    [Fact]
+    public void WorldToRegionCoords_ExactBoundary_CorrectRegion()
+    {
+        // Arrange / Act
+        var (rx, ry) = WorldMapGenerator.WorldToRegionCoords(1000f, 2000f);
+
+        // Assert
+        Assert.Equal(1, rx);
+        Assert.Equal(2, ry);
+    }
+
+    [Fact]
+    public void WorldToRegionCoords_NegativeCoords_CorrectRegion()
+    {
+        // Arrange / Act
+        var (rx, ry) = WorldMapGenerator.WorldToRegionCoords(-1f, -1f);
+
+        // Assert
+        Assert.Equal(-1, rx);
+        Assert.Equal(-1, ry);
+    }
 }

@@ -4,12 +4,18 @@ namespace SupremeEngine;
 public class WorldMapGenerator
 {
     public const int InitialRadius = 1;
+    public const int RegionSize = 1000;
 
     private readonly RegionGenerator _regionGenerator;
 
     public WorldMapGenerator(RegionGenerator regionGenerator)
     {
         _regionGenerator = regionGenerator;
+    }
+
+    public static (int RegionX, int RegionY) WorldToRegionCoords(float worldX, float worldY)
+    {
+        return ((int)Math.Floor(worldX / RegionSize), (int)Math.Floor(worldY / RegionSize));
     }
 
     public void GenerateInitialNeighborhood(WorldState state)

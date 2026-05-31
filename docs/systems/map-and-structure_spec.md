@@ -6,6 +6,8 @@
 - The world map is a grid of regions identified by integer X/Y coordinates.
 - Regions are structural subdivisions with no inherent theme or type — used to track player movement progress.
 - The world map grid spans the full signed integer range on both axes (int min/max); the player cannot move beyond those bounds.
+- Each region occupies a 1000×1000 world-unit area.
+- A region's grid coordinates are derived from the player's world-space position as `floor(worldX / 1000)`, `floor(worldY / 1000)`.
 - Regions are not pre-created; a region is generated on the player's first entry into that X/Y coordinate.
 - Region content is randomly generated on first entry and then persisted for the remainder of that run.
 - A region's base area level equals the current world level at the time of generation.

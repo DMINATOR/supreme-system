@@ -1,0 +1,16 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scenes/Prefabs/World/FreeRoamRegionPrefabScene.cs" id="1_script"]
+[ext_resource type="TileSet" uid="uid://bwbycxjpkbhot" path="res://Data/TileSets/freeroaming_tiles.tres" id="2_tileset"]
+
+[node name="FreeRoamRegionPrefabScene" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="."]
+size = Vector2(1000, 1000)
+
+[node name="BackgroundLayer" type="TileMapLayer" parent="."]
+tile_set = ExtResource("2_tileset")
+
+[node name="ForegroundLayer" type="TileMapLayer" parent="."]
+tile_set = ExtResource("2_tileset")
