@@ -1,0 +1,14 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scenes/Prefabs/Player/PlayerPrefabScene.cs" id="1_script"]
+[ext_resource type="Texture2D" path="res://Data/Images/Actors/Player/player_worldmap.png" id="2_texture"]
+
+[node name="PlayerPrefabScene" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_texture")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 5.0

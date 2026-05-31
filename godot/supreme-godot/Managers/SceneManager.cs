@@ -25,6 +25,8 @@ public partial class SceneManager : Node
 		WorldMapScene,
 		[ScenePath("res://Scenes/World/Region/RegionMapScene.tscn")]
 		RegionMapScene,
+		[ScenePath("res://Scenes/World/FreeRoam/FreeRoamMapScene.tscn")]
+		FreeRoamMapScene,
 	}
 
 	public const string CardCollectionPrefabScene = "res://Scenes/Prefabs/Card/Collection/CardCollectionPrefabScene.tscn";
@@ -42,6 +44,7 @@ public partial class SceneManager : Node
 	public const string RegionCellPrefabScene = "res://Scenes/Prefabs/Map/RegionCellPrefabScene.tscn";
 	public const string LocationRowPrefabScene = "res://Scenes/Prefabs/Map/LocationRowPrefabScene.tscn";
 	public const string RegionDetailPrefabScene = "res://Scenes/Prefabs/Map/RegionDetailPrefabScene.tscn";
+	public const string PlayerPrefabScene = "res://Scenes/Prefabs/Player/PlayerPrefabScene.tscn";
 
 	public void GoToMainMenu() => GoTo(GameScene.MainMenu);
 
@@ -60,6 +63,10 @@ public partial class SceneManager : Node
 	public void GoToCardCatalogueScene() => GoTo(GameScene.CardCatalogueScene);
 
 	public void GoToWorldMapScene() => GoTo(GameScene.WorldMapScene);
+
+	public void GoToRegionMapScene() => GoTo(GameScene.RegionMapScene);
+
+	public void GoToFreeRoamMapScene() => GoTo(GameScene.FreeRoamMapScene);
 
 	public Node GoTo(GameScene scene)
 	{
