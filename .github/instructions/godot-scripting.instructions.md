@@ -23,6 +23,7 @@ applyTo: "godot/**/*.cs"
 ### Setup Methods
 - Scenes that require external data before display must expose a `Setup(...)` method
 - **Never call `Setup` before `AddChild`** — `_Ready` must have already fired so that `LoadNodes` has run and nodes are available; `Setup` then populates them directly
+- **`[Export]` properties are the opposite** — they must be set **before** `AddChild` so they are readable when `_Ready` fires; this is a different pattern from `Setup()` and the two must not be confused: `[Export]` values → before `AddChild`; `Setup()` calls → after `AddChild`
 - For Util helpers that instantiate scenes, the helper must call `parent.AddChild(scene)` first, then `scene.Setup(...)` — this guarantees `_Ready` has fired by the time `Setup` runs
 - Do not use null checks on node fields inside `Setup` to detect whether `_Ready` has fired; that is a design flaw — fix the call order instead
 
@@ -41,6 +42,13 @@ applyTo: "godot/**/*.cs"
 - When creating a `.tscn` or `.tres` manually for a **new script** (no `.cs.uid` exists yet): omit the `uid=` attribute from `[ext_resource]` entirely — Godot will use the path as a fallback and generate the `.cs.uid` and assign the UID on next project load
 - Never create `.cs.uid` files manually — always let Godot generate them
 - **Never use a `.cs.uid` value as the `uid=` for a `PackedScene` ext_resource** — `.cs.uid` files hold script UIDs, not scene UIDs; scene UIDs live in the `uid=` attribute on the `[gd_scene]` header line of the `.tscn` file itself; if the `.tscn` was created manually and has no header UID, omit `uid=` from the `[ext_resource]` reference entirely
+- UID quick-reference when creating a `.tscn` manually:
+  | Situation | What to write |
+  |---|---|
+  | `[gd_scene]` header of the new file | Omit `uid=` — Godot assigns on load |
+  | Script `[ext_resource]` — `.cs.uid` exists | Copy exact value from `.cs.uid` file |
+  | Script `[ext_resource]` — no `.cs.uid` yet | Omit `uid=` entirely |
+  | `PackedScene` `[ext_resource]` (sub-scene) | Omit `uid=` — **never copy a `.cs.uid` value here** |
 - When embedding a sub-scene inside a `.tscn`, use `instance=ExtResource("...")` on the node line — **never combine `type=` and `instance=` on the same node**; `type=` overrides `instance=` and the script won't be attached:
   ```
   [node name="CardScene" parent="VBoxContainer" instance=ExtResource("2_card")]
@@ -55,6 +63,7 @@ applyTo: "godot/**/*.cs"
 - Their path constants in `SceneManager` end with `PrefabScene` — no `GoTo` method is added for them
 - They are always instantiated via a `PrefabFactory`-style helper in `Util/`, never directly from a scene script
 - **Never call `Setup` before `AddChild`** on a prefab scene — `_Ready` (and therefore `LoadNodes`) must fire first; the helper is responsible for the correct order
+- When removing a dynamically instantiated prefab scene, unsubscribe from all C# events before calling `QueueFree()` to prevent dangling references
 
 ### Navigation Buttons
 - **Always use `SceneButtonPrefabScene` for any button that navigates to another scene** — embed it as an `instance=ExtResource(...)` in the `.tscn` and set its `[Export] TargetScene` property inline; never wire a plain `Button` to `SceneManager.GoTo` in C# code
@@ -66,6 +75,7 @@ applyTo: "godot/**/*.cs"
   text = "Back"
   TargetScene = 9
   ```
+  `TargetScene` is a `GameScene` enum export; Godot serializes enum exports as integers in `.tscn` files (e.g. `9` for `RegionMapScene`) — see `SceneManager.GameScene` for the full list of values
 - Before adding any navigation button, check `Scenes/Prefabs/Control/` for the right prefab — do not invent a new approach
 
 ### Scene Structure — Static vs Dynamic
@@ -110,7 +120,7 @@ applyTo: "godot/**/*.cs"
   - `PrefabFactory.CreateLocationRowScene(Node parent, RegionLocation location)` — instantiates `LocationRowPrefabScene.tscn`, adds it to `parent`, calls `Setup(location)`, and returns the ready node
   - `RegionDetailPrefabScene` — static embed (not factory-instantiated); embedded via `instance=ExtResource(...)` in `WorldMapScene.tscn`; call `Setup(region)` to populate it; exposes `public event Action ClosePressed`
 - All prefab instantiation helpers live in `PrefabFactory` — do not create separate helper classes per prefab type
-- Self-loading prefab scenes use `[Export]` properties to identify their data source; set these properties on the instantiated node **before** calling `AddChild` so they are available when `_Ready` fires — this is the correct pattern, not `Setup()`
+- Self-loading prefab scenes use `[Export]` properties to identify their data source; set these properties on the instantiated node **before** calling `AddChild` so they are available when `_Ready` fires — this is intentionally opposite to `Setup()`, which must always be called **after** `AddChild`
 - Static prefab instances (non-companion) are embedded directly in the parent `.tscn` using `instance=ExtResource(...)` with their `[Export]` values set inline — no runtime instantiation needed for fixed slots
 - `InventoryPrefabScene` is the prefab that owns the member `TabContainer`; it embeds static Player tab sub-scenes in its `.tscn` and adds dynamic companion tabs in `PrepareNodes` — embed it in parent scenes via `instance=ExtResource(...)` rather than instantiating it in code
 - When adding new reusable Godot UI/node utilities, place them in `Util/` as `static` classes
@@ -135,7 +145,7 @@ applyTo: "godot/**/*.cs"
 
 
 - All scene transitions go through `SceneManager` — do not call `GetTree().ChangeSceneToFile(...)` directly from node scripts
-- **Navigation-only buttons** (whose sole purpose is to navigate to a scene) must use `SceneButtonPrefabScene` — embed `instance=ExtResource(...)` in the `.tscn` with `text` and `TargetScenePath` set inline; do NOT add a `private Button` field, `GetNode`, or `_sceneManager.GoTo*` wiring in C#
+- **Navigation-only buttons** (whose sole purpose is to navigate to a scene) must use `SceneButtonPrefabScene` — embed `instance=ExtResource(...)` in the `.tscn` with `text` and `TargetScene` set inline; do NOT add a `private Button` field, `GetNode`, or `_sceneManager.GoTo*` wiring in C#
   - `SceneButtonPrefabScene` lives at `res://Scenes/Prefabs/Control/SceneButtonPrefabScene.tscn`
   - `TargetScene` is a `GameScene` enum export — set it to the integer value of the enum in the `.tscn` (e.g. `TargetScene = 0` for `GameScene.MainMenu`); the `GameScene` enum is defined inside `SceneManager` and lists all navigable scenes in order
   - Each `GameScene` value is decorated with `[ScenePath("res://...")]` — `SceneManager.GoTo(GameScene)` resolves the path via reflection; no switch statement is needed
