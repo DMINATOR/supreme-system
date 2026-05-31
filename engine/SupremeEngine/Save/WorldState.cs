@@ -5,6 +5,7 @@ public class WorldState
 {
     public Random Random { get; }
     public InventoryManager Inventory { get; private set; } = new();
+    public PlayerState Player { get; private set; } = new();
     public int WorldLevel { get; private set; } = 1;
     public Dictionary<(int X, int Y), Region> Regions { get; private set; } = new();
 
@@ -22,8 +23,8 @@ public class WorldState
         WorldLevel = WorldLevel,
         Regions = Regions.Values.Select(r => r.ToDto()).ToList(),
         Bag = Inventory.Bag.ToDto(),
-        Player = Inventory.Player.ToSaveData(),
-        Companions = Inventory.Companions.Select(c => c.ToSaveData()).ToList()
+        Player = Player.ToSaveData(),
+        Companions = Inventory.Companions.Select(c => c.ToSaveData()).ToList(),
     };
 
     public static WorldState From(WorldSaveData data)
@@ -32,6 +33,7 @@ public class WorldState
         state.WorldLevel = data.WorldLevel;
         state.Regions = data.Regions.ToDictionary(r => (r.X, r.Y), Region.FromDto);
         state.Inventory = InventoryManager.From(data);
+        state.Player = PlayerState.From(data.Player);
         return state;
     }
 }

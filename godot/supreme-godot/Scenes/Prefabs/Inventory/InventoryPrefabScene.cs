@@ -20,7 +20,7 @@ public partial class InventoryPrefabScene : VBoxContainer
 	private void PrepareNodes()
 	{
 		GetNode<CardCollectionPrefabScene>("MemberTabContainer/Player/MemberTabs/Deck/PlayerDeck")
-			.Setup(_worldManager.State.Inventory.Player.Deck, "Deck");
+			.Setup(_worldManager.State.Player.Deck, "Deck");
 
 		foreach (var companion in _worldManager.State.Inventory.Companions)
 			PrefabFactory.CreateCompanionMemberTabScene(_memberTabContainer, companion.CompanionId);

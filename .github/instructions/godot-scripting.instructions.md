@@ -56,6 +56,18 @@ applyTo: "godot/**/*.cs"
 - They are always instantiated via a `PrefabFactory`-style helper in `Util/`, never directly from a scene script
 - **Never call `Setup` before `AddChild`** on a prefab scene — `_Ready` (and therefore `LoadNodes`) must fire first; the helper is responsible for the correct order
 
+### Navigation Buttons
+- **Always use `SceneButtonPrefabScene` for any button that navigates to another scene** — embed it as an `instance=ExtResource(...)` in the `.tscn` and set its `[Export] TargetScene` property inline; never wire a plain `Button` to `SceneManager.GoTo` in C# code
+- The correct `.tscn` pattern:
+  ```
+  [ext_resource type="PackedScene" path="res://Scenes/Prefabs/Control/SceneButtonPrefabScene.tscn" id="N_id"]
+  ...
+  [node name="BackButton" parent="Hud" instance=ExtResource("N_id")]
+  text = "Back"
+  TargetScene = 9
+  ```
+- Before adding any navigation button, check `Scenes/Prefabs/Control/` for the right prefab — do not invent a new approach
+
 ### Scene Structure — Static vs Dynamic
 - **All static controls a scene needs must be declared in its `.tscn` file** with sensible default values set inline — never construct them in C#
 - **Never call `new Label()`, `new Button()`, `new HBoxContainer()`, or any other bare Godot control constructor in a scene script** — these nodes have no `.tscn` backing, cannot be themed, inspected, or resized in the editor

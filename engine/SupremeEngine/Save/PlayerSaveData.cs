@@ -6,4 +6,6 @@ public record PlayerSaveData
     public int Level { get; init; } = 1;
     public CardCollectionDto Deck { get; init; } = new();
     public EquipmentSlotsDto Equipment { get; init; } = new();
+    public float X { get; init; }
+    public float Y { get; init; }
 }
